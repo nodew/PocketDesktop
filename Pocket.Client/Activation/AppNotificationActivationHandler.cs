@@ -1,10 +1,8 @@
 ﻿using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
-using Microsoft.Windows.AppNotifications;
 
 using Pocket.Client.Contracts.Services;
-using Pocket.Client.ViewModels;
 
 namespace Pocket.Client.Activation;
 

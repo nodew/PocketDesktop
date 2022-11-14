@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pocket.Client.Core", "Pocke
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pocket.Client.Tests.MSTest", "Pocket.Client.Tests.MSTest\Pocket.Client.Tests.MSTest.csproj", "{A36A30A1-5E2E-4369-8511-05E485FFACD8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pocket.Sdk", "Pocket.HttpClient\Pocket.Sdk.csproj", "{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,22 @@ Global
 		{A36A30A1-5E2E-4369-8511-05E485FFACD8}.Release|x64.Build.0 = Release|x64
 		{A36A30A1-5E2E-4369-8511-05E485FFACD8}.Release|x86.ActiveCfg = Release|x86
 		{A36A30A1-5E2E-4369-8511-05E485FFACD8}.Release|x86.Build.0 = Release|x86
+		{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}.Debug|arm64.Build.0 = Debug|Any CPU
+		{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}.Debug|x64.Build.0 = Debug|Any CPU
+		{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}.Debug|x86.Build.0 = Debug|Any CPU
+		{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}.Release|arm64.ActiveCfg = Release|Any CPU
+		{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}.Release|arm64.Build.0 = Release|Any CPU
+		{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}.Release|x64.ActiveCfg = Release|Any CPU
+		{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}.Release|x64.Build.0 = Release|Any CPU
+		{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}.Release|x86.ActiveCfg = Release|Any CPU
+		{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,7 +6,6 @@ using Pocket.Client.Activation;
 using Pocket.Client.Contracts.Services;
 using Pocket.Client.Core.Contracts.Services;
 using Pocket.Client.Core.Services;
-using Pocket.Client.Helpers;
 using Pocket.Client.Models;
 using Pocket.Client.Notifications;
 using Pocket.Client.Services;

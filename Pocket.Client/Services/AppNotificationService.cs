@@ -4,7 +4,6 @@ using System.Web;
 using Microsoft.Windows.AppNotifications;
 
 using Pocket.Client.Contracts.Services;
-using Pocket.Client.ViewModels;
 
 namespace Pocket.Client.Notifications;
 

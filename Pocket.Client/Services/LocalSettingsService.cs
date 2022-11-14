@@ -5,8 +5,6 @@ using Pocket.Client.Core.Contracts.Services;
 using Pocket.Client.Core.Helpers;
 using Pocket.Client.Helpers;
 using Pocket.Client.Models;
-
-using Windows.ApplicationModel;
 using Windows.Storage;
 
 namespace Pocket.Client.Services;
