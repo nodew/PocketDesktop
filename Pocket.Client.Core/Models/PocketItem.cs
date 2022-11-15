@@ -1,75 +1,36 @@
-﻿namespace Pocket.Client.Core.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class PocketItem
+namespace Pocket.Client.Core.Models;
+
+public class PocketItem : Entity<long>
 {
-    public long Id 
-    { 
-        get; set; 
+    public string Title
+    {
+        get; set;
     }
 
-    public string Title 
-    { 
-        get; set; 
+    public Uri Url
+    {
+        get; set;
     }
 
-    public string Excerpt 
-    { 
-        get; set; 
-    }
-
-    public PocketItemStatus Status 
-    { 
-        get; set; 
+    public string Excerpt
+    {
+        get; set;
     }
 
     public bool IsFavorited
     {
-        get; set; 
-    }
-
-    public bool IsArticle 
-    {
-        get; set; 
-    }
-
-    public bool HasVideo
-    {
         get; set;
     }
 
-    public int HasImage
+    public bool IsArchived
     {
         get; set;
-    }
-
-    public string Lang
-    {
-        get; set;
-    }
-
-    public Uri? TopImageUrl
-    {
-        get; set;
-    }
-
-    public int? TimeToRead
-    {
-        get; set;
-    }
-
-    public int? ListenDurationEstimate
-    {
-        get; set;
-    }
-
-    public long WordCount 
-    { 
-        get; set; 
-    }
-
-    public string DomainOrHost
-    {
-        get; set; 
     }
 
     public DateTime TimeAdded
@@ -92,13 +53,65 @@ public class PocketItem
         get; set;
     }
 
-    public Author Author
-    {
-        get; set; 
-    }
-
-    public List<PocketItemTag> Tags
+    public ItemType Type
     {
         get; set;
     }
+
+    public bool HasImage
+    {
+        get; set;
+    }
+
+    public int WordCount
+    {
+        get; set;
+    }
+
+    public int TimeToRead
+    {
+        get; set;
+    }
+
+    public string Lang
+    {
+        get; set;
+    }
+
+    public Uri TopImageUrl
+    {
+        get; set;
+    }
+
+    public string Domain
+    {
+        get; set;
+    }
+
+    public List<Tag> Tags
+    {
+        get; set;
+    }
+
+    public List<ItemTag> ItemTags
+    {
+        get; set;
+    }
+
+    public List<Author> Authors
+    {
+        get; set;
+    }
+
+    public List<ItemAuthor> ItemAuthors
+    {
+        get; set;
+    }
+}
+
+public enum ItemType
+{
+    Article,
+    Video,
+    Image
 }

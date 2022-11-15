@@ -6,24 +6,24 @@ using System.Threading.Tasks;
 
 namespace Pocket.Client.Core.Models;
 
-public class Author : Entity<long>
+public class ItemAuthor
 {
-    public string Name
+    public long ItemId
     {
         get; set;
     }
 
-    public string Url
+    public long AuthorId
     {
         get; set;
     }
 
-    public List<PocketItem> Items
+    public PocketItem Item
     {
         get; set;
     }
 
-    public List<ItemAuthor> ItemAuthors
+    public Author Author
     {
         get; set;
     }

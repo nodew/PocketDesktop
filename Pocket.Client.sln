@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pocket.Client.Core", "Pocke
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pocket.Client.Tests.MSTest", "Pocket.Client.Tests.MSTest\Pocket.Client.Tests.MSTest.csproj", "{A36A30A1-5E2E-4369-8511-05E485FFACD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pocket.Sdk", "Pocket.HttpClient\Pocket.Sdk.csproj", "{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pocket.Core", "Pocket.Core\Pocket.Core.csproj", "{FE068BC4-6A0A-4CA8-A147-B3313D0D6998}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

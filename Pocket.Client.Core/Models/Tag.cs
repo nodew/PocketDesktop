@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Pocket.Client.Core.Data;
 
 namespace Pocket.Client.Core.Models;
 
-public class Author : Entity<long>
+public class Tag : Entity<Guid>
 {
     public string Name
     {
         get; set;
     }
 
-    public string Url
+    public bool IsPinned
     {
         get; set;
     }
@@ -23,7 +24,7 @@ public class Author : Entity<long>
         get; set;
     }
 
-    public List<ItemAuthor> ItemAuthors
+    public List<ItemTag> ItemTags
     {
         get; set;
     }
