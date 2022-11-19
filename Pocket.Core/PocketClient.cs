@@ -29,11 +29,12 @@ public class PocketClient
         this.accessToken = accessToken;
     }
 
-    public async Task<PocketItem> AddItemAsync(string url, CancellationToken cancellationToken = default)
+    public async Task<PocketItem> AddItemAsync(Uri url, string? title = null, CancellationToken cancellationToken = default)
     {
         var requestData = new PocketAddItemRequest()
         {
-            Url = url,
+            Url = url.ToString(),
+            Title = title,
         };
         var response = await SendRequestAsync<PocketAddItemRequest, PocketAddItemResponse>("/v3/add", requestData, true, cancellationToken);
         return response.Item;

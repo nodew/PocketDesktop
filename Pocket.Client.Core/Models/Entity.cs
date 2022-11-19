@@ -6,10 +6,6 @@ using System.Threading.Tasks;
 
 namespace Pocket.Client.Core.Models;
 
-public abstract class Entity<TKey> : Entity
+public class Entity
 {
-    public virtual TKey Id
-    {
-        get; set;
-    }
 }

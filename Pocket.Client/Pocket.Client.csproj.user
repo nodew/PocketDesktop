@@ -9,9 +9,12 @@
     <AppIconSource>D:\projects\csharp\PocketApp\Pocket.Desktop\Pocket.Desktop\Resources\Assets\logo.png</AppIconSource>
     <SplashScreenSource>D:\projects\csharp\PocketApp\Pocket.Desktop\Pocket.Desktop\Resources\Assets\logo.png</SplashScreenSource>
     <PackageLogoSource>D:\projects\csharp\PocketApp\Pocket.Desktop\Pocket.Desktop\Resources\Assets\logo.png</PackageLogoSource>
-    <ActiveDebugProfile>Pocket.Client (Unpackaged)</ActiveDebugProfile>
+    <ActiveDebugProfile>Pocket.Client (Package)</ActiveDebugProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|arm64'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <ItemGroup>
