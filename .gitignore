@@ -1,5 +1,6 @@
 .vs
 .vsconfig
+*.user
 bin
 obj
 objd
