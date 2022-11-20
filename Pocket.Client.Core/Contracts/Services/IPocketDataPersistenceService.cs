@@ -36,4 +36,6 @@ public interface IPocketDataPersistenceService
 
     public Task<Tag?> GetTagByIdAsync(Guid id, CancellationToken cancellationToken = default);
     #endregion
+
+    public Task ClearDbAsync(CancellationToken cancellationToken = default);
 }

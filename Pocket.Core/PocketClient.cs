@@ -6,25 +6,28 @@ namespace Pocket.Core;
 
 public class PocketClient
 {
-    private readonly string comsumerKey;
-
-    private string accessToken;
-
     private readonly HttpClient httpClient;
-
-    private string requestToken;
-
     private readonly string baseUrl = "https://getpocket.com";
 
-    public PocketClient(HttpClient httpClient, string comsumerKey)
+    private string comsumerKey;
+    private string accessToken;
+    private string requestToken;
+
+    public PocketClient(HttpClient httpClient)
     {
         this.httpClient = httpClient;
-        this.comsumerKey = comsumerKey;
+        
+        comsumerKey = string.Empty;
         accessToken = string.Empty;
         requestToken = string.Empty;
     }
 
-    public PocketClient(HttpClient httpClient, string comsumerKey, string accessToken) : this(httpClient, comsumerKey)
+    public void SetConsumerKey(string comsumerKey)
+    {
+        this.comsumerKey = comsumerKey;
+    }
+
+    public void SetAccessToken(string accessToken)
     {
         this.accessToken = accessToken;
     }
@@ -137,7 +140,7 @@ public class PocketClient
             {
                 Actions = new List<T>
                 {
-                        action
+                    action
                 }
             },
             true,

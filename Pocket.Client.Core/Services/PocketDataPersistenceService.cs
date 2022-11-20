@@ -121,7 +121,32 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
     #endregion
-    
+
+    public async Task ClearDbAsync(CancellationToken cancellationToken = default)
+    {
+        if (_dbContext.ItemTags.Any())
+        {
+            _dbContext.ItemTags.RemoveRange(_dbContext.ItemTags.ToList());
+        }
+
+        if (_dbContext.ItemAuthors.Any())
+        {
+            _dbContext.ItemAuthors.RemoveRange(_dbContext.ItemAuthors.ToList());
+        }
+
+        if (_dbContext.Tags.Any())
+        {
+            _dbContext.Tags.RemoveRange(_dbContext.Tags.ToList());
+        }
+
+        if (_dbContext.Items.Any())
+        {
+            _dbContext.Items.RemoveRange(_dbContext.Items.ToList());
+        }
+
+        await _dbContext.SaveChangesAsync(cancellationToken);
+    }
+
     private void SaveItemTags(PocketItem item)
     {
         var itemTags = _dbContext.ItemTags.Where(itemTag => itemTag.ItemId == item.Id);

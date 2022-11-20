@@ -1,9 +1,11 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-
+using Microsoft.Windows.AppLifecycle;
 using Pocket.Client.Activation;
 using Pocket.Client.Contracts.Services;
 using Pocket.Client.Views;
+using Windows.ApplicationModel.Activation;
+using LaunchActivatedEventArgs = Microsoft.UI.Xaml.LaunchActivatedEventArgs;
 
 namespace Pocket.Client.Services;
 
@@ -12,13 +14,23 @@ public class ActivationService : IActivationService
     private readonly ActivationHandler<LaunchActivatedEventArgs> _defaultHandler;
     private readonly IEnumerable<IActivationHandler> _activationHandlers;
     private readonly IThemeSelectorService _themeSelectorService;
+    private readonly IPocketDbService _pocketDbService;
+    private readonly IAuthService _authService;
+
     private UIElement? _shell = null;
 
-    public ActivationService(ActivationHandler<LaunchActivatedEventArgs> defaultHandler, IEnumerable<IActivationHandler> activationHandlers, IThemeSelectorService themeSelectorService)
+    public ActivationService(
+        ActivationHandler<LaunchActivatedEventArgs> defaultHandler, 
+        IEnumerable<IActivationHandler> activationHandlers, 
+        IThemeSelectorService themeSelectorService,
+        IPocketDbService pocketDbService,
+        IAuthService authService)
     {
         _defaultHandler = defaultHandler;
         _activationHandlers = activationHandlers;
         _themeSelectorService = themeSelectorService;
+        _pocketDbService = pocketDbService;
+        _authService = authService;
     }
 
     public async Task ActivateAsync(object activationArgs)
@@ -29,9 +41,23 @@ public class ActivationService : IActivationService
         // Set the MainWindow Content.
         if (App.MainWindow.Content == null)
         {
-            _shell = App.GetService<ShellPage>();
-            App.MainWindow.Content = _shell ?? new Frame();
+            UIElement? content;
+
+            if (_authService.IsAuthorized())
+            {
+                _shell = App.GetService<ShellPage>();
+                content = _shell;
+            }
+            else
+            {
+                content = App.GetService<LoginPage>();
+            }
+
+
+            App.MainWindow.Content = content ?? new Frame();
         }
+
+        AppInstance.GetCurrent().Activated += OnActivated;
 
         // Handle activation via ActivationHandlers.
         await HandleActivationAsync(activationArgs);
@@ -41,6 +67,32 @@ public class ActivationService : IActivationService
 
         // Execute tasks after activation.
         await StartupAsync();
+    }
+
+    private static async void OnActivated(object? sender, AppActivationArguments args)
+    {
+        if (args.Kind == ExtendedActivationKind.Protocol)
+        {
+            var protocolArgs = (ProtocolActivatedEventArgs)args.Data;
+            switch (protocolArgs.Uri.Host)
+            {
+                case "oauth-callback":
+                    try
+                    {
+                        await App.GetService<IAuthService>().AuthorizeAsync();
+                        var _shell = App.GetService<ShellPage>();
+                        App.MainWindow.Content = _shell;
+                    }
+                    catch { }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.MainWindow);
+        PInvoke.User32.ShowWindow(hwnd, PInvoke.User32.WindowShowStyle.SW_RESTORE);
+        PInvoke.User32.SetForegroundWindow(hwnd);
     }
 
     private async Task HandleActivationAsync(object activationArgs)
@@ -61,6 +113,9 @@ public class ActivationService : IActivationService
     private async Task InitializeAsync()
     {
         await _themeSelectorService.InitializeAsync().ConfigureAwait(false);
+        await _pocketDbService.InitializeAsync().ConfigureAwait(false);
+        await _authService.InitializeAsync().ConfigureAwait(false);
+
         await Task.CompletedTask;
     }
 

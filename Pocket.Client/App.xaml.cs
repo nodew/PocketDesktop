@@ -1,16 +1,22 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
-
+using Microsoft.Windows.AppLifecycle;
 using Pocket.Client.Activation;
 using Pocket.Client.Contracts.Services;
 using Pocket.Client.Core.Contracts.Services;
+using Pocket.Client.Core.Data;
 using Pocket.Client.Core.Services;
 using Pocket.Client.Models;
 using Pocket.Client.Notifications;
 using Pocket.Client.Services;
 using Pocket.Client.ViewModels;
 using Pocket.Client.Views;
+using Pocket.Core;
+using Windows.ApplicationModel.Activation;
+
+using LaunchActivatedEventArgs = Microsoft.UI.Xaml.LaunchActivatedEventArgs;
 
 namespace Pocket.Client;
 
@@ -70,10 +76,27 @@ public partial class App : Application
             services.AddSingleton<ISampleDataService, SampleDataService>();
             services.AddSingleton<IFileService, FileService>();
 
+            services.AddSingleton<HttpClient>();
+            services.AddSingleton<PocketClient>();
+            services.AddSingleton<IPocketDbService, PocketDbService>();
+            services.AddSingleton((provider) =>
+            {
+                var dbFilePath = provider.GetService<IPocketDbService>()?.GetPocketDbPath();
+                
+                var options = new DbContextOptionsBuilder<PocketDbContext>()
+                    .UseSqlite($"Data Source={dbFilePath}")
+                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+                    .Options;
+
+                return new PocketDbContext(options);
+            });
+            services.AddSingleton<IPocketDataPersistenceService, PocketDataPersistenceService>();
+            services.AddSingleton<IPocketDataService, PocketDataService>();
+            services.AddSingleton<IAuthService, AuthService>();
+
             // Views and ViewModels
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SettingsPage>();
-            services.AddTransient<LoginViewModel>();
             services.AddTransient<LoginPage>();
             services.AddTransient<DetailViewModel>();
             services.AddTransient<DetailPage>();
@@ -111,6 +134,16 @@ public partial class App : Application
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
     {
         base.OnLaunched(args);
+        
+        var mainInstance = AppInstance.FindOrRegisterForKey("pocket-desktop-app-main");
+
+        if (!mainInstance.IsCurrent)
+        {
+            var activatedEventArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
+            await mainInstance.RedirectActivationToAsync(activatedEventArgs);
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
+            return;
+        }
 
         await App.GetService<IActivationService>().ActivateAsync(args);
     }

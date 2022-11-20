@@ -17,7 +17,6 @@ public class PageService : IPageService
         Configure<MyListViewModel, MyListPage>();
         Configure<ArchiveViewModel, ArchivePage>();
         Configure<DetailViewModel, DetailPage>();
-        Configure<LoginViewModel, LoginPage>();
         Configure<FavoritesViewModel, FavoritesPage>();
         Configure<ArticlesViewModel, ArticlesPage>();
         Configure<VideosViewModel, VideosPage>();

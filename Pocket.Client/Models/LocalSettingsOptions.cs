@@ -11,4 +11,24 @@ public class LocalSettingsOptions
     {
         get; set;
     }
+
+    public string? PocketDbFile
+    {
+        get; set; 
+    }
+
+    public string? ImageCacheFolder
+    {
+        get; set; 
+    }
+
+    public string? PocketConsumerKey
+    {
+        get; set; 
+    }
+
+    public string? OAuthCallbackUri
+    {
+        get; set; 
+    }
 }
