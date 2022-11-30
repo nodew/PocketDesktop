@@ -25,7 +25,7 @@ public class PocketItem
     }
 
     [JsonPropertyName("given_title")]
-    public string GivenTitle
+    public string? GivenTitle
     {
         get; set;
     }
@@ -79,19 +79,19 @@ public class PocketItem
     }
 
     [JsonPropertyName("resolved_title")]
-    public string ResolvedTitle
+    public string? ResolvedTitle
     {
         get; set;
     }
 
     [JsonPropertyName("resolved_url")]
-    public Uri ResolvedUrl
+    public Uri? ResolvedUrl
     {
         get; set;
     }
 
     [JsonPropertyName("excerpt")]
-    public string Excerpt
+    public string? Excerpt
     {
         get; set;
     }
@@ -132,7 +132,7 @@ public class PocketItem
     }
 
     [JsonPropertyName("lang")]
-    public string Lang
+    public string? Lang
     {
         get; set;
     }

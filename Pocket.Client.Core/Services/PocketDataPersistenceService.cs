@@ -47,9 +47,51 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
     
     public async Task AddItemAsync(PocketItem item, CancellationToken cancellationToken = default)
     {
-        SaveItemAuthors(item);
-        SaveItemTags(item);
-        _dbContext.Items.Add(item);
+        var tags = item.Tags.ToList();
+        var authors = item.Authors.ToList();
+
+        item.Tags.Clear();
+        item.Authors.Clear();
+
+        foreach(var tag in tags)
+        {
+            var _tag = _dbContext.Tags.Where(t => t.Name == tag.Name).FirstOrDefault();
+
+            if (_tag == null)
+            {
+                item.Tags.Add(new Tag { Id = Guid.NewGuid(), Name = tag.Name, IsPinned = false });
+            } 
+            else
+            {
+                item.Tags.Add(_tag);
+            }
+        }
+
+        foreach (var author in authors)
+        {
+            var _author = _dbContext.Authors.Where(t => t.Id == author.Id).FirstOrDefault();
+
+            if (_author == null)
+            {
+                item.Authors.Add(author);
+            }
+            else
+            {
+                item.Authors.Add(_author);
+            }
+        }
+
+        var _item = _dbContext.Items.Where(t => t.Id == item.Id).FirstOrDefault();
+
+        if (_item == null)
+        {
+            _dbContext.Items.Add(item);
+        } 
+        else
+        {
+            _dbContext.Items.Update(item);
+        }
+
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
@@ -61,20 +103,40 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
 
     public async Task UpdateItemAsync(PocketItem item, List<Tag> tags, CancellationToken cancellationToken = default)
     {
-        item.Tags = tags;
-        SaveItemTags(item);
+        var _tags = new List<Tag>();
+
+        foreach (var tag in item.Tags)
+        {
+            var _tag = _dbContext.Tags.Where(t => t.Name == tag.Name).FirstOrDefault();
+
+            if (_tag == null)
+            {
+                _tags.Add(new Tag { Id = Guid.NewGuid(), Name = tag.Name });
+            }
+            else
+            {
+                _dbContext.Attach(_tag);
+                _tags.Add(_tag);
+            }
+        }
+
+        item.Tags = _tags;
         _dbContext.Items.Update(item);
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task RemoveItemAsync(PocketItem item, CancellationToken cancellationToken = default)
+    public async Task RemoveItemAsync(long itemId, CancellationToken cancellationToken = default)
     {
-        var itemAuthors = _dbContext.ItemAuthors.Where(itemAuthor => itemAuthor.ItemId == item.Id);
-        var itemTags = _dbContext.ItemTags.Where(itemTag => itemTag.ItemId == item.Id);
-        _dbContext.ItemAuthors.RemoveRange(itemAuthors);
-        _dbContext.ItemTags.RemoveRange(itemTags);
-        _dbContext.Items.Remove(item);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        var item = _dbContext.Items
+            .Include(t => t.ItemAuthors)
+            .Include(t => t.Tags)
+            .Where(t => t.Id == itemId).FirstOrDefault();
+
+        if (item != null)
+        {
+            _dbContext.Items.Remove(item);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+        }
     }
     #endregion
 
@@ -93,8 +155,14 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
     
     public async Task<Tag> AddTagAsync(Tag tag, CancellationToken cancellationToken = default) 
     {
-        UpsertTag(tag);
-        
+        var _tag = _dbContext.Tags.Where(tag => tag.Name == tag.Name).FirstOrDefault();
+
+        if (_tag == null)
+        {
+            _tag = new Tag { Id = Guid.NewGuid(), Name = tag.Name };
+            _dbContext.Tags.Add(_tag);
+        }
+
         await _dbContext.SaveChangesAsync(cancellationToken);
         
         return tag;
@@ -145,61 +213,5 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
         }
 
         await _dbContext.SaveChangesAsync(cancellationToken);
-    }
-
-    private void SaveItemTags(PocketItem item)
-    {
-        var itemTags = _dbContext.ItemTags.Where(itemTag => itemTag.ItemId == item.Id);
-        _dbContext.ItemTags.RemoveRange(itemTags);
-
-        foreach (var tag in item.Tags)
-        {
-            var _tag = UpsertTag(tag);
-            _dbContext.ItemTags.Add(new ItemTag { ItemId = item.Id, TagId = _tag.Id });
-        }
-    }
-    
-    private void SaveItemAuthors(PocketItem item)
-    {
-        var itemAuthors = _dbContext.ItemAuthors.Where(itemAuthor => itemAuthor.ItemId == item.Id);
-        _dbContext.ItemAuthors.RemoveRange(itemAuthors);
-
-        foreach (var author in item.Authors)
-        {
-            UpsertAuthor(author);
-            _dbContext.ItemAuthors.Add(new ItemAuthor { ItemId = item.Id, Author = author });
-        }
-    }
-
-    private Tag UpsertTag(Tag tag)
-    {
-        var _tag = _dbContext.Tags.Where(tag => tag.Name == tag.Name).FirstOrDefault();
-
-        if (_tag == null)
-        {
-            _tag = new Tag { Id = Guid.NewGuid(), Name = tag.Name };
-            _dbContext.Tags.Add(_tag);
-        }
-
-        return _tag;
-    }
-
-    private void UpsertAuthor(Author author)
-    {
-        if (author == null)
-        {
-            throw new ArgumentNullException(nameof(author));
-        }
-
-        var _author = _dbContext.Authors.Where(a => a.Id == author.Id).FirstOrDefault();
-
-        if (_author != null)
-        {
-            _dbContext.Authors.Update(author);
-        }
-        else 
-        { 
-            _dbContext.Authors.Add(author);
-        }
     }
 }

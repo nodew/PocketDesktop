@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.Windows.AppLifecycle;
 using Pocket.Client.Activation;
 using Pocket.Client.Contracts.Services;
@@ -14,7 +15,6 @@ using Pocket.Client.Services;
 using Pocket.Client.ViewModels;
 using Pocket.Client.Views;
 using Pocket.Core;
-using Windows.ApplicationModel.Activation;
 
 using LaunchActivatedEventArgs = Microsoft.UI.Xaml.LaunchActivatedEventArgs;
 
@@ -78,8 +78,10 @@ public partial class App : Application
 
             services.AddSingleton<HttpClient>();
             services.AddSingleton<PocketClient>();
+            services.AddSingleton<IAuthService, AuthService>();
             services.AddSingleton<IPocketDbService, PocketDbService>();
-            services.AddSingleton((provider) =>
+
+            services.AddTransient((provider) =>
             {
                 var dbFilePath = provider.GetService<IPocketDbService>()?.GetPocketDbPath();
                 
@@ -90,9 +92,8 @@ public partial class App : Application
 
                 return new PocketDbContext(options);
             });
-            services.AddSingleton<IPocketDataPersistenceService, PocketDataPersistenceService>();
-            services.AddSingleton<IPocketDataService, PocketDataService>();
-            services.AddSingleton<IAuthService, AuthService>();
+            services.AddTransient<IPocketDataPersistenceService, PocketDataPersistenceService>();
+            services.AddTransient<IPocketDataService, PocketDataService>();
 
             // Views and ViewModels
             services.AddTransient<SettingsViewModel>();
@@ -134,16 +135,19 @@ public partial class App : Application
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
     {
         base.OnLaunched(args);
-        
-        var mainInstance = AppInstance.FindOrRegisterForKey("pocket-desktop-app-main");
 
-        if (!mainInstance.IsCurrent)
-        {
-            var activatedEventArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
-            await mainInstance.RedirectActivationToAsync(activatedEventArgs);
-            System.Diagnostics.Process.GetCurrentProcess().Kill();
-            return;
-        }
+        // The following code doesn't work
+        // See details at https://github.com/microsoft/WindowsAppSDK/issues/3179
+        //
+        //var mainInstance = AppInstance.FindOrRegisterForKey("pocket-desktop-app-main-exe");
+
+        //if (!mainInstance.IsCurrent)
+        //{
+        //    var activatedEventArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
+        //    await mainInstance.RedirectActivationToAsync(activatedEventArgs);
+        //    System.Diagnostics.Process.GetCurrentProcess().Kill();
+        //    return;
+        //}
 
         await App.GetService<IActivationService>().ActivateAsync(args);
     }

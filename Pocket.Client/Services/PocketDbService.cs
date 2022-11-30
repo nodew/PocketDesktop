@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Pocket.Client.Contracts.Services;
@@ -24,6 +25,7 @@ public class PocketDbService : IPocketDbService
 
     private readonly PocketClient _pocketClient;
     private readonly ILocalSettingsService _localSettingsService;
+    private readonly IAppNotificationService _appNotificationService;
 
     private readonly string _localApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
     private readonly string _applicationDataFolder;
@@ -35,10 +37,13 @@ public class PocketDbService : IPocketDbService
     public PocketDbService(
         PocketClient pocketClient,
         ILocalSettingsService localSettingsService,
+        IAppNotificationService appNotificationService,
         IOptions<LocalSettingsOptions> options)
     {
         _pocketClient = pocketClient;
         _localSettingsService = localSettingsService;
+        _appNotificationService = appNotificationService;
+
         _initialized = false;
         _synced = false;
 
@@ -75,9 +80,9 @@ public class PocketDbService : IPocketDbService
         return Path.Combine(_applicationDataFolder, _pocketDbFile);
     }
 
-    public async Task SyncItemsAsync(bool fullSync = false)
+    public async Task SyncItemsAsync(bool fullSync = false, bool force = false)
     {
-        if (!_synced)
+        if (!_synced || force)
         {
             var page = 0;
             var pageSize = 50;
@@ -115,13 +120,26 @@ public class PocketDbService : IPocketDbService
 
                 foreach (var item in items)
                 {
-                    var normalizedItem = PocketItemHelper.NormalizeRawPocketItem(item);
-                    await App.GetService<IPocketDataPersistenceService>().AddItemAsync(normalizedItem);
+                    if (item.Status == PocketItemStatus.ShouldDelete)
+                    {
+                        await App.GetService<IPocketDataPersistenceService>().RemoveItemAsync(item.ItemId);
+                    }
+                    else
+                    {
+                        var normalizedItem = PocketItemHelper.NormalizeRawPocketItem(item);
+                        await App.GetService<IPocketDataPersistenceService>().AddItemAsync(normalizedItem);
+                    }
                 }
             } while (hasMoreItems);
 
             await _localSettingsService.SaveSettingAsync(_pocketLastUpdatedAtKey, DateTimeOffset.Now);
             _synced = true;
+
+            if (count > 0)
+            {
+                //_appNotificationService.Show($"Pocket Desktop successfully synced {count} new items from server");
+                WeakReferenceMessenger.Default.Send(new SyncedItemsMessage());
+            }
         }
     }
 }

@@ -38,6 +38,33 @@ public class ActivationService : IActivationService
         // Execute tasks before activation.
         await InitializeAsync();
 
+        // Handle auth callback
+        var activatedEventArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
+        if (activatedEventArgs != null && activatedEventArgs.Kind == ExtendedActivationKind.Protocol)
+        {
+            var protocolArgs = (ProtocolActivatedEventArgs)activatedEventArgs.Data;
+            switch (protocolArgs.Uri.Host)
+            {
+                case "oauth-callback":
+                    try
+                    {
+                        await _authService.AuthorizeAsync();
+                        var instances = AppInstance.GetInstances();
+                        foreach(var instance in instances)
+                        {
+                            if (!instance.IsCurrent)
+                            {
+                                System.Diagnostics.Process.GetProcessById((int)instance.ProcessId).Kill();
+                            }
+                        }
+                    }
+                    catch { }
+                    break;
+                default:
+                    break;
+            }
+        }
+
         // Set the MainWindow Content.
         if (App.MainWindow.Content == null)
         {
@@ -53,11 +80,10 @@ public class ActivationService : IActivationService
                 content = App.GetService<LoginPage>();
             }
 
-
             App.MainWindow.Content = content ?? new Frame();
         }
 
-        AppInstance.GetCurrent().Activated += OnActivated;
+        //AppInstance.GetCurrent().Activated += OnActivated;
 
         // Handle activation via ActivationHandlers.
         await HandleActivationAsync(activationArgs);
@@ -69,31 +95,32 @@ public class ActivationService : IActivationService
         await StartupAsync();
     }
 
-    private static async void OnActivated(object? sender, AppActivationArguments args)
-    {
-        if (args.Kind == ExtendedActivationKind.Protocol)
-        {
-            var protocolArgs = (ProtocolActivatedEventArgs)args.Data;
-            switch (protocolArgs.Uri.Host)
-            {
-                case "oauth-callback":
-                    try
-                    {
-                        await App.GetService<IAuthService>().AuthorizeAsync();
-                        var _shell = App.GetService<ShellPage>();
-                        App.MainWindow.Content = _shell;
-                    }
-                    catch { }
-                    break;
-                default:
-                    break;
-            }
-        }
+    //private async void OnActivated(object? sender, AppActivationArguments args)
+    //{
+    //    if (args.Kind == ExtendedActivationKind.Protocol)
+    //    {
+    //        var protocolArgs = (ProtocolActivatedEventArgs)args.Data;
 
-        var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.MainWindow);
-        PInvoke.User32.ShowWindow(hwnd, PInvoke.User32.WindowShowStyle.SW_RESTORE);
-        PInvoke.User32.SetForegroundWindow(hwnd);
-    }
+    //        switch (protocolArgs.Uri.Host)
+    //        {
+    //            case "oauth-callback":
+    //                try
+    //                {
+    //                    await App.GetService<IAuthService>().AuthorizeAsync();
+    //                    _shell = App.GetService<ShellPage>();
+    //                    App.MainWindow.Content = _shell ?? new Frame();
+    //                }
+    //                catch { }
+    //                break;
+    //            default:
+    //                break;
+    //        }
+    //    }
+
+    //    var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.MainWindow);
+    //    PInvoke.User32.ShowWindow(hwnd, PInvoke.User32.WindowShowStyle.SW_RESTORE);
+    //    PInvoke.User32.SetForegroundWindow(hwnd);
+    //}
 
     private async Task HandleActivationAsync(object activationArgs)
     {
@@ -122,6 +149,10 @@ public class ActivationService : IActivationService
     private async Task StartupAsync()
     {
         await _themeSelectorService.SetRequestedThemeAsync();
+        if (_authService.IsAuthorized())
+        {
+            await _pocketDbService.SyncItemsAsync(false);
+        }
         await Task.CompletedTask;
     }
 }

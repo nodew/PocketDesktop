@@ -12,5 +12,5 @@ public interface IPocketDbService
 
     public string GetPocketDbPath();
 
-    public Task SyncItemsAsync(bool fullSync = false);
+    public Task SyncItemsAsync(bool fullSync = false, bool force = false);
 }

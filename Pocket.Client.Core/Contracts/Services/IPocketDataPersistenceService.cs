@@ -21,7 +21,7 @@ public interface IPocketDataPersistenceService
     
     public Task UpdateItemAsync(PocketItem item, List<Tag> tags, CancellationToken cancellationToken = default);
 
-    public Task RemoveItemAsync(PocketItem item, CancellationToken cancellationToken = default);
+    public Task RemoveItemAsync(long itemId, CancellationToken cancellationToken = default);
 
     #endregion
 

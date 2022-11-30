@@ -9,13 +9,14 @@ namespace Pocket.Client.Services;
 public class AuthService : IAuthService
 {
     private const string _userNameKey = "Username";
-    private const string _userTokenKey = "AccessToken";
+    private const string _userAccessTokenKey = "AccessToken";
+    private const string _userRequestTokenKey = "RequestToken";
     private const string _defaultOAuthCallbackUri = "pocket-desktop-app://oauth-callback";
 
     private readonly ILocalSettingsService _localSettingsService;
     private readonly PocketClient _pocketClient;
     private readonly LocalSettingsOptions _options;
-    private string? _userToken;
+    private string? _userAccessToken;
     private bool _initialized;
     private bool _isAuthorized;
 
@@ -28,13 +29,16 @@ public class AuthService : IAuthService
         _pocketClient = pocketClient;
         _options = options.Value;
 
-        _userToken = string.Empty;
+        _userAccessToken = string.Empty;
         _isAuthorized = false;
     }
 
     public async Task InitializeAsync()
     {
-        if (_initialized) return;
+        if (_initialized)
+        {
+            return;
+        }
 
         if (string.IsNullOrEmpty(_options.PocketConsumerKey))
         {
@@ -45,10 +49,10 @@ public class AuthService : IAuthService
             _pocketClient.SetConsumerKey(_options.PocketConsumerKey);
         }
 
-        _userToken = await _localSettingsService.ReadSettingAsync<string>(_userTokenKey);
-        if (!string.IsNullOrEmpty(_userToken))
+        _userAccessToken = await _localSettingsService.ReadSettingAsync<string>(_userAccessTokenKey);
+        if (!string.IsNullOrEmpty(_userAccessToken))
         {
-            _pocketClient.SetAccessToken(_userToken);
+            _pocketClient.SetAccessToken(_userAccessToken);
             _isAuthorized = true;
         }
 
@@ -65,6 +69,14 @@ public class AuthService : IAuthService
     {
         var oauthCallbackUri = _options.OAuthCallbackUri ?? _defaultOAuthCallbackUri;
         var token = await _pocketClient.GetTokenAsync(oauthCallbackUri);
+        
+        if (token == null)
+        {
+            throw new Exception("Token is null");
+        }
+
+        await _localSettingsService.SaveSettingAsync(_userRequestTokenKey, token);
+
         var pocketURL = new Uri($"https://getpocket.com/auth/authorize?request_token={token}&redirect_uri={Uri.EscapeDataString(oauthCallbackUri)}");
 
         await Windows.System.Launcher.LaunchUriAsync(pocketURL);
@@ -72,9 +84,10 @@ public class AuthService : IAuthService
 
     public async Task AuthorizeAsync()
     {
-        var result = await _pocketClient.AuthorizeAsync();
+        var token = await _localSettingsService.ReadSettingAsync<string>(_userRequestTokenKey);
+        var result = await _pocketClient.AuthorizeAsync(token);
         _pocketClient.SetAccessToken(result.AccessToken);
-        await _localSettingsService.SaveSettingAsync(_userTokenKey, result.AccessToken);
+        await _localSettingsService.SaveSettingAsync(_userAccessTokenKey, result.AccessToken);
         await _localSettingsService.SaveSettingAsync(_userNameKey, result.Username);
         _isAuthorized = true;
     }

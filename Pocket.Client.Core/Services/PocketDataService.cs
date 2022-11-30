@@ -12,7 +12,6 @@ public class PocketDataService : IPocketDataService
 {
     private readonly IPocketDataPersistenceService _persistenceService;
     private readonly PocketClient _pocketClient;
-    private bool _syncing;
 
     public PocketDataService(
         IPocketDataPersistenceService persistenceService,
@@ -20,7 +19,6 @@ public class PocketDataService : IPocketDataService
     {
         _persistenceService = persistenceService;
         _pocketClient = pocketClient;
-        _syncing = false;
     }
 
     public Task<List<PocketItem>> GetItemsAsync(IBaseSpecification<PocketItem> specification, CancellationToken cancellationToken = default)
@@ -110,7 +108,7 @@ public class PocketDataService : IPocketDataService
     public async Task RemoveItemAsync(PocketItem item, CancellationToken cancellationToken = default)
     {
         await _pocketClient.DeleteItemAsync(item.Id, cancellationToken);
-        await _persistenceService.RemoveItemAsync(item, cancellationToken);
+        await _persistenceService.RemoveItemAsync(item.Id, cancellationToken);
     }
 
     public async Task<List<Tag>> GetAllTagsAsync(CancellationToken cancellationToken = default)
@@ -133,49 +131,5 @@ public class PocketDataService : IPocketDataService
     {
         await _pocketClient.RenameTagAsync(tag.Name, newName, cancellationToken);
         await _persistenceService.RenameTagAsync(tag, newName, cancellationToken);
-    }
-
-    public async Task RetrieveFromRemoteAsync(DateTime since, CancellationToken cancellationToken = default)
-    {
-        if (_syncing)
-        {
-            return;
-        }
-        
-        _syncing = true;
-
-        try
-        {
-            var page = 0;
-            var pageSize = 50;
-            bool hasMoreItems;
-            var count = 0;
-            
-            do
-            {
-                var filter = new PocketItemFilter()
-                {
-                    State = PocketItemState.All,
-                    DetailType = PocketItemDetailType.Complete,
-                    SortBy = PocketItemSortMethod.Newest,
-                    Since = since
-                };
-
-                var items = await _pocketClient.GetItemsAsync(filter, pageSize, page * pageSize, cancellationToken);
-                hasMoreItems = items.Count == pageSize;
-                count += items.Count;
-                page++;
-
-                foreach (var item in items)
-                {
-                    var normalizedItem = PocketItemHelper.NormalizeRawPocketItem(item);
-                    await _persistenceService.AddItemAsync(normalizedItem, cancellationToken);
-                }
-            } while (hasMoreItems);
-        }
-        finally
-        {
-            _syncing = false;
-        }
     }
 }

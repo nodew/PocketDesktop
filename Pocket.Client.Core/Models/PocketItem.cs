@@ -18,7 +18,7 @@ public class PocketItem : Entity<long>
         get; set;
     }
 
-    public string Excerpt
+    public string? Excerpt
     {
         get; set;
     }
@@ -73,12 +73,12 @@ public class PocketItem : Entity<long>
         get; set;
     }
 
-    public string Lang
+    public string? Lang
     {
         get; set;
     }
 
-    public Uri TopImageUrl
+    public Uri? TopImageUrl
     {
         get; set;
     }

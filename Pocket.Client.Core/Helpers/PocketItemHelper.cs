@@ -14,11 +14,15 @@ public static class PocketItemHelper
 {
     public static PocketItem NormalizeRawPocketItem(RawPocketItem item)
     {
+        var itemUrl = item.ResolvedUrl ?? item.GivenUrl;
+        var itemDomain = item.DomainMetadata?.Name ?? itemUrl.Host;
+        var itemTitle = item.ResolvedTitle ?? item.GivenTitle ?? itemDomain;
+
         return new PocketItem()
         {
             Id = item.ItemId,
-            Title = string.IsNullOrEmpty(item.GivenTitle) ? item.ResolvedTitle : item.GivenTitle,
-            Url = item.ResolvedUrl,
+            Title = itemTitle,
+            Url = itemUrl,
             Excerpt = item.Excerpt,
             IsFavorited = item.Favorite,
             IsArchived = item.Status == PocketItemStatus.Archived,
@@ -27,11 +31,11 @@ public static class PocketItemHelper
             TimeFavorited = item.TimeFavorited,
             TimeRead = item.TimeRead,
             HasImage = item.HasImage > 0,
-            TopImageUrl = item.TopImageUrl ?? new Uri(string.Empty),
+            TopImageUrl = item.TopImageUrl,
             WordCount = item.WordCount,
             TimeToRead = item.TimeToRead ?? 0,
             Lang = item.Lang,
-            Domain = item.DomainMetadata?.Name ?? item.ResolvedUrl.Host,
+            Domain = itemDomain,
             Type = GetItemType(item),
             Tags = GetItemTags(item),
             Authors = GetAuthors(item)
