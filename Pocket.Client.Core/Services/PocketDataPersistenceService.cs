@@ -63,6 +63,7 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
             } 
             else
             {
+                _dbContext.Attach(_tag);
                 item.Tags.Add(_tag);
             }
         }
@@ -77,6 +78,7 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
             }
             else
             {
+                _dbContext.Attach(_author);
                 item.Authors.Add(_author);
             }
         }
@@ -120,7 +122,8 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
             }
         }
 
-        item.Tags = _tags;
+        item.Tags.Clear();
+        item.Tags.AddRange(tags);
         _dbContext.Items.Update(item);
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
