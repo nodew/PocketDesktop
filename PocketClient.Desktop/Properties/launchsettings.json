@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "PocketClient.Desktop (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "PocketClient.Desktop (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}
