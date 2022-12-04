@@ -16,14 +16,13 @@
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
   </PropertyGroup>
+	
   <ItemGroup>
     <Content Remove="Assets\book-banner.jpg" />
   </ItemGroup>
+	
   <ItemGroup>
-    <None Remove="Views\AllTagsPage.xaml" />
-    <None Remove="Views\ArticlesPage.xaml" />
-    <None Remove="Views\FavoritesPage.xaml" />
-    <None Remove="Views\VideosPage.xaml" />
+    <None Remove="UserControls\ItemListControl.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,16 +56,7 @@
     <None Update="Assets\book-banner.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Page Update="Views\VideosPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Views\FavoritesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Views\ArticlesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Views\AllTagsPage.xaml">
+    <Page Update="UserControls\ItemListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
