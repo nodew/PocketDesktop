@@ -1,18 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-
+using PocketClient.Core.Models;
+using PocketClient.Core.Specifications;
 using PocketClient.Desktop.Contracts.ViewModels;
 
 namespace PocketClient.Desktop.ViewModels;
 
-public class ArticlesViewModel : ObservableRecipient, INavigationAware
+public class ArticlesViewModel : ItemsViewModel
 {
-    public void OnNavigatedFrom()
+    protected override BaseSpecification<PocketItem> BuildFilter()
     {
-
-    }
-
-    public void OnNavigatedTo(object parameter)
-    {
-
+        var filter = base.BuildFilter();
+        filter.SetFilterCondition(item => item.Type == ItemType.Article && item.IsArchived == false);
+        return filter;
     }
 }

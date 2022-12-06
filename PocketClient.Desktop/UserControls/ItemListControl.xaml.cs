@@ -1,29 +1,66 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See LICENSE in the project root for license information.
-
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using PocketClient.Core.Models;
+using CommunityToolkit.WinUI.UI.Controls;
 
 namespace PocketClient.Desktop.UserControls;
+
 public sealed partial class ItemListControl : UserControl
 {
+    #region DependencyProperties
+    public static readonly DependencyProperty ItemsSourceProperty =
+           DependencyProperty.Register(
+              nameof(ItemsSource),
+              typeof(IEnumerable<PocketItem>),
+              typeof(ItemListControl),
+              new PropertyMetadata(null));
+
+    public static readonly DependencyProperty SelectedItemProperty =
+       DependencyProperty.Register(
+          nameof(SelectedItem),
+          typeof(PocketItem),
+          typeof(ItemListControl),
+          new PropertyMetadata(null));
+
+    public static readonly DependencyProperty DetailsTemplateProperty =
+       DependencyProperty.Register(
+          nameof(DetailsTemplate),
+          typeof(DataTemplate),
+          typeof(ItemListControl),
+          new PropertyMetadata(null));
+    #endregion
+
+    #region Events
+    public event EventHandler<ListDetailsViewState>? ViewStateChanged;
+    #endregion
+
     public ItemListControl()
     {
         this.InitializeComponent();
+    }
+
+    #region Properties
+    public IEnumerable<PocketItem> ItemsSource
+    {
+        get => (IEnumerable<PocketItem>)GetValue(ItemsSourceProperty);
+        set => SetValue(ItemsSourceProperty, value);
+    }
+
+    public PocketItem SelectedItem
+    {
+        get => (PocketItem)GetValue(SelectedItemProperty);
+        set => SetValue(SelectedItemProperty, value);
+    }
+
+    public DataTemplate DetailsTemplate
+    {
+        get => (DataTemplate)GetValue(DetailsTemplateProperty); 
+        set => SetValue(DetailsTemplateProperty, value);
+    }
+    #endregion
+
+    private void OnViewStateChanged(object sender, ListDetailsViewState e)
+    {
+        ViewStateChanged?.Invoke(this, e);
     }
 }

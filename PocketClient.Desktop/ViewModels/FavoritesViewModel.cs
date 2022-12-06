@@ -1,18 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-
+using PocketClient.Core.Models;
+using PocketClient.Core.Specifications;
 using PocketClient.Desktop.Contracts.ViewModels;
 
 namespace PocketClient.Desktop.ViewModels;
 
-public class FavoritesViewModel : ObservableRecipient, INavigationAware
+public class FavoritesViewModel : ItemsViewModel
 {
-    public void OnNavigatedFrom()
+    protected override BaseSpecification<PocketItem> BuildFilter()
     {
-
-    }
-
-    public void OnNavigatedTo(object parameter)
-    {
-
+        var filter = base.BuildFilter();
+        filter.SetFilterCondition(item => item.IsFavorited == true);
+        return filter;
     }
 }

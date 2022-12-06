@@ -8,9 +8,83 @@
     xmlns:local="using:PocketClient.Desktop.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:models="using:PocketClient.Core.Models"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <DataTemplate x:Key="ItemTemplate" x:DataType="models:PocketItem">
+            <Grid Margin="6,12,12,12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="{x:Bind Title}"
+                           MaxLines="2"
+                           Style="{StaticResource ListTitleStyle}" />
+                <TextBlock Grid.Row="1" 
+                           Text="{x:Bind Excerpt}"
+                           Style="{StaticResource ListSubTitleStyle}" 
+                           MaxLines="3" />
+            </Grid>
+        </DataTemplate>
 
-    <Grid>
+        <DataTemplate x:Key="NoSelectionContentTemplate">
+            <Grid>
+                <TextBlock
+                        x:Uid="MyList_NoSelection"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        TextAlignment="Center"
+                        Style="{ThemeResource SubtitleTextBlockStyle}" />
+            </Grid>
+        </DataTemplate>
 
+        <DataTemplate x:Key="ListHeaderTemplate">
+            <Grid Height="40">
+                <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource ListTitleStyle}"
+                        Text="{Binding}" />
+            </Grid>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="MinimalListHeaderTemplate">
+            <Grid Height="40">
+                <TextBlock
+                        Margin="96,0,0,0"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource ListTitleStyle}"
+                        Text="{Binding}" />
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid x:Name="ContentArea">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <!--641 is the default CompactModeThresholdWidth in NavigationView -->
+                        <AdaptiveTrigger MinWindowWidth="641" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ListDetailsViewControl.ListHeaderTemplate" Value="{StaticResource ListHeaderTemplate}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <controls:ListDetailsView
+            x:Uid="MyList"
+            x:Name="ListDetailsViewControl"
+            BackButtonBehavior="Manual"
+            Background="Transparent"
+            BorderBrush="Transparent"
+            DetailsTemplate="{x:Bind DetailsTemplate}"
+            ItemsSource="{x:Bind ItemsSource}"
+            ItemTemplate="{StaticResource ItemTemplate}"
+            ListHeaderTemplate="{StaticResource MinimalListHeaderTemplate}"
+            NoSelectionContentTemplate="{StaticResource NoSelectionContentTemplate}"
+            SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
+            ViewStateChanged="OnViewStateChanged" />
     </Grid>
 </UserControl>
