@@ -26,7 +26,8 @@ public class SpecificationEvaluator<TEntity> where TEntity : Entity
         {
             query = query.Where(specification.FilterCondition);
         }
-        else if (specification.OrderBy != null)
+        
+        if (specification.OrderBy != null)
         {
             query = query.OrderBy(specification.OrderBy);
         }

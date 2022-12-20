@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using Microsoft.Web.WebView2.Core;
-
+using PocketClient.Core.Models;
 using PocketClient.Desktop.Contracts.Services;
 using PocketClient.Desktop.Contracts.ViewModels;
 
@@ -14,22 +14,21 @@ namespace PocketClient.Desktop.ViewModels;
 // https://docs.microsoft.com/microsoft-edge/webview2/get-started/winui
 // https://docs.microsoft.com/microsoft-edge/webview2/concepts/developer-guide
 // https://docs.microsoft.com/microsoft-edge/webview2/concepts/distribution
-public class DetailViewModel : ObservableRecipient, INavigationAware
+public class DetailViewModel : ObservableRecipient
 {
-    // TODO: Set the default URL to display.
-    private Uri _source = new("https://docs.microsoft.com/windows/apps/");
     private bool _isLoading = true;
     private bool _hasFailures;
+    private PocketItem? _pocketItem;
 
     public IWebViewService WebViewService
     {
         get;
     }
 
-    public Uri Source
+    public PocketItem? SelectedItem
     {
-        get => _source;
-        set => SetProperty(ref _source, value);
+        get => _pocketItem; 
+        set => SetProperty(ref _pocketItem, value); 
     }
 
     public bool IsLoading
@@ -72,24 +71,25 @@ public class DetailViewModel : ObservableRecipient, INavigationAware
     public DetailViewModel(IWebViewService webViewService)
     {
         WebViewService = webViewService;
+        webViewService.NavigationCompleted += OnNavigationCompleted;
 
         BrowserBackCommand = new RelayCommand(() => WebViewService.GoBack(), () => WebViewService.CanGoBack);
         BrowserForwardCommand = new RelayCommand(() => WebViewService.GoForward(), () => WebViewService.CanGoForward);
-        ReloadCommand = new RelayCommand(() => WebViewService.Reload());
+        ReloadCommand = new RelayCommand(OnRetry);
         RetryCommand = new RelayCommand(OnRetry);
         OpenInBrowserCommand = new RelayCommand(async () => await Windows.System.Launcher.LaunchUriAsync(WebViewService.Source), () => WebViewService.Source != null);
     }
 
-    public void OnNavigatedTo(object parameter)
-    {
-        WebViewService.NavigationCompleted += OnNavigationCompleted;
-    }
+    //public void OnNavigatedTo(object parameter)
+    //{
+    //    WebViewService.NavigationCompleted += OnNavigationCompleted;
+    //}
 
-    public void OnNavigatedFrom()
-    {
-        WebViewService.UnregisterEvents();
-        WebViewService.NavigationCompleted -= OnNavigationCompleted;
-    }
+    //public void OnNavigatedFrom()
+    //{
+    //    WebViewService.UnregisterEvents();
+    //    WebViewService.NavigationCompleted -= OnNavigationCompleted;
+    //}
 
     private void OnNavigationCompleted(object? sender, CoreWebView2WebErrorStatus webErrorStatus)
     {

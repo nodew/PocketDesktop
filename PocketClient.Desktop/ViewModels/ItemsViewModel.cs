@@ -19,7 +19,11 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
 
     public ItemsViewModel()
     {
+        _orderOption = PocketItemOrderOption.Newest;
+
         RefreshListCommand = new AsyncRelayCommand(RefreshList);
+
+        WeakReferenceMessenger.Default.Register<SyncedItemsMessage>(this);
     }
 
     public ObservableCollection<PocketItem> Items = new();
