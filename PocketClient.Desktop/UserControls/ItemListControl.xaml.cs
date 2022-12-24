@@ -8,6 +8,13 @@ namespace PocketClient.Desktop.UserControls;
 public sealed partial class ItemListControl : UserControl
 {
     #region DependencyProperties
+    public static readonly DependencyProperty ListHeaderProperty =
+           DependencyProperty.Register(
+              nameof(ListHeader),
+              typeof(object),
+              typeof(ItemListControl),
+              new PropertyMetadata(null));
+
     public static readonly DependencyProperty ItemsSourceProperty =
            DependencyProperty.Register(
               nameof(ItemsSource),
@@ -40,6 +47,12 @@ public sealed partial class ItemListControl : UserControl
     }
 
     #region Properties
+    public object ListHeader
+    {
+        get => GetValue(ListHeaderProperty);
+        set => SetValue(ListHeaderProperty, value);
+    }
+
     public IEnumerable<PocketItem> ItemsSource
     {
         get => (IEnumerable<PocketItem>)GetValue(ItemsSourceProperty);

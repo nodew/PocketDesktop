@@ -14,10 +14,20 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <StackPanel Orientation="Horizontal">
-            </StackPanel >
+        <Grid Grid.Row="0" x:Name="commands">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Uid="ArchiveButton" Command="{x:Bind ViewModel.ReloadCommand}" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Padding="{StaticResource XXSmallLeftTopRightBottomMargin}">
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8B7;" />
+                </Button>
+                <Button x:Uid="FavoriteButton" Command="{x:Bind ViewModel.ReloadCommand}" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Padding="{StaticResource XXSmallLeftTopRightBottomMargin}">
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE734;" />
+                </Button>
+                <Button x:Uid="AddToListButton" Command="{x:Bind ViewModel.ReloadCommand}" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Padding="{StaticResource XXSmallLeftTopRightBottomMargin}">
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xECC8;" />
+                </Button>
+                <Button x:Uid="UnfavoriteButton" Command="{x:Bind ViewModel.ReloadCommand}" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Padding="{StaticResource XXSmallLeftTopRightBottomMargin}">
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE735;" />
+                </Button>
                 <Button x:Uid="ReloadButton" Command="{x:Bind ViewModel.ReloadCommand}" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Padding="{StaticResource XXSmallLeftTopRightBottomMargin}">
                     <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE72C;" />
                 </Button>
@@ -27,26 +37,31 @@
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="1">
-            <WebView2
-                x:Name="WebView"
-                Source="{x:Bind ViewModel.SelectedItem.Url, Mode=OneWay}" />
+        <Grid Grid.Row="1" x:Name="content">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-            <StackPanel
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}">
-                <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
-                <TextBlock x:Uid="WebView_Loading" />
-            </StackPanel>
+            <ProgressBar Grid.Row="0" 
+                         Visibility="{x:Bind ViewModel.IsLoading, Mode=OneWay}" 
+                         IsIndeterminate="True" 
+                         ShowPaused="False" 
+                         ShowError="False" />
 
-            <StackPanel
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Visibility="{x:Bind ViewModel.HasFailures, Mode=OneWay}">
-                <TextBlock x:Uid="WebView_FailedMessage" HorizontalAlignment="Center" TextWrapping="WrapWholeWords" />
-                <HyperlinkButton x:Uid="WebView_Reload" Command="{x:Bind ViewModel.ReloadCommand}" HorizontalAlignment="Center" />
-            </StackPanel>
+            <Grid Grid.Row="1">
+                <WebView2
+                    x:Name="WebView"
+                    Source="{x:Bind ViewModel.SelectedItem.Url, Mode=OneWay}" />
+
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Visibility="{x:Bind ViewModel.HasFailures, Mode=OneWay}">
+                    <TextBlock x:Uid="WebView_FailedMessage" HorizontalAlignment="Center" TextWrapping="WrapWholeWords" />
+                    <HyperlinkButton x:Uid="WebView_Reload" Command="{x:Bind ViewModel.ReloadCommand}" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Grid>
         </Grid>
         
     </Grid>

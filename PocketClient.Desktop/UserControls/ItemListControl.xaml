@@ -19,60 +19,58 @@
             <Grid Margin="6,12,12,12">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <TextBlock Text="{x:Bind Converter={StaticResource pocketItemTitleConverter}}"
+                <TextBlock Grid.Row="0" 
+                           Text="{x:Bind Converter={StaticResource pocketItemTitleConverter}}"
                            MaxLines="2"
                            Style="{StaticResource ListTitleStyle}" />
-                <TextBlock Grid.Row="1" 
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="{StaticResource XXSmallTopMargin}">
+                    <TextBlock Text="{x:Bind Domain}" Style="{StaticResource ListDetailsStyle}" />
+                    <TextBlock Style="{StaticResource ListDetailsStyle}">
+                        <Run Text="&#160;&#183;&#160;" />
+                    </TextBlock>
+                    <TextBlock Text="{x:Bind TimeToRead}" Style="{StaticResource ListDetailsStyle}" />
+                    <TextBlock Text=" min" Style="{StaticResource ListDetailsStyle}" />
+                </StackPanel>
+                <TextBlock Grid.Row="2" 
                            Text="{x:Bind Excerpt}"
-                           Style="{StaticResource ListSubTitleStyle}" 
+                           Style="{StaticResource ListDescriptionStyle}" 
+                           Margin="{StaticResource XXSmallTopMargin}"
                            MaxLines="3" />
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Orientation="Horizontal">
-                        <TextBlock TextAlignment="Left" Text="{x:Bind WordCount}" />
-                        <TextBlock TextAlignment="Left" Text=" words" />
-                    </StackPanel>
-                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" >
-                        <TextBlock TextAlignment="Right" Text="{x:Bind TimeToRead}" />
-                        <TextBlock TextAlignment="Left" Text=" mins" />
-                    </StackPanel>
-                </Grid>
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="NoSelectionContentTemplate">
             <Grid>
                 <TextBlock
-                        x:Uid="MyList_NoSelection"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        TextAlignment="Center"
-                        Style="{ThemeResource SubtitleTextBlockStyle}" />
+                    x:Uid="ItemListControl_NoSelection"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    TextAlignment="Center"
+                    Style="{ThemeResource SubtitleTextBlockStyle}" />
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="ListHeaderTemplate">
-            <Grid Height="40">
+            <Grid Height="60">
                 <TextBlock
-                        VerticalAlignment="Center"
-                        Style="{StaticResource ListTitleStyle}"
-                        Text="{Binding}" />
+                    Margin="6,10,0,0"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource PageTitleStyle}"
+                    Text="{Binding}" />
             </Grid>
         </DataTemplate>
         
         <DataTemplate x:Key="MinimalListHeaderTemplate">
-            <Grid Height="40">
+            <Grid Height="50">
                 <TextBlock
-                        Margin="96,0,0,0"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource ListTitleStyle}"
-                        Text="{Binding}" />
+                    Margin="12,5,0,0"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource MinimalListHeaderStyle}"
+                    Text="{Binding}" />
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
@@ -92,8 +90,8 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <controls:ListDetailsView
-            x:Uid="MyList"
             x:Name="ListDetailsViewControl"
+            ListHeader="{x:Bind ListHeader}"
             BackButtonBehavior="Manual"
             Background="Transparent"
             BorderBrush="Transparent"

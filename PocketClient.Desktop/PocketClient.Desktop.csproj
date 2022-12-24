@@ -28,6 +28,7 @@
   </ItemGroup>
 	
   <ItemGroup>
+    <None Remove="Styles\Theme.xaml" />
     <None Remove="UserControls\ItemListControl.xaml" />
   </ItemGroup>
 
@@ -39,10 +40,10 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.221116.1" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.221209.1" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
 	<PackageReference Include="PInvoke.User32" Version="0.7.124" />
-    <PackageReference Include="WinUIEx" Version="1.8.0" />
+    <PackageReference Include="WinUIEx" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,15 +55,16 @@
     <Content Update="Assets\WindowIcon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Update="Assets\book-banner.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
+	
   <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\book-banner.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <Page Update="UserControls\ItemListControl.xaml">
+    <Page Update="Styles\Theme.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

@@ -10,6 +10,19 @@
     Loaded="OnLoaded">
 
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <!--641 is the default CompactModeThresholdWidth in NavigationView -->
+                        <AdaptiveTrigger MinWindowWidth="641" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="NavigationViewContent.Margin" Value="0,0,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid x:Name="AppTitleBar"
               Canvas.ZIndex="1"
               Height="{Binding ElementName=NavigationViewControl, Path=CompactPaneLength}"
@@ -35,6 +48,12 @@
             ExpandedModeThresholdWidth="1280"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
             Header="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}">
+            <NavigationView.AutoSuggestBox>
+                <AutoSuggestBox x:Name="mainNavSearch"
+                                QueryIcon="Find"
+                                PlaceholderText="Search"
+                                AutomationProperties.Name="Search" />
+            </NavigationView.AutoSuggestBox>
             <NavigationView.MenuItems>
                 <!--
                 TODO: Update item titles by updating <x:Uid>.Content entries in Strings/en-us/Resources.resw.
@@ -57,7 +76,7 @@
                 </NavigationViewItem>
                 <NavigationViewItem Content="Favorites" helpers:NavigationHelper.NavigateTo="PocketClient.Desktop.ViewModels.FavoritesViewModel">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe734;"/>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe728;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem Content="Articles" helpers:NavigationHelper.NavigateTo="PocketClient.Desktop.ViewModels.ArticlesViewModel">
@@ -101,7 +120,7 @@
                     </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
                 </behaviors:NavigationViewHeaderBehavior>
             </i:Interaction.Behaviors>
-            <Grid Margin="{StaticResource NavigationViewPageContentMargin}">
+            <Grid x:Name="NavigationViewContent" Margin="0,32,0,0">
                 <Frame x:Name="NavigationFrame" />
             </Grid>
         </NavigationView>

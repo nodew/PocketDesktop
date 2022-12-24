@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddToListButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Add to My List</value>
+  </data>
+  <data name="AddToListButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Add to My List</value>
+  </data>
   <data name="AppDescription" xml:space="preserve">
     <value>GetPocket 的第三方应用</value>
   </data>
@@ -137,23 +143,20 @@
   &lt;/actions&gt;
 &lt;/toast&gt;</value>
   </data>
-  <data name="Archive_NoSelection.Text" xml:space="preserve">
-    <value>Select an item from the list.</value>
+  <data name="ArchiveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Archive</value>
   </data>
-  <data name="BrowserBackButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Browser back</value>
+  <data name="ArchiveButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Archive</value>
   </data>
-  <data name="BrowserBackButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Browser back</value>
+  <data name="FavoriteButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Favorite</value>
   </data>
-  <data name="BrowserForwardButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Browser forward</value>
+  <data name="FavoriteButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Favorite</value>
   </data>
-  <data name="BrowserForwardButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Browser forward</value>
-  </data>
-  <data name="MyList_NoSelection.Text" xml:space="preserve">
-    <value>Select an item from the list.</value>
+  <data name="ItemListControl_NoSelection.Text" xml:space="preserve">
+    <value>Select an item to read.</value>
   </data>
   <data name="OpenInBrowserButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>Open in browser</value>
@@ -207,7 +210,13 @@
     <value>Main</value>
   </data>
   <data name="Shell_MyList.Content" xml:space="preserve">
-    <value>MyList</value>
+    <value>My List</value>
+  </data>
+  <data name="UnfavoriteButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Unfavorite</value>
+  </data>
+  <data name="UnfavoriteButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Unfavorite</value>
   </data>
   <data name="WebView_FailedMessage.Text" xml:space="preserve">
     <value>Page failed to load. Check connection and reload.</value>

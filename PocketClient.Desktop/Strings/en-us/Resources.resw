@@ -126,14 +126,11 @@
   <data name="Shell_Main.Content" xml:space="preserve">
     <value>Main</value>
   </data>
-  <data name="MyList_NoSelection.Text" xml:space="preserve">
-    <value>Select an item from the list.</value>
+  <data name="ItemListControl_NoSelection.Text" xml:space="preserve">
+    <value>Select an item to read.</value>
   </data>
   <data name="Shell_MyList.Content" xml:space="preserve">
-    <value>MyList</value>
-  </data>
-  <data name="Archive_NoSelection.Text" xml:space="preserve">
-    <value>Select an item from the list.</value>
+    <value>My List</value>
   </data>
   <data name="Shell_Archive.Content" xml:space="preserve">
     <value>Archive</value>
@@ -143,18 +140,6 @@
   </data>
   <data name="WebView_FailedMessage.Text" xml:space="preserve">
     <value>Page failed to load. Check connection and reload.</value>
-  </data>
-  <data name="BrowserBackButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Browser back</value>
-  </data>
-  <data name="BrowserBackButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Browser back</value>
-  </data>
-  <data name="BrowserForwardButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Browser forward</value>
-  </data>
-  <data name="BrowserForwardButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Browser forward</value>
   </data>
   <data name="WebView_Reload.Content" xml:space="preserve">
     <value>Reload</value>
@@ -217,5 +202,29 @@
     &lt;action content="Settings" arguments="action=Settings"/&gt;
   &lt;/actions&gt;
 &lt;/toast&gt;</value>
+  </data>
+  <data name="AddToListButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Add to My List</value>
+  </data>
+  <data name="AddToListButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Add to My List</value>
+  </data>
+  <data name="ArchiveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="ArchiveButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="FavoriteButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Favorite</value>
+  </data>
+  <data name="FavoriteButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Favorite</value>
+  </data>
+  <data name="UnfavoriteButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Unfavorite</value>
+  </data>
+  <data name="UnfavoriteButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Unfavorite</value>
   </data>
 </root>
