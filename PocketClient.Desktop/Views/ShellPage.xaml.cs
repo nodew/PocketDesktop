@@ -84,4 +84,9 @@ public sealed partial class ShellPage : Page
 
         args.Handled = result;
     }
+
+    private void OnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    {
+        ViewModel.OnSearchCommand.Execute(args.QueryText);
+    }
 }

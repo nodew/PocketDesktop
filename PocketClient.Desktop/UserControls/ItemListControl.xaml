@@ -13,7 +13,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <converters:PocketItemTitleConverter x:Key="pocketItemTitleConverter" />
+        <converters:PocketItemTitleConverter x:Key="PocketItemTitleConverter" />
         
         <DataTemplate x:Key="ItemTemplate" x:DataType="models:PocketItem">
             <Grid Margin="6,12,12,12">
@@ -24,7 +24,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" 
-                           Text="{x:Bind Converter={StaticResource pocketItemTitleConverter}}"
+                           Text="{x:Bind Converter={StaticResource PocketItemTitleConverter}}"
                            MaxLines="2"
                            Style="{StaticResource ListTitleStyle}" />
                 <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="{StaticResource XXSmallTopMargin}">

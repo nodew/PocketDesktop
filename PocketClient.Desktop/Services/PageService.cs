@@ -22,6 +22,7 @@ public class PageService : IPageService
         Configure<VideosViewModel, VideosPage>();
         Configure<AllTagsViewModel, AllTagsPage>();
         Configure<SettingsViewModel, SettingsPage>();
+        Configure<SearchResultsViewModel, SearchResultsPage>();
     }
 
     public Type GetPageType(string key)

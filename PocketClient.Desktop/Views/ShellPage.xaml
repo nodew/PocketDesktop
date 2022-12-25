@@ -52,6 +52,8 @@
                 <AutoSuggestBox x:Name="mainNavSearch"
                                 QueryIcon="Find"
                                 PlaceholderText="Search"
+                                Text="{x:Bind ViewModel.SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                QuerySubmitted="OnQuerySubmitted"
                                 AutomationProperties.Name="Search" />
             </NavigationView.AutoSuggestBox>
             <NavigationView.MenuItems>

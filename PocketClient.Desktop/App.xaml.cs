@@ -112,6 +112,8 @@ public partial class App : Application
             services.AddTransient<VideosPage>();
             services.AddTransient<AllTagsViewModel>();
             services.AddTransient<AllTagsPage>();
+            services.AddTransient<SearchResultsViewModel>();
+            services.AddTransient<SearchResultsPage>();
             services.AddTransient<ShellViewModel>();
             services.AddTransient<ShellPage>();
 

@@ -1,11 +1,11 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
 
-namespace PocketClient.Desktop.Helpers;
+namespace PocketClient.Desktop.Converters;
 
-public class EnumToBooleanConverter : IValueConverter
+public class ElementThemeToBooleanConverter : IValueConverter
 {
-    public EnumToBooleanConverter()
+    public ElementThemeToBooleanConverter()
     {
     }
 

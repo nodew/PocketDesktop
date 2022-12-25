@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Navigation;
 
 using PocketClient.Desktop.Contracts.Services;
@@ -11,6 +11,9 @@ public class ShellViewModel : ObservableRecipient
 {
     private bool _isBackEnabled;
     private object? _selected;
+    private string _searchText;
+
+    public IRelayCommand OnSearchCommand;
 
     public INavigationService NavigationService
     {
@@ -34,11 +37,20 @@ public class ShellViewModel : ObservableRecipient
         set => SetProperty(ref _selected, value);
     }
 
+    public string SearchText
+    {
+        get => _searchText;
+        set => SetProperty(ref _searchText, value);
+    }
+
     public ShellViewModel(INavigationService navigationService, INavigationViewService navigationViewService)
     {
         NavigationService = navigationService;
         NavigationService.Navigated += OnNavigated;
         NavigationViewService = navigationViewService;
+
+        _searchText = string.Empty;
+        OnSearchCommand = new RelayCommand(OnSearch, CanExecuteOnSearch);
     }
 
     private void OnNavigated(object sender, NavigationEventArgs e)
@@ -56,5 +68,16 @@ public class ShellViewModel : ObservableRecipient
         {
             Selected = selectedItem;
         }
+    }
+
+    private bool CanExecuteOnSearch()
+    {
+        return !string.IsNullOrEmpty(SearchText);
+    }
+
+    private void OnSearch()
+    {
+        NavigationService.NavigateTo("PocketClient.Desktop.ViewModels.SearchResultsViewModel", SearchText);
+        SearchText = string.Empty;
     }
 }
