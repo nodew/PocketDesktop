@@ -48,7 +48,6 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
     public async void OnNavigatedTo(object parameter)
     {
         await NavigatedTo(parameter);
-        await RefreshList();
     }
 
     public void OnNavigatedFrom()
@@ -81,10 +80,10 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
 
     protected async virtual Task NavigatedTo(object parameter)
     {
-        await Task.CompletedTask;
+        await RefreshList();
     }
 
-    private async Task RefreshList()
+    public async Task RefreshList()
     {
         var filter = BuildFilter();
         var items = await App.GetService<IPocketDataService>().GetItemsAsync(filter);

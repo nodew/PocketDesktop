@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Options;
-using Microsoft.VisualBasic;
 using PocketClient.Desktop.Contracts.Services;
 using PocketClient.Desktop.Models;
 using PocketClient.HttpSdk;

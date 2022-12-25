@@ -227,4 +227,25 @@
   <data name="UnfavoriteButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Unfavorite</value>
   </data>
+  <data name="AddToListButton.Label" xml:space="preserve">
+    <value>Add to My List</value>
+  </data>
+  <data name="ArchiveButton.Label" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="FavoriteButton.Label" xml:space="preserve">
+    <value>Favorite</value>
+  </data>
+  <data name="OpenInBrowserButton.Label" xml:space="preserve">
+    <value>Open in browser</value>
+  </data>
+  <data name="ReloadButton.Label" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="SearchResultsPageTitle" xml:space="preserve">
+    <value>"{0}" - {1} search results</value>
+  </data>
+  <data name="UnfavoriteButton.Label" xml:space="preserve">
+    <value>Unfavorite</value>
+  </data>
 </root>

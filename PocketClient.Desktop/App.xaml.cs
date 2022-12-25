@@ -2,8 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.Windows.AppLifecycle;
 using PocketClient.Desktop.Activation;
 using PocketClient.Desktop.Contracts.Services;
 using PocketClient.Core.Contracts.Services;

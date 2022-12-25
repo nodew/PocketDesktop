@@ -5,8 +5,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:behaviors="using:PocketClient.Desktop.Behaviors"
+    xmlns:ctconverters="using:CommunityToolkit.WinUI.UI.Converters"
+    xmlns:converters="using:PocketClient.Desktop.Converters"
     behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:BoolNegationToVisibilityConverter x:Key="BoolNegationToVisibilityConverter" />
+    </Page.Resources>
 
     <Grid x:Name="ContentArea">
         <Grid.RowDefinitions>
@@ -15,26 +21,48 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" x:Name="commands">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Uid="ArchiveButton" Command="{x:Bind ViewModel.ReloadCommand}" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Padding="{StaticResource XXSmallLeftTopRightBottomMargin}">
-                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8B7;" />
-                </Button>
-                <Button x:Uid="FavoriteButton" Command="{x:Bind ViewModel.ReloadCommand}" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Padding="{StaticResource XXSmallLeftTopRightBottomMargin}">
-                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE734;" />
-                </Button>
-                <Button x:Uid="AddToListButton" Command="{x:Bind ViewModel.ReloadCommand}" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Padding="{StaticResource XXSmallLeftTopRightBottomMargin}">
-                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xECC8;" />
-                </Button>
-                <Button x:Uid="UnfavoriteButton" Command="{x:Bind ViewModel.ReloadCommand}" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Padding="{StaticResource XXSmallLeftTopRightBottomMargin}">
-                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE735;" />
-                </Button>
-                <Button x:Uid="ReloadButton" Command="{x:Bind ViewModel.ReloadCommand}" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Padding="{StaticResource XXSmallLeftTopRightBottomMargin}">
-                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE72C;" />
-                </Button>
-                <Button x:Uid="OpenInBrowserButton" Command="{x:Bind ViewModel.OpenInBrowserCommand}" Margin="{StaticResource XSmallLeftTopRightBottomMargin}" Padding="{StaticResource XXSmallLeftTopRightBottomMargin}">
-                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE774;" />
-                </Button>
-            </StackPanel>
+            <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" IsDynamicOverflowEnabled="True">
+                <AppBarButton x:Uid="ArchiveButton"
+                              Visibility="{x:Bind ViewModel.SelectedItem.IsArchived, Mode=OneWay, Converter={StaticResource BoolNegationToVisibilityConverter}}"
+                              Command="{x:Bind ViewModel.ArchiveCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8B7;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton x:Uid="FavoriteButton" 
+                              Visibility="{x:Bind ViewModel.SelectedItem.IsFavorited, Mode=OneWay, Converter={StaticResource BoolNegationToVisibilityConverter}}"
+                              Command="{x:Bind ViewModel.FavoriteCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE734;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton x:Uid="AddToListButton" 
+                              Visibility="{x:Bind ViewModel.SelectedItem.IsArchived,Mode=OneWay}"
+                              Command="{x:Bind ViewModel.AddToListCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xECC8;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton x:Uid="UnfavoriteButton" 
+                              Visibility="{x:Bind ViewModel.SelectedItem.IsFavorited, Mode=OneWay}"
+                              Command="{x:Bind ViewModel.UnfavoriteCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE735;" Foreground="#fcb643" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton x:Uid="ReloadButton" 
+                              Command="{x:Bind ViewModel.ReloadCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE72C;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton x:Uid="OpenInBrowserButton" 
+                              Command="{x:Bind ViewModel.OpenInBrowserCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE774;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </CommandBar>
         </Grid>
 
         <Grid Grid.Row="1" x:Name="content">

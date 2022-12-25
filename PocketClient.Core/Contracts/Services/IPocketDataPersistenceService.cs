@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PocketClient.Core.Contracts.Specifications;
+﻿using PocketClient.Core.Contracts.Specifications;
 using PocketClient.Core.Models;
 
 namespace PocketClient.Core.Contracts.Services;

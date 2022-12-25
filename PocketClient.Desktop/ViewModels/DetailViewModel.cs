@@ -2,11 +2,12 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Web.WebView2.Core;
+using PocketClient.Core.Contracts.Services;
 using PocketClient.Core.Models;
 using PocketClient.Desktop.Contracts.Services;
-using PocketClient.Desktop.Contracts.ViewModels;
+using PocketClient.Desktop.Models;
 
 namespace PocketClient.Desktop.ViewModels;
 
@@ -19,6 +20,7 @@ public class DetailViewModel : ObservableRecipient
     private bool _isLoading = true;
     private bool _hasFailures;
     private PocketItem? _pocketItem;
+    private bool _isUpdating;
 
     public IWebViewService WebViewService
     {
@@ -43,59 +45,52 @@ public class DetailViewModel : ObservableRecipient
         set => SetProperty(ref _hasFailures, value);
     }
 
-    public ICommand BrowserBackCommand
+    public bool IsUpdating
     {
-        get;
+        get => _isUpdating;
+        set => SetProperty(ref _isUpdating, value);
     }
 
-    public ICommand BrowserForwardCommand
-    {
-        get;
-    }
+    public IAsyncRelayCommand ArchiveCommand { get; }
 
-    public ICommand ReloadCommand
-    {
-        get;
-    }
+    public IAsyncRelayCommand AddToListCommand { get; }
 
-    public ICommand RetryCommand
-    {
-        get;
-    }
+    public IAsyncRelayCommand FavoriteCommand { get; }
 
-    public ICommand OpenInBrowserCommand
-    {
-        get;
-    }
+    public IAsyncRelayCommand UnfavoriteCommand { get; }
+
+    public ICommand ReloadCommand { get; }
+
+    public IAsyncRelayCommand OpenInBrowserCommand { get; }
 
     public DetailViewModel(IWebViewService webViewService)
     {
         WebViewService = webViewService;
         webViewService.NavigationCompleted += OnNavigationCompleted;
 
-        BrowserBackCommand = new RelayCommand(() => WebViewService.GoBack(), () => WebViewService.CanGoBack);
-        BrowserForwardCommand = new RelayCommand(() => WebViewService.GoForward(), () => WebViewService.CanGoForward);
         ReloadCommand = new RelayCommand(OnRetry);
-        RetryCommand = new RelayCommand(OnRetry);
-        OpenInBrowserCommand = new RelayCommand(async () => await Windows.System.Launcher.LaunchUriAsync(WebViewService.Source), () => WebViewService.Source != null);
+        OpenInBrowserCommand = new AsyncRelayCommand(OpenInBrowserAsync, () => WebViewService.Source != null);
+        ArchiveCommand = new AsyncRelayCommand(ArchiveItemAsync, CanUpdateItem);
+        AddToListCommand = new AsyncRelayCommand(AddItemToListAsync, CanUpdateItem);
+        FavoriteCommand = new AsyncRelayCommand(FavoriteItemAsync, CanUpdateItem);
+        UnfavoriteCommand = new AsyncRelayCommand(UnfavoriteItemAsync, CanUpdateItem);
     }
 
-    //public void OnNavigatedTo(object parameter)
-    //{
-    //    WebViewService.NavigationCompleted += OnNavigationCompleted;
-    //}
+    public void OnNavigatedTo(object parameter)
+    {
+        WebViewService.NavigationCompleted += OnNavigationCompleted;
+    }
 
-    //public void OnNavigatedFrom()
-    //{
-    //    WebViewService.UnregisterEvents();
-    //    WebViewService.NavigationCompleted -= OnNavigationCompleted;
-    //}
+    public void OnNavigatedFrom()
+    {
+        WebViewService.UnregisterEvents();
+        WebViewService.NavigationCompleted -= OnNavigationCompleted;
+    }
 
     private void OnNavigationCompleted(object? sender, CoreWebView2WebErrorStatus webErrorStatus)
     {
         IsLoading = false;
-        OnPropertyChanged(nameof(BrowserBackCommand));
-        OnPropertyChanged(nameof(BrowserForwardCommand));
+
         if (webErrorStatus != default)
         {
             HasFailures = true;
@@ -107,5 +102,87 @@ public class DetailViewModel : ObservableRecipient
         HasFailures = false;
         IsLoading = true;
         WebViewService?.Reload();
+    }
+
+    private async Task OpenInBrowserAsync()
+    {
+        await Windows.System.Launcher.LaunchUriAsync(WebViewService.Source);
+    }
+
+    private async Task ArchiveItemAsync()
+    {
+        IsUpdating = true;
+        try
+        {
+            await App.GetService<IPocketDataService>().ArchiveItemAsync(SelectedItem!);
+            SelectedItem!.IsArchived = true;
+            OnPropertyChanged(nameof(SelectedItem));
+            WeakReferenceMessenger.Default.Send(new ItemArchiveStatusChangedMessage(SelectedItem));
+        } 
+        catch (Exception ex)
+        {
+
+        }
+
+        IsUpdating = false;
+    }
+
+    private async Task AddItemToListAsync()
+    {
+        IsUpdating = true;
+        try
+        {
+            await App.GetService<IPocketDataService>().ReAddItemAsync(SelectedItem!);
+            SelectedItem!.IsArchived = false;
+            OnPropertyChanged(nameof(SelectedItem));
+            WeakReferenceMessenger.Default.Send(new ItemArchiveStatusChangedMessage(SelectedItem));
+        }
+        catch (Exception ex)
+        {
+
+        }
+
+        IsUpdating = false;
+    }
+
+    private async Task FavoriteItemAsync()
+    {
+        IsUpdating = true;
+        try
+        {
+            await App.GetService<IPocketDataService>().FavoriteItemAsync(SelectedItem!);
+            SelectedItem!.IsFavorited = true;
+            OnPropertyChanged(nameof(SelectedItem));
+            WeakReferenceMessenger.Default.Send(new ItemFavoriteStatusChangedMessage(SelectedItem));
+        }
+        catch (Exception ex)
+        {
+
+        }
+
+        IsUpdating = false;
+    }
+
+    private async Task UnfavoriteItemAsync()
+    {
+        IsUpdating = true;
+        try
+        {
+            await App.GetService<IPocketDataService>().UnfavoriteItemAsync(SelectedItem!);
+            SelectedItem!.IsFavorited = false;
+            OnPropertyChanged(nameof(SelectedItem));
+            WeakReferenceMessenger.Default.Send(new ItemFavoriteStatusChangedMessage(SelectedItem));
+        }
+        catch (Exception ex)
+        {
+
+        }
+
+        IsUpdating = false;
+    }
+
+    private bool CanUpdateItem()
+    {
+        return SelectedItem != null && IsUpdating != true;
     }
 }

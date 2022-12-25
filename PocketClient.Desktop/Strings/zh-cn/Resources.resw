@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddToListButton.Label" xml:space="preserve">
+    <value>添加到我的列表</value>
+  </data>
   <data name="AddToListButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>Add to My List</value>
   </data>
@@ -143,11 +146,17 @@
   &lt;/actions&gt;
 &lt;/toast&gt;</value>
   </data>
+  <data name="ArchiveButton.Label" xml:space="preserve">
+    <value>归档</value>
+  </data>
   <data name="ArchiveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>Archive</value>
   </data>
   <data name="ArchiveButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Archive</value>
+  </data>
+  <data name="FavoriteButton.Label" xml:space="preserve">
+    <value>收藏</value>
   </data>
   <data name="FavoriteButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>Favorite</value>
@@ -158,17 +167,26 @@
   <data name="ItemListControl_NoSelection.Text" xml:space="preserve">
     <value>Select an item to read.</value>
   </data>
+  <data name="OpenInBrowserButton.Label" xml:space="preserve">
+    <value>浏览器打开</value>
+  </data>
   <data name="OpenInBrowserButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>Open in browser</value>
   </data>
   <data name="OpenInBrowserButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Open in browser</value>
   </data>
+  <data name="ReloadButton.Label" xml:space="preserve">
+    <value>刷新</value>
+  </data>
   <data name="ReloadButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>Reload</value>
   </data>
   <data name="ReloadButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Reload</value>
+  </data>
+  <data name="SearchResultsPageTitle" xml:space="preserve">
+    <value>“{0}”- {1} 个结果</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
     <value>Privacy Statement</value>
@@ -211,6 +229,9 @@
   </data>
   <data name="Shell_MyList.Content" xml:space="preserve">
     <value>My List</value>
+  </data>
+  <data name="UnfavoriteButton.Label" xml:space="preserve">
+    <value>移除收藏</value>
   </data>
   <data name="UnfavoriteButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>Unfavorite</value>

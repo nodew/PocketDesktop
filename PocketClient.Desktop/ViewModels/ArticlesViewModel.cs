@@ -1,7 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using PocketClient.Core.Models;
+﻿using PocketClient.Core.Models;
 using PocketClient.Core.Specifications;
-using PocketClient.Desktop.Contracts.ViewModels;
 
 namespace PocketClient.Desktop.ViewModels;
 

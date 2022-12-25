@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PocketClient.Core.Data;
-
-namespace PocketClient.Core.Models;
+﻿namespace PocketClient.Core.Models;
 
 public class Tag : Entity<Guid>
 {

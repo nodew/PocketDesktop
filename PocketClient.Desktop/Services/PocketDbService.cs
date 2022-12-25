@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using PocketClient.Core.Contracts.Services;
 using PocketClient.Core.Data;
 using PocketClient.Core.Helpers;
-using PocketClient.Desktop.Services;
 using PocketClient.Desktop.Contracts.Services;
 using PocketClient.Desktop.Models;
 using PocketClient.HttpSdk;

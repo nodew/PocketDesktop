@@ -1,7 +1,6 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using PocketClient.Desktop.Contracts.Services;
-using PocketClient.Desktop.ViewModels;
 
 namespace PocketClient.Desktop.Views;
 
