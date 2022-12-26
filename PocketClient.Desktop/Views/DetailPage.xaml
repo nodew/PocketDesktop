@@ -29,13 +29,6 @@
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8B7;" />
                     </AppBarButton.Icon>
                 </AppBarButton>
-                <AppBarButton x:Uid="FavoriteButton" 
-                              Visibility="{x:Bind ViewModel.SelectedItem.IsFavorited, Mode=OneWay, Converter={StaticResource BoolNegationToVisibilityConverter}}"
-                              Command="{x:Bind ViewModel.FavoriteCommand}">
-                    <AppBarButton.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE734;" />
-                    </AppBarButton.Icon>
-                </AppBarButton>
                 <AppBarButton x:Uid="AddToListButton" 
                               Visibility="{x:Bind ViewModel.SelectedItem.IsArchived,Mode=OneWay}"
                               Command="{x:Bind ViewModel.AddToListCommand}">
@@ -43,11 +36,24 @@
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xECC8;" />
                     </AppBarButton.Icon>
                 </AppBarButton>
+                <AppBarButton x:Uid="FavoriteButton" 
+                              Visibility="{x:Bind ViewModel.SelectedItem.IsFavorited, Mode=OneWay, Converter={StaticResource BoolNegationToVisibilityConverter}}"
+                              Command="{x:Bind ViewModel.FavoriteCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE734;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
                 <AppBarButton x:Uid="UnfavoriteButton" 
                               Visibility="{x:Bind ViewModel.SelectedItem.IsFavorited, Mode=OneWay}"
                               Command="{x:Bind ViewModel.UnfavoriteCommand}">
                     <AppBarButton.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE735;" Foreground="#fcb643" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton x:Uid="DeleteButton"
+                              Command="{x:Bind ViewModel.RemoveItemCommand}">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe74d;" />
                     </AppBarButton.Icon>
                 </AppBarButton>
                 <AppBarButton x:Uid="ReloadButton" 

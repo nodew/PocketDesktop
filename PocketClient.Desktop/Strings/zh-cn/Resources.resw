@@ -155,6 +155,15 @@
   <data name="ArchiveButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Archive</value>
   </data>
+  <data name="DeleteButton.Label" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="DeleteButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="DeleteButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>移除</value>
+  </data>
   <data name="FavoriteButton.Label" xml:space="preserve">
     <value>收藏</value>
   </data>

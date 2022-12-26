@@ -37,56 +37,78 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
             .Include(item => item.Tags)
             .Include(item => item.Authors)
             .Where(item => item.Id == id)
+            .AsNoTracking()
             .FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task AddItemAsync(PocketItem item, CancellationToken cancellationToken = default)
+    public async Task AddOrUpdateItemAsync(PocketItem item, CancellationToken cancellationToken = default)
     {
-        var tags = item.Tags.ToList();
-        var authors = item.Authors.ToList();
+        var _tags = new List<Tag>();
+        var _authors = new List<Author>();
 
-        item.Tags.Clear();
-        item.Authors.Clear();
+        var _item = await GetItemByIdWithTrackingAsync(item.Id, cancellationToken);
 
-        foreach(var tag in tags)
+        foreach (var tag in item.Tags)
         {
-            var _tag = _dbContext.Tags.Where(t => t.Name == tag.Name).FirstOrDefault();
+            var _tag = await _dbContext.Tags.Where(t => t.Name == tag.Name).AsTracking().FirstOrDefaultAsync(cancellationToken);
 
             if (_tag == null)
             {
-                item.Tags.Add(new Tag { Id = Guid.NewGuid(), Name = tag.Name, IsPinned = false });
+                _tags.Add(new Tag { Id = Guid.NewGuid(), Name = tag.Name, IsPinned = false });
             }
             else
             {
-                _dbContext.Attach(_tag);
-                item.Tags.Add(_tag);
+                _tags.Add(_tag);
             }
         }
 
-        foreach (var author in authors)
+        foreach (var author in item.Authors)
         {
-            var _author = _dbContext.Authors.Where(t => t.Id == author.Id).FirstOrDefault();
+            var _author = await _dbContext.Authors.Where(t => t.Id == author.Id).AsTracking().FirstOrDefaultAsync(cancellationToken);
 
             if (_author == null)
             {
-                item.Authors.Add(author);
+                _authors.Add(author);
             }
             else
             {
-                _dbContext.Attach(_author);
-                item.Authors.Add(_author);
+                _authors.Add(_author);
             }
         }
 
-        var _item = _dbContext.Items.Where(t => t.Id == item.Id).FirstOrDefault();
-
         if (_item == null)
         {
+            item.Tags.Clear();
+            item.Tags.AddRange(_tags);
+
+            item.Authors.Clear();
+            item.Authors.AddRange(_authors);
+
             _dbContext.Items.Add(item);
         }
         else
         {
-            _dbContext.Items.Update(item);
+            _item.Title = item.Title;
+            _item.Url = item.Url;
+            _item.Excerpt = item.Excerpt;
+            _item.IsFavorited = item.IsFavorited;
+            _item.IsArchived = item.IsArchived;
+            _item.TimeAdded = item.TimeAdded;
+            _item.TimeUpdated = item.TimeUpdated;
+            _item.TimeFavorited = item.TimeFavorited;
+            _item.TimeRead = item.TimeRead;
+            _item.HasImage = item.HasImage;
+            _item.TopImageUrl = item.TopImageUrl;
+            _item.WordCount = item.WordCount;
+            _item.TimeToRead = item.TimeToRead;
+            _item.Lang = item.Lang;
+            _item.Domain = item.Domain;
+
+            _item.Authors.Clear();
+            _item.Authors.AddRange(_authors);
+
+            _item.Tags.Clear();
+            _item.Tags.AddRange(_tags);
         }
 
         await _dbContext.SaveChangesAsync(cancellationToken);
@@ -94,17 +116,45 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
 
     public async Task UpdateItemAsync(PocketItem item, CancellationToken cancellationToken = default)
     {
-        _dbContext.Items.Update(item);
+        var _item = await GetItemByIdWithTrackingAsync(item.Id, cancellationToken);
+
+        if (_item == null)
+        {
+            throw new Exception("Item is not found");
+        }
+
+        _item.Title = item.Title;
+        _item.Url = item.Url;
+        _item.Excerpt = item.Excerpt;
+        _item.IsFavorited = item.IsFavorited;
+        _item.IsArchived = item.IsArchived;
+        _item.TimeAdded = item.TimeAdded;
+        _item.TimeUpdated = item.TimeUpdated;
+        _item.TimeFavorited = item.TimeFavorited;
+        _item.TimeRead = item.TimeRead;
+        _item.HasImage = item.HasImage;
+        _item.TopImageUrl = item.TopImageUrl;
+        _item.WordCount = item.WordCount;
+        _item.TimeToRead = item.TimeToRead;
+        _item.Lang = item.Lang;
+        _item.Domain = item.Domain;
+
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateItemAsync(PocketItem item, List<Tag> tags, CancellationToken cancellationToken = default)
+    public async Task UpdateItemTagsAsync(long itemId, List<Tag> tags, CancellationToken cancellationToken = default)
     {
         var _tags = new List<Tag>();
 
-        foreach (var tag in item.Tags)
+        var _item = await GetItemByIdWithTrackingAsync(itemId, cancellationToken);
+        if (_item == null)
         {
-            var _tag = _dbContext.Tags.Where(t => t.Name == tag.Name).FirstOrDefault();
+            throw new Exception("Item is not found");
+        }
+
+        foreach (var tag in tags)
+        {
+            var _tag = _dbContext.Tags.Where(t => t.Name == tag.Name).AsTracking().FirstOrDefault();
 
             if (_tag == null)
             {
@@ -112,14 +162,13 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
             }
             else
             {
-                _dbContext.Attach(_tag);
                 _tags.Add(_tag);
             }
         }
 
-        item.Tags.Clear();
-        item.Tags.AddRange(tags);
-        _dbContext.Items.Update(item);
+        _item.Tags.Clear();
+        _item.Tags.AddRange(tags);
+
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
@@ -211,5 +260,15 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
         }
 
         await _dbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    private async Task<PocketItem?> GetItemByIdWithTrackingAsync(long id, CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Items
+            .Include(item => item.Tags)
+            .Include(item => item.Authors)
+            .Where(item => item.Id == id)
+            .AsTracking()
+            .FirstOrDefaultAsync(cancellationToken);
     }
 }

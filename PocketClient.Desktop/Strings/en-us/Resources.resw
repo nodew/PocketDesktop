@@ -248,4 +248,13 @@
   <data name="UnfavoriteButton.Label" xml:space="preserve">
     <value>Unfavorite</value>
   </data>
+  <data name="DeleteButton.Label" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="DeleteButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="DeleteButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Remove</value>
+  </data>
 </root>

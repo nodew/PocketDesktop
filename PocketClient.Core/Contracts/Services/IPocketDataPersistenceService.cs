@@ -10,11 +10,11 @@ public interface IPocketDataPersistenceService
 
     public Task<List<PocketItem>> GetItemsAsync(IBaseSpecification<PocketItem> specification, CancellationToken cancellationToken = default);
 
-    public Task AddItemAsync(PocketItem item, CancellationToken cancellationToken = default);
+    public Task AddOrUpdateItemAsync(PocketItem item, CancellationToken cancellationToken = default);
 
     public Task UpdateItemAsync(PocketItem item, CancellationToken cancellationToken = default);
 
-    public Task UpdateItemAsync(PocketItem item, List<Tag> tags, CancellationToken cancellationToken = default);
+    public Task UpdateItemTagsAsync(long itemId, List<Tag> tags, CancellationToken cancellationToken = default);
 
     public Task RemoveItemAsync(long itemId, CancellationToken cancellationToken = default);
 

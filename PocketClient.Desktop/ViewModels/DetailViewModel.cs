@@ -59,6 +59,8 @@ public class DetailViewModel : ObservableRecipient
 
     public IAsyncRelayCommand UnfavoriteCommand { get; }
 
+    public IAsyncRelayCommand RemoveItemCommand { get; }
+
     public ICommand ReloadCommand { get; }
 
     public IAsyncRelayCommand OpenInBrowserCommand { get; }
@@ -74,12 +76,13 @@ public class DetailViewModel : ObservableRecipient
         AddToListCommand = new AsyncRelayCommand(AddItemToListAsync, CanUpdateItem);
         FavoriteCommand = new AsyncRelayCommand(FavoriteItemAsync, CanUpdateItem);
         UnfavoriteCommand = new AsyncRelayCommand(UnfavoriteItemAsync, CanUpdateItem);
+        RemoveItemCommand = new AsyncRelayCommand(RemoveItemAsync, CanUpdateItem);
     }
 
     public void OnNavigatedTo(object parameter)
     {
         WebViewService.NavigationCompleted += OnNavigationCompleted;
-    }
+    } 
 
     public void OnNavigatedFrom()
     {
@@ -157,7 +160,7 @@ public class DetailViewModel : ObservableRecipient
         }
         catch (Exception ex)
         {
-
+            Console.WriteLine(ex);
         }
 
         IsUpdating = false;
@@ -175,7 +178,23 @@ public class DetailViewModel : ObservableRecipient
         }
         catch (Exception ex)
         {
+            Console.WriteLine(ex);
+        }
 
+        IsUpdating = false;
+    }
+
+    private async Task RemoveItemAsync()
+    {
+        IsUpdating = true;
+        try
+        {
+            await App.GetService<IPocketDataService>().RemoveItemAsync(SelectedItem!);
+            WeakReferenceMessenger.Default.Send(new ItemRemovedMessage(SelectedItem!));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
         }
 
         IsUpdating = false;

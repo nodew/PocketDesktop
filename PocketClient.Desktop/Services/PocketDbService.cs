@@ -120,7 +120,7 @@ public class PocketDbService : IPocketDbService
                     else
                     {
                         var normalizedItem = PocketItemHelper.NormalizeRawPocketItem(item);
-                        await App.GetService<IPocketDataPersistenceService>().AddItemAsync(normalizedItem);
+                        await App.GetService<IPocketDataPersistenceService>().AddOrUpdateItemAsync(normalizedItem);
                     }
                 }
             } while (hasMoreItems);

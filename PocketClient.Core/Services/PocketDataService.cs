@@ -35,7 +35,7 @@ public class PocketDataService : IPocketDataService
     {
         var rawItem = await _pocketHttpClient.AddItemAsync(uri, title, cancellationToken);
         var normalizedItem = PocketItemHelper.NormalizeRawPocketItem(rawItem);
-        await _persistenceService.AddItemAsync(normalizedItem, cancellationToken);
+        await _persistenceService.AddOrUpdateItemAsync(normalizedItem, cancellationToken);
         return normalizedItem;
     }
 
@@ -102,7 +102,7 @@ public class PocketDataService : IPocketDataService
             await _pocketHttpClient.AddTagsAsync(item.Id, tagsToRemove.Select(item => item.Name).ToList(), cancellationToken);
         }
 
-        await _persistenceService.UpdateItemAsync(item, newTags, cancellationToken);
+        await _persistenceService.UpdateItemTagsAsync(item.Id, newTags, cancellationToken);
     }
 
     public async Task RemoveItemAsync(PocketItem item, CancellationToken cancellationToken = default)

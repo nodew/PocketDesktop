@@ -12,7 +12,7 @@ using PocketClient.Desktop.Models;
 
 namespace PocketClient.Desktop.ViewModels;
 
-public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage>, INavigationAware
+public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage>, IRecipient<ItemRemovedMessage>, INavigationAware
 {
     private PocketItemOrderOption _orderOption;
     private PocketItem? _selected;
@@ -24,6 +24,7 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
         RefreshListCommand = new AsyncRelayCommand(RefreshList);
 
         WeakReferenceMessenger.Default.Register<SyncedItemsMessage>(this);
+        WeakReferenceMessenger.Default.Register<ItemRemovedMessage>(this);
     }
 
     public ObservableCollection<PocketItem> Items = new();
@@ -100,6 +101,19 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
     {
         App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, async () =>
         {
+            await RefreshList();
+        });
+    }
+
+    public void Receive(ItemRemovedMessage message)
+    {
+        App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, async () =>
+        {
+            if (Selected != null && message.Item.Id == Selected.Id)
+            {
+                Selected = null;
+            }
+
             await RefreshList();
         });
     }

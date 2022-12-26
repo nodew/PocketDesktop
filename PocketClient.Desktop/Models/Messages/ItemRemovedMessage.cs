@@ -2,15 +2,16 @@
 
 namespace PocketClient.Desktop.Models;
 
-public class ItemArchiveStatusChangedMessage
+public class ItemRemovedMessage
 {
-    public ItemArchiveStatusChangedMessage(PocketItem item)
+    public ItemRemovedMessage(PocketItem item)
     {
         Item = item;
     }
 
     public PocketItem Item
     {
-        get; set;
+        get;
+        set;
     }
 }
