@@ -30,6 +30,7 @@
   <ItemGroup>
     <None Remove="Styles\Theme.xaml" />
     <None Remove="UserControls\ItemListControl.xaml" />
+    <None Remove="Views\TaggedItemsPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -64,6 +65,9 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Views\TaggedItemsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Styles\Theme.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

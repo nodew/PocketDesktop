@@ -6,14 +6,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:PocketClient.Desktop.Converters"
     xmlns:xaml="using:Microsoft.UI.Xaml"
+    xmlns:behaviors="using:PocketClient.Desktop.Behaviors"
+    behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:ElementThemeToBooleanConverter x:Key="ElementThemeToBooleanConverter" />
     </Page.Resources>
-    <Grid>
+    <Grid Margin="16,10">
         <StackPanel
             x:Name="ContentArea">
-            <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
+            <TextBlock Text="Settings" Style="{ThemeResource TitleTextBlockStyle}" />
+            <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}" />
             <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                 <TextBlock x:Uid="Settings_Theme" />
 

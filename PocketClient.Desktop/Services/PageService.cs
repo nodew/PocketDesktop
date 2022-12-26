@@ -23,6 +23,7 @@ public class PageService : IPageService
         Configure<AllTagsViewModel, AllTagsPage>();
         Configure<SettingsViewModel, SettingsPage>();
         Configure<SearchResultsViewModel, SearchResultsPage>();
+        Configure<TaggedItemsViewModel, TaggedItemsPage>();
     }
 
     public Type GetPageType(string key)
