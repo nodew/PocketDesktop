@@ -8,11 +8,6 @@ namespace PocketClient.Desktop.ViewModels;
 
 public class MyListViewModel : ItemsViewModel, IRecipient<ItemArchiveStatusChangedMessage>
 {
-    public MyListViewModel(): base()
-    {
-        WeakReferenceMessenger.Default.Register<ItemArchiveStatusChangedMessage>(this);
-    }
-
     protected override BaseSpecification<PocketItem> BuildFilter()
     {
         var filter = base.BuildFilter();
@@ -24,12 +19,15 @@ public class MyListViewModel : ItemsViewModel, IRecipient<ItemArchiveStatusChang
     {
         App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, async () =>
         {
-            if (Selected != null && message.Item.Id == Selected.Id)
+            if (message.Item.IsArchived)
             {
-                Selected = null;
+                if (Selected != null && message.Item.Id == Selected.Id)
+                {
+                    SelectNextItem(message.Item);
+                }
+                
+                RemoveItem(message.Item);
             }
-
-            await RefreshList();
         });
     }
 }

@@ -22,9 +22,6 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
         _orderOption = PocketItemOrderOption.Newest;
 
         RefreshListCommand = new AsyncRelayCommand(RefreshList);
-
-        WeakReferenceMessenger.Default.Register<SyncedItemsMessage>(this);
-        WeakReferenceMessenger.Default.Register<ItemRemovedMessage>(this);
     }
 
     public ObservableCollection<PocketItem> Items = new();
@@ -48,11 +45,13 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
 
     public async void OnNavigatedTo(object parameter)
     {
+        IsActive = true;
         await NavigatedTo(parameter);
     }
 
     public void OnNavigatedFrom()
     {
+        IsActive = false;
     }
 
     public void EnsureItemSelected()
@@ -111,10 +110,40 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
         {
             if (Selected != null && message.Item.Id == Selected.Id)
             {
-                Selected = null;
+                SelectNextItem(message.Item);
+                RemoveItem(message.Item);
             }
-
-            await RefreshList();
+            else
+            {
+                RemoveItem(message.Item);
+            }
+            
         });
+    }
+
+    public void RemoveItem(PocketItem item)
+    {
+        Items.Remove(item);
+    }
+
+    public void SelectNextItem(PocketItem item)
+    {
+        var idx = Items.ToList().FindIndex(e => e.Id == item.Id);
+
+        if (idx == -1)
+        {
+            return;
+        }
+
+        // if current item is not the last item, ant the next item is available, select next item
+        // if current item is the last item, and the previous item is available, select previous item
+        if (idx < Items.Count - 1)
+        {
+            Selected = Items[idx + 1];
+        } 
+        else if (idx - 1 >= 0) 
+        {
+            Selected = Items[idx - 1];
+        }
     }
 }

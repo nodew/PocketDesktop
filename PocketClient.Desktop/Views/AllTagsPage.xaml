@@ -14,15 +14,15 @@
     behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
     mc:Ignorable="d">
 
-    <Grid Margin="16,10">
+    <Grid Margin="{StaticResource CommonPageMargin}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" 
-                   Text="Tags" 
-                   Style="{ThemeResource TitleTextBlockStyle}" />
-        <Grid Grid.Row="1" 
+        <TextBlock Grid.Row="0"
+                   Text="Tags"
+                   Style="{ThemeResource PageTitleStyle}" />
+        <Grid Grid.Row="1"
                 MaxWidth="800"
                 VerticalAlignment="Stretch"
                 Margin="32, 32, 32, 32" >
@@ -46,7 +46,7 @@
                     </ItemsRepeater.Layout>
                     <ItemsRepeater.ItemTemplate>
                         <DataTemplate x:DataType="coreModels:Tag">
-                            <Button BorderThickness="1" 
+                            <Button BorderThickness="1"
                                             CornerRadius="6"
                                             MinWidth="80"
                                             Click="OnSelectItem"

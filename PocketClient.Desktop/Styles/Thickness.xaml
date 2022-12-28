@@ -32,5 +32,6 @@
     <Thickness x:Key="MenuBarContentMargin">36,24,36,0</Thickness>
 
     <Thickness x:Key="SettingsPageHyperlinkButtonMargin">-12,4,0,0</Thickness>
-    
+
+    <Thickness x:Key="CommonPageMargin">24,16,24,16</Thickness>
 </ResourceDictionary>

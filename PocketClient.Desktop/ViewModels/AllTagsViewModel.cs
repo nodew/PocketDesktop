@@ -5,7 +5,6 @@ using PocketClient.Core.Contracts.Services;
 using PocketClient.Core.Models;
 using PocketClient.Desktop.Contracts.Services;
 using PocketClient.Desktop.Contracts.ViewModels;
-using PocketClient.Desktop.Services;
 
 namespace PocketClient.Desktop.ViewModels;
 

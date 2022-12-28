@@ -18,7 +18,7 @@ public sealed partial class ItemListControl : UserControl
     public static readonly DependencyProperty ItemsSourceProperty =
            DependencyProperty.Register(
               nameof(ItemsSource),
-              typeof(IEnumerable<PocketItem>),
+              typeof(ICollection<PocketItem>),
               typeof(ItemListControl),
               new PropertyMetadata(null));
 
@@ -53,9 +53,9 @@ public sealed partial class ItemListControl : UserControl
         set => SetValue(ListHeaderProperty, value);
     }
 
-    public IEnumerable<PocketItem> ItemsSource
+    public ICollection<PocketItem> ItemsSource
     {
-        get => (IEnumerable<PocketItem>)GetValue(ItemsSourceProperty);
+        get => (ICollection<PocketItem>)GetValue(ItemsSourceProperty);
         set => SetValue(ItemsSourceProperty, value);
     }
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PocketClient.Core.Models;
+﻿using PocketClient.Core.Models;
 using PocketClient.Core.Specifications;
 
 namespace PocketClient.Desktop.ViewModels;

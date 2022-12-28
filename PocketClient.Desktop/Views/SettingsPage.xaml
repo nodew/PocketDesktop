@@ -12,10 +12,10 @@
     <Page.Resources>
         <converters:ElementThemeToBooleanConverter x:Key="ElementThemeToBooleanConverter" />
     </Page.Resources>
-    <Grid Margin="16,10">
+    <Grid Margin="{StaticResource CommonPageMargin}">
         <StackPanel
             x:Name="ContentArea">
-            <TextBlock Text="Settings" Style="{ThemeResource TitleTextBlockStyle}" />
+            <TextBlock Text="Settings" Style="{ThemeResource PageTitleStyle}" />
             <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}" />
             <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                 <TextBlock x:Uid="Settings_Theme" />

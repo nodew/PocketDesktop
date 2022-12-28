@@ -8,11 +8,6 @@ namespace PocketClient.Desktop.ViewModels;
 
 public class FavoritesViewModel : ItemsViewModel, IRecipient<ItemFavoriteStatusChangedMessage>
 {
-    public FavoritesViewModel(): base()
-    {
-        WeakReferenceMessenger.Default.Register<ItemFavoriteStatusChangedMessage>(this);
-    }
-
     protected override BaseSpecification<PocketItem> BuildFilter()
     {
         var filter = base.BuildFilter();
@@ -24,12 +19,17 @@ public class FavoritesViewModel : ItemsViewModel, IRecipient<ItemFavoriteStatusC
     {
         App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, async () =>
         {
-            if (Selected != null && message.Item.Id == Selected.Id)
-            {
-                Selected = null;
-            }
+            long? nextItemId = null;
 
-            await RefreshList();
+            if (message.Item.IsFavorited == false)
+            {
+                if (Selected != null && message.Item.Id == Selected.Id)
+                {
+                    SelectNextItem(message.Item);
+                }
+                
+                RemoveItem(message.Item);
+            }
         });
     }
 }
