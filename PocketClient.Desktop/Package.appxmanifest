@@ -13,7 +13,7 @@
   <Identity
     Name="51617AD91681C.PocketforWindows"
     Publisher="CN=49D5850C-0DAE-44D6-A062-D909A189CEDB"
-    Version="1.1.0.0" />
+    Version="1.1.1.0" />
 
   <Properties>
     <DisplayName>Pocket Desktop</DisplayName>

@@ -212,6 +212,9 @@
   <data name="PageTitle_Favorites.ListHeader" xml:space="preserve">
     <value>收藏</value>
   </data>
+  <data name="PageTitle_MyList.ListHeader" xml:space="preserve">
+    <value>我的列表</value>
+  </data>
   <data name="PageTitle_Settings.Text" xml:space="preserve">
     <value>设置</value>
   </data>

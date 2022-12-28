@@ -305,4 +305,7 @@
   <data name="Shell_Videos.Content" xml:space="preserve">
     <value>Videos</value>
   </data>
+  <data name="PageTitle_MyList.ListHeader" xml:space="preserve">
+    <value>My List</value>
+  </data>
 </root>
