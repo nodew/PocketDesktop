@@ -51,10 +51,9 @@
             <NavigationView.AutoSuggestBox>
                 <AutoSuggestBox x:Name="mainNavSearch"
                                 QueryIcon="Find"
-                                PlaceholderText="Search"
+                                x:Uid="Shell_SearchBox"
                                 Text="{x:Bind ViewModel.SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                QuerySubmitted="OnQuerySubmitted"
-                                AutomationProperties.Name="Search" />
+                                QuerySubmitted="OnQuerySubmitted" />
             </NavigationView.AutoSuggestBox>
             <NavigationView.MenuItems>
                 <!--
@@ -64,36 +63,36 @@
                 TODO: Update item icons by updating FontIcon.Glyph properties.
                 https://docs.microsoft.com/windows/apps/design/style/segoe-fluent-icons-font#icon-list
                 -->
-                <NavigationViewItem Content="My list" helpers:NavigationHelper.NavigateTo="PocketClient.Desktop.ViewModels.MyListViewModel">
+                <NavigationViewItem x:Uid="Shell_MyList" helpers:NavigationHelper.NavigateTo="PocketClient.Desktop.ViewModels.MyListViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xea37;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItemSeparator />
-                <NavigationViewItemHeader Content="Catagories" />
-                <NavigationViewItem Content="Archive" helpers:NavigationHelper.NavigateTo="PocketClient.Desktop.ViewModels.ArchiveViewModel">
+                <NavigationViewItemHeader x:Uid="Shell_Categories" />
+                <NavigationViewItem x:Uid="Shell_Archives" helpers:NavigationHelper.NavigateTo="PocketClient.Desktop.ViewModels.ArchiveViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe8b7;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="Favorites" helpers:NavigationHelper.NavigateTo="PocketClient.Desktop.ViewModels.FavoritesViewModel">
+                <NavigationViewItem x:Uid="Shell_Favorites" helpers:NavigationHelper.NavigateTo="PocketClient.Desktop.ViewModels.FavoritesViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe728;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="Articles" helpers:NavigationHelper.NavigateTo="PocketClient.Desktop.ViewModels.ArticlesViewModel">
+                <NavigationViewItem x:Uid="Shell_Articles" helpers:NavigationHelper.NavigateTo="PocketClient.Desktop.ViewModels.ArticlesViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7bc;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="Videos" helpers:NavigationHelper.NavigateTo="PocketClient.Desktop.ViewModels.VideosViewModel">
+                <NavigationViewItem x:Uid="Shell_Videos" helpers:NavigationHelper.NavigateTo="PocketClient.Desktop.ViewModels.VideosViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe768;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItemSeparator />
-                <NavigationViewItemHeader Content="Tags" />
-                <NavigationViewItem Content="All tags" helpers:NavigationHelper.NavigateTo="PocketClient.Desktop.ViewModels.AllTagsViewModel">
+                <NavigationViewItemHeader x:Uid="Shell_Tags" />
+                <NavigationViewItem x:Uid="Shell_AllTags" helpers:NavigationHelper.NavigateTo="PocketClient.Desktop.ViewModels.AllTagsViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe8ec;"/>
                     </NavigationViewItem.Icon>

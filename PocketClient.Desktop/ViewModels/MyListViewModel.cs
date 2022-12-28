@@ -17,17 +17,21 @@ public class MyListViewModel : ItemsViewModel, IRecipient<ItemArchiveStatusChang
 
     public void Receive(ItemArchiveStatusChangedMessage message)
     {
-        App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, async () =>
+        if (message.Item.IsArchived)
         {
-            if (message.Item.IsArchived)
+            if (Selected != null && message.Item.Id == Selected.Id)
             {
-                if (Selected != null && message.Item.Id == Selected.Id)
+                if (ShowListAndDetails)
                 {
                     SelectNextItem(message.Item);
                 }
-                
-                RemoveItem(message.Item);
+                else
+                {
+                    Selected = null;
+                }
             }
-        });
+                
+            RemoveItem(message.Item);
+        }
     }
 }

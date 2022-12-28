@@ -15,7 +15,7 @@
     <Grid Margin="{StaticResource CommonPageMargin}">
         <StackPanel
             x:Name="ContentArea">
-            <TextBlock Text="Settings" Style="{ThemeResource PageTitleStyle}" />
+            <TextBlock x:Uid="PageTitle_Settings" Style="{ThemeResource PageTitleStyle}" />
             <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}" />
             <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                 <TextBlock x:Uid="Settings_Theme" />

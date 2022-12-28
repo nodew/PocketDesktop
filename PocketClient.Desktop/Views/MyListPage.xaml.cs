@@ -23,6 +23,15 @@ public sealed partial class MyListPage : Page
     {
         if (e == ListDetailsViewState.Both)
         {
+            ViewModel.ShowListAndDetails = true;
+        } 
+        else
+        {
+            ViewModel.ShowListAndDetails = false;
+        }
+        
+        if (e == ListDetailsViewState.Both)
+        {
             ViewModel.EnsureItemSelected();
         }
     }

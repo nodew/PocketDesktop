@@ -109,7 +109,7 @@
             </Grid.RowDefinitions>
             <TextBlock Text="{x:Bind ListHeader}" Style="{StaticResource PageTitleStyle}" />
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="No available items." Style="{StaticResource SubtitleTextBlockStyle}" />
+                <TextBlock x:Uid="ItemListControl_EmptyPage" Style="{StaticResource SubtitleTextBlockStyle}" />
             </StackPanel>
         </Grid>
     </Grid>

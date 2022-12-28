@@ -16,6 +16,7 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
 {
     private PocketItemOrderOption _orderOption;
     private PocketItem? _selected;
+    private bool _showListAndDetails;
 
     public ItemsViewModel()
     {
@@ -36,6 +37,12 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
     {
         get => _selected;
         set => SetProperty(ref _selected, value);
+    }
+
+    public bool ShowListAndDetails
+    {
+        get => _showListAndDetails;
+        set => _showListAndDetails = value;
     }
 
     public ICommand RefreshListCommand
@@ -106,19 +113,15 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
 
     public void Receive(ItemRemovedMessage message)
     {
-        App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, async () =>
+        if (!ShowListAndDetails && Selected != null && message.Item.Id == Selected.Id)
         {
-            if (Selected != null && message.Item.Id == Selected.Id)
-            {
-                SelectNextItem(message.Item);
-                RemoveItem(message.Item);
-            }
-            else
-            {
-                RemoveItem(message.Item);
-            }
-            
-        });
+            SelectNextItem(message.Item);
+            RemoveItem(message.Item);
+        }
+        else
+        {
+            RemoveItem(message.Item);
+        }
     }
 
     public void RemoveItem(PocketItem item)

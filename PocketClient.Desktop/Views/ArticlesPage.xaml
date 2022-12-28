@@ -27,7 +27,7 @@
         <uc:ItemListControl ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                             SelectedItem="{x:Bind ViewModel.Selected, Mode=TwoWay}"
                             DetailsTemplate="{StaticResource DetailsTemplate}"
-                            ListHeader="Articles"
+                            x:Uid="PageTitle_Articles"
                             ViewStateChanged="OnViewStateChanged" />
     </Grid>
 </Page>

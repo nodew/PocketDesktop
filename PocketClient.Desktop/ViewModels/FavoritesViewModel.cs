@@ -17,19 +17,21 @@ public class FavoritesViewModel : ItemsViewModel, IRecipient<ItemFavoriteStatusC
 
     public void Receive(ItemFavoriteStatusChangedMessage message)
     {
-        App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, async () =>
+        if (!message.Item.IsFavorited)
         {
-            long? nextItemId = null;
-
-            if (message.Item.IsFavorited == false)
+            if (Selected != null && message.Item.Id == Selected.Id)
             {
-                if (Selected != null && message.Item.Id == Selected.Id)
+                if (ShowListAndDetails)
                 {
                     SelectNextItem(message.Item);
                 }
-                
-                RemoveItem(message.Item);
+                else
+                {
+                    Selected = null;
+                }
             }
-        });
+ 
+            RemoveItem(message.Item);
+        }
     }
 }

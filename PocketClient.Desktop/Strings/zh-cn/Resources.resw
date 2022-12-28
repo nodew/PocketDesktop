@@ -121,10 +121,16 @@
     <value>添加到我的列表</value>
   </data>
   <data name="AddToListButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Add to My List</value>
+    <value>添加到我的列表</value>
   </data>
   <data name="AddToListButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Add to My List</value>
+    <value>添加到我的列表</value>
+  </data>
+  <data name="AllTags_SearchBox.PlaceholderText" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="AllTags_SearchBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>搜索</value>
   </data>
   <data name="AppDescription" xml:space="preserve">
     <value>GetPocket 的第三方应用</value>
@@ -150,10 +156,10 @@
     <value>归档</value>
   </data>
   <data name="ArchiveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Archive</value>
+    <value>归档</value>
   </data>
   <data name="ArchiveButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Archive</value>
+    <value>归档</value>
   </data>
   <data name="DeleteButton.Label" xml:space="preserve">
     <value>移除</value>
@@ -168,93 +174,135 @@
     <value>收藏</value>
   </data>
   <data name="FavoriteButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Favorite</value>
+    <value>收藏</value>
   </data>
   <data name="FavoriteButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Favorite</value>
+    <value>收藏</value>
+  </data>
+  <data name="ItemListControl_EmptyPage.Text" xml:space="preserve">
+    <value>当前页面没有任何数据。</value>
   </data>
   <data name="ItemListControl_NoSelection.Text" xml:space="preserve">
     <value>Select an item to read.</value>
+  </data>
+  <data name="LoginPage_StartBtn.Text" xml:space="preserve">
+    <value>开始使用</value>
+  </data>
+  <data name="LoginPage_Welcome.Text" xml:space="preserve">
+    <value>欢迎使用 Pocket Desktop</value>
   </data>
   <data name="OpenInBrowserButton.Label" xml:space="preserve">
     <value>浏览器打开</value>
   </data>
   <data name="OpenInBrowserButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Open in browser</value>
+    <value>浏览器打开</value>
   </data>
   <data name="OpenInBrowserButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Open in browser</value>
+    <value>浏览器打开</value>
+  </data>
+  <data name="PageTitle_AllTags.Text" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="PageTitle_Archives.ListHeader" xml:space="preserve">
+    <value>归档</value>
+  </data>
+  <data name="PageTitle_Articles.ListHeader" xml:space="preserve">
+    <value>文章</value>
+  </data>
+  <data name="PageTitle_Favorites.ListHeader" xml:space="preserve">
+    <value>收藏</value>
+  </data>
+  <data name="PageTitle_Settings.Text" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="PageTitle_Videos.ListHeader" xml:space="preserve">
+    <value>视频</value>
   </data>
   <data name="ReloadButton.Label" xml:space="preserve">
     <value>刷新</value>
   </data>
   <data name="ReloadButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Reload</value>
+    <value>刷新</value>
   </data>
   <data name="ReloadButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Reload</value>
+    <value>刷新</value>
   </data>
   <data name="SearchResultsPageTitle" xml:space="preserve">
     <value>“{0}”- {1} 个结果</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.Content" xml:space="preserve">
-    <value>Privacy Statement</value>
+    <value>隐私声明</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
     <value>http://www.myapppolicy.com/app/pocket-desktop</value>
   </data>
   <data name="Settings_About.Text" xml:space="preserve">
-    <value>About this application</value>
+    <value>关于本应用</value>
   </data>
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
-    <value>Third-party desktop application for https://getpocket.com.</value>
+    <value>面向 GetPocket (https://getpocket.com) 的第三方 Windows 桌面应用.</value>
   </data>
   <data name="Settings_Personalization.Text" xml:space="preserve">
-    <value>Personalization</value>
+    <value>个性化</value>
   </data>
   <data name="Settings_Theme.Text" xml:space="preserve">
-    <value>Theme</value>
+    <value>主题</value>
   </data>
   <data name="Settings_Theme_Dark.Content" xml:space="preserve">
-    <value>Dark</value>
+    <value>深色</value>
   </data>
   <data name="Settings_Theme_Default.Content" xml:space="preserve">
-    <value>Default</value>
+    <value>默认</value>
   </data>
   <data name="Settings_Theme_Light.Content" xml:space="preserve">
-    <value>Light</value>
+    <value>浅色</value>
   </data>
-  <data name="Shell_Archive.Content" xml:space="preserve">
-    <value>Archive</value>
+  <data name="Shell_AllTags.Content" xml:space="preserve">
+    <value>所有标签</value>
   </data>
-  <data name="Shell_Detail.Content" xml:space="preserve">
-    <value>Detail</value>
+  <data name="Shell_Archives.Content" xml:space="preserve">
+    <value>归档</value>
   </data>
-  <data name="Shell_Login.Content" xml:space="preserve">
-    <value>Login</value>
+  <data name="Shell_Articles.Content" xml:space="preserve">
+    <value>文章</value>
   </data>
-  <data name="Shell_Main.Content" xml:space="preserve">
-    <value>Main</value>
+  <data name="Shell_Categories.Content" xml:space="preserve">
+    <value>分类</value>
+  </data>
+  <data name="Shell_Favorites.Content" xml:space="preserve">
+    <value>收藏</value>
   </data>
   <data name="Shell_MyList.Content" xml:space="preserve">
-    <value>My List</value>
+    <value>我的列表</value>
+  </data>
+  <data name="Shell_SearchBox.PlaceholderText" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="Shell_SearchBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="Shell_Tags.Content" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="Shell_Videos.Content" xml:space="preserve">
+    <value>视频</value>
   </data>
   <data name="UnfavoriteButton.Label" xml:space="preserve">
     <value>移除收藏</value>
   </data>
   <data name="UnfavoriteButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Unfavorite</value>
+    <value>移除收藏</value>
   </data>
   <data name="UnfavoriteButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Unfavorite</value>
+    <value>移除收藏</value>
   </data>
   <data name="WebView_FailedMessage.Text" xml:space="preserve">
-    <value>Page failed to load. Check connection and reload.</value>
+    <value>页面加载失败，请检查网络链接并重新加载。</value>
   </data>
   <data name="WebView_Loading.Text" xml:space="preserve">
-    <value>Loading...</value>
+    <value>加载中...</value>
   </data>
   <data name="WebView_Reload.Content" xml:space="preserve">
-    <value>Reload</value>
+    <value>重新加载</value>
   </data>
 </root>

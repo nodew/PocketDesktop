@@ -20,7 +20,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
-                   Text="Tags"
+                   x:Uid="PageTitle_AllTags"
                    Style="{ThemeResource PageTitleStyle}" />
         <Grid Grid.Row="1"
                 MaxWidth="800"
@@ -31,8 +31,8 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <AutoSuggestBox Grid.Row="0"
+                            x:Uid="AllTags_SearchBox"
                             Text="{x:Bind ViewModel.SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            PlaceholderText="Search"
                             CornerRadius="2"
                             Height="36"
                             MaxWidth="600"
@@ -47,12 +47,12 @@
                     <ItemsRepeater.ItemTemplate>
                         <DataTemplate x:DataType="coreModels:Tag">
                             <Button BorderThickness="1"
-                                            CornerRadius="6"
-                                            MinWidth="80"
-                                            Click="OnSelectItem"
-                                            Tag="{x:Bind}"
-                                            Height="32"
-                                            Padding="16, 0, 16, 2">
+                                    CornerRadius="6"
+                                    MinWidth="80"
+                                    Click="OnSelectItem"
+                                    Tag="{x:Bind}"
+                                    Height="32"
+                                    Padding="16, 0, 16, 2">
                                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Bind Name}" />
                             </Button>
                         </DataTemplate>

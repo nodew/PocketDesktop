@@ -123,17 +123,14 @@
   <data name="AppDescription" xml:space="preserve">
     <value>Third-party application for https://getpocket.com</value>
   </data>
-  <data name="Shell_Main.Content" xml:space="preserve">
-    <value>Main</value>
-  </data>
   <data name="ItemListControl_NoSelection.Text" xml:space="preserve">
     <value>Select an item to read.</value>
   </data>
   <data name="Shell_MyList.Content" xml:space="preserve">
     <value>My List</value>
   </data>
-  <data name="Shell_Archive.Content" xml:space="preserve">
-    <value>Archive</value>
+  <data name="Shell_Archives.Content" xml:space="preserve">
+    <value>Archives</value>
   </data>
   <data name="WebView_Loading.Text" xml:space="preserve">
     <value>Loading...</value>
@@ -155,12 +152,6 @@
   </data>
   <data name="OpenInBrowserButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>Open in browser</value>
-  </data>
-  <data name="Shell_Detail.Content" xml:space="preserve">
-    <value>Detail</value>
-  </data>
-  <data name="Shell_Login.Content" xml:space="preserve">
-    <value>Login</value>
   </data>
   <data name="Settings_Personalization.Text" xml:space="preserve">
     <value>Personalization</value>
@@ -256,5 +247,62 @@
   </data>
   <data name="DeleteButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Remove</value>
+  </data>
+  <data name="AllTags_SearchBox.PlaceholderText" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="AllTags_SearchBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="ItemListControl_EmptyPage.Text" xml:space="preserve">
+    <value>No available items.</value>
+  </data>
+  <data name="LoginPage_StartBtn.Text" xml:space="preserve">
+    <value>Click to start</value>
+  </data>
+  <data name="LoginPage_Welcome.Text" xml:space="preserve">
+    <value>Welcome to Pocket Desktop</value>
+  </data>
+  <data name="PageTitle_AllTags.Text" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="PageTitle_Archives.ListHeader" xml:space="preserve">
+    <value>Archives</value>
+  </data>
+  <data name="PageTitle_Articles.ListHeader" xml:space="preserve">
+    <value>Articles</value>
+  </data>
+  <data name="PageTitle_Favorites.ListHeader" xml:space="preserve">
+    <value>Favorites</value>
+  </data>
+  <data name="PageTitle_Settings.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="PageTitle_Videos.ListHeader" xml:space="preserve">
+    <value>Videos</value>
+  </data>
+  <data name="Shell_AllTags.Content" xml:space="preserve">
+    <value>All tags</value>
+  </data>
+  <data name="Shell_Articles.Content" xml:space="preserve">
+    <value>Articles</value>
+  </data>
+  <data name="Shell_Categories.Content" xml:space="preserve">
+    <value>Catagories</value>
+  </data>
+  <data name="Shell_Favorites.Content" xml:space="preserve">
+    <value>Favorites</value>
+  </data>
+  <data name="Shell_SearchBox.PlaceholderText" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Shell_SearchBox.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Shell_Tags.Content" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="Shell_Videos.Content" xml:space="preserve">
+    <value>Videos</value>
   </data>
 </root>

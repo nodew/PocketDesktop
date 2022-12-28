@@ -26,6 +26,15 @@ public sealed partial class FavoritesPage : Page
     {
         if (e == ListDetailsViewState.Both)
         {
+            ViewModel.ShowListAndDetails = true;
+        }
+        else
+        {
+            ViewModel.ShowListAndDetails = false;
+        }
+
+        if (e == ListDetailsViewState.Both)
+        {
             ViewModel.EnsureItemSelected();
         }
     }
