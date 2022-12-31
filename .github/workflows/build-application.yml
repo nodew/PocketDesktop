@@ -24,6 +24,7 @@ jobs:
     env:
       Solution_Name: PocketClient.sln                     # Replace with your solution name, i.e. App1.sln.
       Package_Name: PocketClient_Desktop
+      Package_Raw_Name: PocketClient.Desktop
       
     steps:
     - name: Checkout
@@ -59,4 +60,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Upload app
-        path: ${{ env.Solution_Name }}\\bin
+        path: ${{ env.Package_Raw_Name }}\\bin\\**\*.msix
