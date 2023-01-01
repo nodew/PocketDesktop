@@ -2,7 +2,7 @@
 
 [assembly: WinUITestTarget(typeof(PocketClient.Desktop.App))]
 
-namespace Pocket.Client.Tests.MSTest;
+namespace PocketClient.Desktop.Tests.MSTest;
 
 [TestClass]
 public class Initialize
