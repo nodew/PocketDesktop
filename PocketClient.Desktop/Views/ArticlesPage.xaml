@@ -1,8 +1,6 @@
-<!-- Copyright (c) Microsoft Corporation. All rights reserved. -->
-<!-- Licensed under the MIT License. See LICENSE in the project root for license information. -->
-
-<Page
+<local:ItemsPage
     x:Class="PocketClient.Desktop.Views.ArticlesPage"
+    x:TypeArguments="viewModels:ArticlesViewModel"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:PocketClient.Desktop.Views"
@@ -10,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:PocketClient.Desktop.UserControls"
     xmlns:models="using:PocketClient.Core.Models"
-    xmlns:views="using:PocketClient.Desktop.Views"
+    xmlns:viewModels="using:PocketClient.Desktop.ViewModels"
     xmlns:behaviors="using:PocketClient.Desktop.Behaviors"
     behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
     mc:Ignorable="d">
@@ -18,7 +16,7 @@
     <Page.Resources>
         <DataTemplate x:Key="DetailsTemplate" x:DataType="models:PocketItem">
             <Grid>
-                <views:DetailPage SelectedItem="{x:Bind}" />
+                <local:DetailPage SelectedItem="{x:Bind}" />
             </Grid>
         </DataTemplate>
     </Page.Resources>
@@ -30,4 +28,4 @@
                             x:Uid="PageTitle_Articles"
                             ViewStateChanged="OnViewStateChanged" />
     </Grid>
-</Page>
+</local:ItemsPage>
