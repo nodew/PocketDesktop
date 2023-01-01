@@ -1,38 +1,13 @@
 ﻿using CommunityToolkit.WinUI.UI.Controls;
 
-using Microsoft.UI.Xaml.Controls;
-
 using PocketClient.Desktop.ViewModels;
 
 namespace PocketClient.Desktop.Views;
 
-public sealed partial class MyListPage : Page
+public sealed partial class MyListPage : ItemsPage<MyListViewModel>
 {
-    public MyListViewModel ViewModel
+    public MyListPage() : base()
     {
-        get;
-    }
-
-    public MyListPage()
-    {
-        ViewModel = App.GetService<MyListViewModel>();
         InitializeComponent();
-    }
-
-    private void OnViewStateChanged(object sender, ListDetailsViewState e)
-    {
-        if (e == ListDetailsViewState.Both)
-        {
-            ViewModel.ShowListAndDetails = true;
-        } 
-        else
-        {
-            ViewModel.ShowListAndDetails = false;
-        }
-        
-        if (e == ListDetailsViewState.Both)
-        {
-            ViewModel.EnsureItemSelected();
-        }
     }
 }

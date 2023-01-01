@@ -12,24 +12,10 @@ namespace PocketClient.Desktop.Views;
 /// <summary>
 /// An empty page that can be used on its own or navigated to within a Frame.
 /// </summary>
-public sealed partial class VideosPage : Page
+public sealed partial class VideosPage : ItemsPage<VideosViewModel>
 {
-    public VideosViewModel ViewModel
+    public VideosPage() : base()
     {
-        get;
-    }
-
-    public VideosPage()
-    {
-        ViewModel = App.GetService<VideosViewModel>();
         this.InitializeComponent();
-    }
-
-    private void OnViewStateChanged(object sender, ListDetailsViewState e)
-    {
-        if (e == ListDetailsViewState.Both)
-        {
-            ViewModel.EnsureItemSelected();
-        }
     }
 }

@@ -13,24 +13,10 @@ namespace PocketClient.Desktop.Views;
 /// <summary>
 /// An empty page that can be used on its own or navigated to within a Frame.
 /// </summary>
-public sealed partial class TaggedItemsPage : Page
+public sealed partial class TaggedItemsPage : ItemsPage<TaggedItemsViewModel>
 {
-    public TaggedItemsViewModel ViewModel
+    public TaggedItemsPage(): base()
     {
-        get;
-    }
-
-    public TaggedItemsPage()
-    {
-        ViewModel = App.GetService<TaggedItemsViewModel>();
         this.InitializeComponent();
-    }
-
-    private void OnViewStateChanged(object sender, ListDetailsViewState e)
-    {
-        if (e == ListDetailsViewState.Both)
-        {
-            ViewModel.EnsureItemSelected();
-        }
     }
 }

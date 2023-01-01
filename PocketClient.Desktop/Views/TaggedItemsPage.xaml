@@ -1,20 +1,21 @@
-<Page
+<local:ItemsPage
     x:Class="PocketClient.Desktop.Views.TaggedItemsPage"
+    x:TypeArguments="viewModels:TaggedItemsViewModel"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:local="using:PocketClient.Desktop.Views"
     xmlns:models="using:PocketClient.Core.Models"
     xmlns:uc="using:PocketClient.Desktop.UserControls"
-    xmlns:views="using:PocketClient.Desktop.Views"
+    xmlns:viewModels="using:PocketClient.Desktop.ViewModels"
     xmlns:behaviors="using:PocketClient.Desktop.Behaviors"
     behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Key="DetailsTemplate" x:DataType="models:PocketItem">
             <Grid>
-                <views:DetailPage SelectedItem="{x:Bind}" />
+                <local:DetailPage SelectedItem="{x:Bind}" />
             </Grid>
         </DataTemplate>
     </Page.Resources>
@@ -27,4 +28,4 @@
                             ViewStateChanged="OnViewStateChanged">
         </uc:ItemListControl>
     </Grid>
-</Page>
+</local:ItemsPage>
