@@ -47,7 +47,8 @@
             IsSettingsVisible="True"
             ExpandedModeThresholdWidth="1280"
             DisplayModeChanged="NavigationViewControl_DisplayModeChanged"
-            Header="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}">
+            Header="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}"
+            HeaderTemplate="{StaticResource NavigationViewHeaderTemplate}" >
             <NavigationView.AutoSuggestBox>
                 <AutoSuggestBox x:Name="mainNavSearch"
                                 QueryIcon="Find"
@@ -56,13 +57,6 @@
                                 QuerySubmitted="OnQuerySubmitted" />
             </NavigationView.AutoSuggestBox>
             <NavigationView.MenuItems>
-                <!--
-                TODO: Update item titles by updating <x:Uid>.Content entries in Strings/en-us/Resources.resw.
-                https://docs.microsoft.com/windows/uwp/app-resources/localize-strings-ui-manifest#refer-to-a-string-resource-identifier-from-xaml
-
-                TODO: Update item icons by updating FontIcon.Glyph properties.
-                https://docs.microsoft.com/windows/apps/design/style/segoe-fluent-icons-font#icon-list
-                -->
                 <NavigationViewItem x:Uid="Shell_MyList" helpers:NavigationHelper.NavigateTo="PocketClient.Desktop.ViewModels.MyListViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xea37;"/>
@@ -98,27 +92,10 @@
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
-            <NavigationView.HeaderTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <TextBlock
-                            Text="{Binding}"
-                            Style="{ThemeResource TitleTextBlockStyle}" />
-                    </Grid>
-                </DataTemplate>
-            </NavigationView.HeaderTemplate>
             <i:Interaction.Behaviors>
                 <behaviors:NavigationViewHeaderBehavior
-                    DefaultHeader="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}">
-                    <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <TextBlock
-                                    Text="{Binding}"
-                                    Style="{ThemeResource TitleTextBlockStyle}" />
-                            </Grid>
-                        </DataTemplate>
-                    </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
+                    DefaultHeader="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}"
+                    DefaultHeaderTemplate="{StaticResource NavigationViewHeaderTemplate}">
                 </behaviors:NavigationViewHeaderBehavior>
             </i:Interaction.Behaviors>
             <Grid x:Name="NavigationViewContent" Margin="0,32,0,0">

@@ -1,0 +1,16 @@
+<!-- Copyright (c) Microsoft Corporation and Contributors. -->
+<!-- Licensed under the MIT License. -->
+
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:converters="using:PocketClient.Desktop.Converters" >
+    
+    <converters:BoolNegationToVisibilityConverter x:Key="BoolNegationToVisibilityConverter" />
+    <converters:ElementThemeToBooleanConverter x:Key="ElementThemeToBooleanConverter" />
+    <converters:LanguageToBooleanConverter x:Key="LanguageToBooleanConverter" />
+    <converters:NegativeNumberToVisibilityConverter x:Key="NegativeNumberToVisibilityConverter" />
+    <converters:PocketItemTitleConverter x:Key="PocketItemTitleConverter" />
+    <converters:PositiveNumberToVisibilityConverter x:Key="PositiveNumberToVisibilityConverter" />
+
+</ResourceDictionary>
