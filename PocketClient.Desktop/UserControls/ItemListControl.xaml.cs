@@ -21,6 +21,13 @@ public sealed partial class ItemListControl : UserControl
               typeof(ICollection<PocketItem>),
               typeof(ItemListControl),
               new PropertyMetadata(null));
+    
+    public static readonly DependencyProperty HasItemsProperty =
+       DependencyProperty.Register(
+          nameof(HasItems),
+          typeof(bool),
+          typeof(ItemListControl),
+          new PropertyMetadata(true));
 
     public static readonly DependencyProperty SelectedItemProperty =
        DependencyProperty.Register(
@@ -57,6 +64,12 @@ public sealed partial class ItemListControl : UserControl
     {
         get => (ICollection<PocketItem>)GetValue(ItemsSourceProperty);
         set => SetValue(ItemsSourceProperty, value);
+    }
+
+    public bool HasItems
+    {
+        get => (bool)GetValue(HasItemsProperty);
+        set => SetValue(HasItemsProperty, value);
     }
 
     public PocketItem SelectedItem

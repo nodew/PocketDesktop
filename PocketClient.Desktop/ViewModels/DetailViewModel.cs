@@ -124,7 +124,7 @@ public class DetailViewModel : ObservableRecipient
         } 
         catch (Exception ex)
         {
-
+            await App.MainWindow.ShowMessageDialogAsync(ex.Message);
         }
 
         IsUpdating = false;
@@ -142,7 +142,7 @@ public class DetailViewModel : ObservableRecipient
         }
         catch (Exception ex)
         {
-
+            await App.MainWindow.ShowMessageDialogAsync(ex.Message);
         }
 
         IsUpdating = false;
@@ -160,7 +160,7 @@ public class DetailViewModel : ObservableRecipient
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+            await App.MainWindow.ShowMessageDialogAsync(ex.Message);
         }
 
         IsUpdating = false;
@@ -178,7 +178,7 @@ public class DetailViewModel : ObservableRecipient
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+            await App.MainWindow.ShowMessageDialogAsync(ex.Message);
         }
 
         IsUpdating = false;
@@ -194,7 +194,7 @@ public class DetailViewModel : ObservableRecipient
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex);
+            await App.MainWindow.ShowMessageDialogAsync(ex.Message);
         }
 
         IsUpdating = false;

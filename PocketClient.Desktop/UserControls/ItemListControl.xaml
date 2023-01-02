@@ -25,7 +25,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Grid x:Name="ItemListContainer" Visibility="{x:Bind ItemsSource.Count, Mode=OneWay, Converter={StaticResource PositiveNumberToVisibilityConverter}}">
+        <Grid x:Name="ItemListContainer" Visibility="{x:Bind HasItems, Mode=OneWay}">
             <controls:ListDetailsView
                 x:Name="ListDetailsViewControl"
                 ListHeader="{x:Bind ListHeader}"
@@ -41,7 +41,7 @@
                 ViewStateChanged="OnViewStateChanged" />
         </Grid>
         <Grid x:Name="NoItemContainer"
-              Visibility="{x:Bind ItemsSource.Count, Mode=OneWay, Converter={StaticResource NegativeNumberToVisibilityConverter}}"
+              Visibility="{x:Bind HasItems, Mode=OneWay, Converter={StaticResource BoolNegationToVisibilityConverter}}"
               Margin="{StaticResource CommonPageMargin}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

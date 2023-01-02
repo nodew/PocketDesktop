@@ -18,18 +18,7 @@ public class ArchiveViewModel : ItemsViewModel, IRecipient<ItemArchiveStatusChan
     {
         if (!message.Item.IsArchived)
         {
-            if (Selected != null && message.Item.Id == Selected.Id)
-            {
-                if (ShowListAndDetails)
-                {
-                    SelectNextItem(message.Item);
-                } 
-                else
-                {
-                    Selected = null;
-                }
-            } 
-
+            UpdateSelectedItem(message.Item);
             RemoveItem(message.Item);
         }
     }

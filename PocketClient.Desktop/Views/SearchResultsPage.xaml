@@ -20,6 +20,7 @@
 
     <Grid>
         <uc:ItemListControl ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+                            HasItems="{x:Bind ViewModel.HasItems,Mode=OneWay}"
                             SelectedItem="{x:Bind ViewModel.Selected, Mode=TwoWay}"
                             DetailsTemplate="{StaticResource DetailsTemplate}"
                             ListHeader="{x:Bind ViewModel.ListHeader, Mode=OneWay}"
