@@ -8,69 +8,9 @@
     xmlns:local="using:PocketClient.Desktop.UserControls"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:models="using:PocketClient.Core.Models"
-    xmlns:converters="using:PocketClient.Desktop.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <converters:PocketItemTitleConverter x:Key="PocketItemTitleConverter" />
-        <converters:PositiveNumberToVisibilityConverter x:Key="PositiveNumberToVisibilityConverter" />
-        <converters:NegativeNumberToVisibilityConverter x:Key="NegativeNumberToVisibilityConverter" />
-
-        <DataTemplate x:Key="ItemTemplate" x:DataType="models:PocketItem">
-            <Grid Margin="6,12,12,12">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0"
-                           Text="{x:Bind Converter={StaticResource PocketItemTitleConverter}}"
-                           MaxLines="2"
-                           Style="{StaticResource ListTitleStyle}" />
-                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="{StaticResource XXSmallTopMargin}">
-                    <TextBlock Text="{x:Bind Domain}" Style="{StaticResource ListDetailsStyle}" />
-                    <StackPanel Orientation="Horizontal" Visibility="{x:Bind TimeToRead, Converter={StaticResource PositiveNumberToVisibilityConverter}}">
-                        <TextBlock Style="{StaticResource ListDetailsStyle}">
-                            <Run Text="&#160;&#183;&#160;" />
-                        </TextBlock>
-                        <TextBlock Text="{x:Bind TimeToRead}" Style="{StaticResource ListDetailsStyle}" />
-                        <TextBlock Text=" min" Style="{StaticResource ListDetailsStyle}" />
-                    </StackPanel>
-                </StackPanel>
-                <TextBlock Grid.Row="2"
-                           Text="{x:Bind Excerpt}"
-                           Style="{StaticResource ListDescriptionStyle}"
-                           Margin="{StaticResource XXSmallTopMargin}"
-                           MaxLines="3" />
-            </Grid>
-        </DataTemplate>
-
-        <DataTemplate x:Key="NoSelectionContentTemplate">
-            <Grid>
-                <TextBlock
-                    x:Uid="ItemListControl_NoSelection"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    TextAlignment="Center"
-                    Style="{StaticResource SubtitleTextBlockStyle}" />
-            </Grid>
-        </DataTemplate>
-
-        <DataTemplate x:Key="ListHeaderTemplate">
-            <Grid>
-                <TextBlock Style="{StaticResource ListHeaderStyle}" Text="{Binding}" />
-            </Grid>
-        </DataTemplate>
-
-        <DataTemplate x:Key="MinimalListHeaderTemplate">
-            <Grid>
-                <TextBlock Style="{StaticResource MinimalListHeaderStyle}" Text="{Binding}" />
-            </Grid>
-        </DataTemplate>
-    </UserControl.Resources>
-
     <Grid x:Name="ContentArea">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>

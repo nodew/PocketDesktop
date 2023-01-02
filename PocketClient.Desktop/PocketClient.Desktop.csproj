@@ -22,15 +22,9 @@
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm64</AppxBundlePlatforms>
   </PropertyGroup>
-	
+
   <ItemGroup>
     <Content Remove="Assets\book-banner.jpg" />
-  </ItemGroup>
-	
-  <ItemGroup>
-    <None Remove="Styles\Theme.xaml" />
-    <None Remove="UserControls\ItemListControl.xaml" />
-    <None Remove="Views\TaggedItemsPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,17 +54,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-	
+
   <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Page Update="Views\TaggedItemsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="Styles\Theme.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
 
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">

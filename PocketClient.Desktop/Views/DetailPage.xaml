@@ -5,15 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:behaviors="using:PocketClient.Desktop.Behaviors"
-    xmlns:ctconverters="using:CommunityToolkit.WinUI.UI.Converters"
-    xmlns:converters="using:PocketClient.Desktop.Converters"
     behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
     mc:Ignorable="d">
-
-    <Page.Resources>
-        <converters:BoolNegationToVisibilityConverter x:Key="BoolNegationToVisibilityConverter" />
-    </Page.Resources>
-
     <Grid x:Name="ContentArea">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -97,6 +90,5 @@
                 </StackPanel>
             </Grid>
         </Grid>
-        
     </Grid>
 </Page>
