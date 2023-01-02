@@ -239,11 +239,29 @@
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
     <value>http://www.myapppolicy.com/app/pocket-desktop</value>
   </data>
+  <data name="SettingsPage_ReportIssue.Content" xml:space="preserve">
+    <value>报告问题</value>
+  </data>
+  <data name="SettingsPage_ReportIssue.NavigateUri" xml:space="preserve">
+    <value>https://github.com/nodew/PocketDesktop/issues</value>
+  </data>
   <data name="Settings_About.Text" xml:space="preserve">
     <value>关于本应用</value>
   </data>
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
     <value>面向 GetPocket (https://getpocket.com) 的第三方 Windows 桌面应用.</value>
+  </data>
+  <data name="Settings_Data.Text" xml:space="preserve">
+    <value>数据</value>
+  </data>
+  <data name="Settings_Data_SyncBtn.Content" xml:space="preserve">
+    <value>同步</value>
+  </data>
+  <data name="Settings_Language.Text" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="Settings_Language_Default.Content" xml:space="preserve">
+    <value>默认</value>
   </data>
   <data name="Settings_Personalization.Text" xml:space="preserve">
     <value>个性化</value>
