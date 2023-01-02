@@ -11,60 +11,119 @@
     mc:Ignorable="d">
     <Page.Resources>
         <converters:ElementThemeToBooleanConverter x:Key="ElementThemeToBooleanConverter" />
+        <converters:LanguageToBooleanConverter x:Key="LanguageToBooleanConverter" />
     </Page.Resources>
     <Grid Margin="{StaticResource CommonPageMargin}">
-        <StackPanel
-            x:Name="ContentArea">
-            <TextBlock x:Uid="PageTitle_Settings" Style="{ThemeResource PageTitleStyle}" />
-            <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}" />
-            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
-                <TextBlock x:Uid="Settings_Theme" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <TextBlock x:Uid="PageTitle_Settings" Style="{ThemeResource PageTitleStyle}" Margin="{StaticResource MediumBottomMargin}" />
+        </StackPanel>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel
+                x:Name="ContentArea">
+                <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                
+                <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+                    <TextBlock x:Uid="Settings_Theme" />
+
+                    <StackPanel Margin="{StaticResource XSmallTopMargin}">
+                        <RadioButton
+                            x:Uid="Settings_Theme_Light"
+                            Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                            IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource ElementThemeToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}"
+                            FontSize="15"
+                            GroupName="AppTheme">
+                            <RadioButton.CommandParameter>
+                                <xaml:ElementTheme>Light</xaml:ElementTheme>
+                            </RadioButton.CommandParameter>
+                        </RadioButton>
+                        <RadioButton
+                            x:Uid="Settings_Theme_Dark"
+                            Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                            IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource ElementThemeToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}"
+                            FontSize="15"
+                            GroupName="AppTheme">
+                            <RadioButton.CommandParameter>
+                                <xaml:ElementTheme>Dark</xaml:ElementTheme>
+                            </RadioButton.CommandParameter>
+                        </RadioButton>
+                        <RadioButton
+                            x:Uid="Settings_Theme_Default"
+                            Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                            IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource ElementThemeToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}"
+                            FontSize="15"
+                            GroupName="AppTheme">
+                            <RadioButton.CommandParameter>
+                                <xaml:ElementTheme>Default</xaml:ElementTheme>
+                            </RadioButton.CommandParameter>
+                        </RadioButton>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+                    <TextBlock x:Uid="Settings_Language" />
+
+                    <StackPanel Margin="{StaticResource XSmallTopMargin}">
+                        <RadioButton
+                            Content="English"
+                            Command="{x:Bind ViewModel.SwitchLanguageCommand}"
+                            IsChecked="{x:Bind ViewModel.Language, Converter={StaticResource LanguageToBooleanConverter}, ConverterParameter=en-US, Mode=OneWay}"
+                            FontSize="15"
+                            GroupName="Language">
+                            <RadioButton.CommandParameter>
+                                <x:String>en-US</x:String>
+                            </RadioButton.CommandParameter>
+                        </RadioButton>
+                        <RadioButton
+                            Content="简体中文"
+                            Command="{x:Bind ViewModel.SwitchLanguageCommand}"
+                            IsChecked="{x:Bind ViewModel.Language, Converter={StaticResource LanguageToBooleanConverter}, ConverterParameter=zh-Hans-CN, Mode=OneWay}"
+                            FontSize="15"
+                            GroupName="Language">
+                            <RadioButton.CommandParameter>
+                                <x:String>zh-Hans-CN</x:String>
+                            </RadioButton.CommandParameter>
+                        </RadioButton>
+                        <RadioButton
+                            x:Uid="Settings_Language_Default"
+                            Command="{x:Bind ViewModel.SwitchLanguageCommand}"
+                            IsChecked="{x:Bind ViewModel.Language, Converter={StaticResource LanguageToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}"
+                            FontSize="15"
+                            GroupName="Language">
+                            <RadioButton.CommandParameter>
+                                <x:String>Default</x:String>
+                            </RadioButton.CommandParameter>
+                        </RadioButton>
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBlock x:Uid="Settings_Data" Style="{ThemeResource SubtitleTextBlockStyle}" />
+
+                <StackPanel>
+                    <Button x:Uid="Settings_Data_SyncBtn" Command="{x:Bind ViewModel.SyncDataCommand}" Margin="{StaticResource XSmallTopMargin}" />
+                    
+                    <ProgressRing IsActive="True" Visibility="{x:Bind ViewModel.Syncing, Mode=OneWay}" HorizontalAlignment="Left" Margin="{StaticResource XXSmallTopMargin}"  />
+                </StackPanel>
+
+                <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}" />
 
                 <StackPanel Margin="{StaticResource XSmallTopMargin}">
-                    <RadioButton
-                        x:Uid="Settings_Theme_Light"
-                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource ElementThemeToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}"
-                        FontSize="15"
-                        GroupName="AppTheme">
-                        <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Light</xaml:ElementTheme>
-                        </RadioButton.CommandParameter>
-                    </RadioButton>
-                    <RadioButton
-                        x:Uid="Settings_Theme_Dark"
-                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource ElementThemeToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}"
-                        FontSize="15"
-                        GroupName="AppTheme">
-                        <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Dark</xaml:ElementTheme>
-                        </RadioButton.CommandParameter>
-                    </RadioButton>
-                    <RadioButton
-                        x:Uid="Settings_Theme_Default"
-                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource ElementThemeToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}"
-                        FontSize="15"
-                        GroupName="AppTheme">
-                        <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Default</xaml:ElementTheme>
-                        </RadioButton.CommandParameter>
-                    </RadioButton>
+                    <TextBlock Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" Style="{ThemeResource BodyTextBlockStyle}" />
+
+                    <TextBlock
+                        x:Uid="Settings_AboutDescription"
+                        Margin="{StaticResource XSmallTopMargin}"
+                        Style="{ThemeResource BodyTextBlockStyle}" />
+
+                    <StackPanel Orientation="Horizontal" Margin="{StaticResource SettingsPageHyperlinkButtonMargin}" >
+                        <HyperlinkButton x:Uid="SettingsPage_PrivacyTermsLink" />
+                        <HyperlinkButton x:Uid="SettingsPage_ReportIssue" Margin="{StaticResource SmallLeftMargin}" />
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
-
-            <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
-
-            <StackPanel Margin="{StaticResource XSmallTopMargin}">
-                <TextBlock Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" Style="{ThemeResource BodyTextBlockStyle}" />
-
-                <TextBlock
-                    x:Uid="Settings_AboutDescription"
-                    Margin="{StaticResource XSmallTopMargin}"
-                    Style="{ThemeResource BodyTextBlockStyle}" />
-                <HyperlinkButton x:Uid="SettingsPage_PrivacyTermsLink" Margin="{StaticResource SettingsPageHyperlinkButtonMargin}" />
-            </StackPanel>
-        </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

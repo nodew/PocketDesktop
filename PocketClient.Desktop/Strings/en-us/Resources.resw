@@ -308,4 +308,22 @@
   <data name="PageTitle_MyList.ListHeader" xml:space="preserve">
     <value>My List</value>
   </data>
+  <data name="SettingsPage_ReportIssue.Content" xml:space="preserve">
+    <value>Report issue</value>
+  </data>
+  <data name="SettingsPage_ReportIssue.NavigateUri" xml:space="preserve">
+    <value>https://github.com/nodew/PocketDesktop/issues</value>
+  </data>
+  <data name="Settings_Data.Text" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Settings_Data_SyncBtn.Content" xml:space="preserve">
+    <value>Sync</value>
+  </data>
+  <data name="Settings_Language.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings_Language_Default.Content" xml:space="preserve">
+    <value>Default</value>
+  </data>
 </root>
