@@ -113,15 +113,19 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
 
     public void Receive(ItemRemovedMessage message)
     {
-        if (!ShowListAndDetails && Selected != null && message.Item.Id == Selected.Id)
+        if (Selected != null && message.Item.Id == Selected.Id)
         {
-            SelectNextItem(message.Item);
-            RemoveItem(message.Item);
+            if (ShowListAndDetails)
+            {
+                SelectNextItem(message.Item);
+            }
+            else
+            {
+                Selected = null;
+            }
         }
-        else
-        {
-            RemoveItem(message.Item);
-        }
+
+        RemoveItem(message.Item);
     }
 
     public void RemoveItem(PocketItem item)
