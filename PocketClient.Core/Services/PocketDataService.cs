@@ -42,6 +42,7 @@ public class PocketDataService : IPocketDataService
     public async Task FavoriteItemAsync(PocketItem item, CancellationToken cancellationToken = default)
     {
         item.IsFavorited = true;
+        item.TimeFavorited = DateTime.Now;
         await _pocketHttpClient.FavoriteItemAsync(item.Id, cancellationToken);
         await _persistenceService.UpdateItemAsync(item, cancellationToken);
     }
@@ -63,6 +64,7 @@ public class PocketDataService : IPocketDataService
     public async Task ReAddItemAsync(PocketItem item, CancellationToken cancellationToken = default)
     {
         item.IsArchived = false;
+        item.TimeAdded = DateTime.Now;
         await _pocketHttpClient.ReAddItemAsync(item.Id, cancellationToken);
         await _persistenceService.UpdateItemAsync(item, cancellationToken);
     }

@@ -113,19 +113,27 @@ public class PocketDbService : IPocketDbService
 
                 foreach (var item in items)
                 {
-                    if (item.Status == PocketItemStatus.ShouldDelete)
+                    try
                     {
-                        await App.GetService<IPocketDataPersistenceService>().RemoveItemAsync(item.ItemId);
-                    }
-                    else
+                        if (item.Status == PocketItemStatus.ShouldDelete)
+                        {
+                            await App.GetService<IPocketDataPersistenceService>().RemoveItemAsync(item.ItemId);
+                        }
+                        else
+                        {
+                            var normalizedItem = PocketItemHelper.NormalizeRawPocketItem(item);
+                            await App.GetService<IPocketDataPersistenceService>().AddOrUpdateItemAsync(normalizedItem);
+                        }
+                    } 
+                    catch 
                     {
-                        var normalizedItem = PocketItemHelper.NormalizeRawPocketItem(item);
-                        await App.GetService<IPocketDataPersistenceService>().AddOrUpdateItemAsync(normalizedItem);
+                        // TODO: Log exception to event log.
                     }
                 }
             } while (hasMoreItems);
 
             await _localSettingsService.SaveSettingAsync(_pocketLastUpdatedAtKey, DateTimeOffset.Now);
+
             _synced = true;
 
             if (count > 0)

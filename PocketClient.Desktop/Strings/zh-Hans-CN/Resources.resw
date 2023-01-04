@@ -136,7 +136,7 @@
     <value>GetPocket 的第三方应用</value>
   </data>
   <data name="AppDisplayName" xml:space="preserve">
-    <value>Pocket Desktop</value>
+    <value>Nuts - Save &amp; Read</value>
   </data>
   <data name="AppNotificationSamplePayload" xml:space="preserve">
     <value>&lt;toast launch="action=ToastClick"&gt;
