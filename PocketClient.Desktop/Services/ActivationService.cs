@@ -151,7 +151,14 @@ public class ActivationService : IActivationService
         await _themeSelectorService.SetRequestedThemeAsync();
         if (_authService.IsAuthorized())
         {
-            await _pocketDbService.SyncItemsAsync(false);
+            try
+            {
+                await _pocketDbService.SyncItemsAsync(false);
+            }
+            catch
+            {
+                // TODO: Log exception to event log.
+            }
         }
         await Task.CompletedTask;
     }

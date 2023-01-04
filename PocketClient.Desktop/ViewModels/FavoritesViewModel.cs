@@ -10,8 +10,19 @@ public class FavoritesViewModel : ItemsViewModel, IRecipient<ItemFavoriteStatusC
 {
     protected override BaseSpecification<PocketItem> BuildFilter()
     {
-        var filter = base.BuildFilter();
+        var filter = new BaseSpecification<PocketItem>();
+
+        if (OrderOption == PocketItemOrderOption.Newest)
+        {
+            filter.ApplyOrderByDescending(item => item.TimeFavorited);
+        }
+        else if (OrderOption == PocketItemOrderOption.Oldest)
+        {
+            filter.ApplyOrderBy(item => item.TimeFavorited);
+        }
+
         filter.SetFilterCondition(item => item.IsFavorited == true);
+        
         return filter;
     }
 
