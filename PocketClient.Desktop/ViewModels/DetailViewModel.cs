@@ -29,8 +29,8 @@ public class DetailViewModel : ObservableRecipient
 
     public PocketItem? SelectedItem
     {
-        get => _pocketItem; 
-        set => SetProperty(ref _pocketItem, value); 
+        get => _pocketItem;
+        set => SetProperty(ref _pocketItem, value);
     }
 
     public bool IsLoading
@@ -82,7 +82,7 @@ public class DetailViewModel : ObservableRecipient
     public void OnNavigatedTo(object parameter)
     {
         WebViewService.NavigationCompleted += OnNavigationCompleted;
-    } 
+    }
 
     public void OnNavigatedFrom()
     {
@@ -121,7 +121,7 @@ public class DetailViewModel : ObservableRecipient
             SelectedItem!.IsArchived = true;
             OnPropertyChanged(nameof(SelectedItem));
             WeakReferenceMessenger.Default.Send(new ItemArchiveStatusChangedMessage(SelectedItem));
-        } 
+        }
         catch (Exception ex)
         {
             // TODO: Log exception to event log

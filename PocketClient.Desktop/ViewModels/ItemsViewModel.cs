@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -9,6 +10,7 @@ using PocketClient.Core.Models;
 using PocketClient.Core.Specifications;
 using PocketClient.Desktop.Contracts.ViewModels;
 using PocketClient.Desktop.Models;
+using WinUIEx.Messaging;
 
 namespace PocketClient.Desktop.ViewModels;
 
@@ -45,6 +47,8 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
         set => _showListAndDetails = value;
     }
 
+    public bool HasItems => Items.Count > 0;
+
     public ICommand RefreshListCommand
     {
         get; set;
@@ -63,7 +67,7 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
 
     public void EnsureItemSelected()
     {
-        if (Selected == null && Items.Count > 0)
+        if (ShowListAndDetails && Selected == null && Items.Count > 0)
         {
             Selected = Items.First();
         }
@@ -108,29 +112,35 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
         App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, async () =>
         {
             await RefreshList();
+            OnPropertyChanged(nameof(HasItems));
         });
     }
 
     public void Receive(ItemRemovedMessage message)
     {
-        if (Selected != null && message.Item.Id == Selected.Id)
-        {
-            if (ShowListAndDetails)
-            {
-                SelectNextItem(message.Item);
-            }
-            else
-            {
-                Selected = null;
-            }
-        }
-
+        UpdateSelectedItem(message.Item);
         RemoveItem(message.Item);
     }
 
     public void RemoveItem(PocketItem item)
     {
         Items.Remove(item);
+        OnPropertyChanged(nameof(HasItems));
+    }
+
+    public void UpdateSelectedItem(PocketItem item)
+    {
+        if (Selected != null && item.Id == Selected.Id)
+        {
+            if (ShowListAndDetails)
+            {
+                SelectNextItem(item);
+            }
+            else
+            {
+                Selected = null;
+            }
+        }
     }
 
     public void SelectNextItem(PocketItem item)
@@ -147,8 +157,8 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
         if (idx < Items.Count - 1)
         {
             Selected = Items[idx + 1];
-        } 
-        else if (idx - 1 >= 0) 
+        }
+        else if (idx - 1 >= 0)
         {
             Selected = Items[idx - 1];
         }

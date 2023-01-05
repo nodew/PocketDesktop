@@ -24,9 +24,7 @@ public sealed partial class ArticlesPage : Page
 
     private void OnViewStateChanged(object sender, ListDetailsViewState e)
     {
-        if (e == ListDetailsViewState.Both)
-        {
-            ViewModel.EnsureItemSelected();
-        }
+        ViewModel.ShowListAndDetails = e == ListDetailsViewState.Both;
+        ViewModel.EnsureItemSelected();
     }
 }
