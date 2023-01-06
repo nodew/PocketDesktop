@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Content Remove="Assets\book-banner.jpg" />
+    <Content Remove="Assets\PocketAuthorizeSample.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +58,9 @@
 
   <ItemGroup>
     <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\PocketAuthorizeSample.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
