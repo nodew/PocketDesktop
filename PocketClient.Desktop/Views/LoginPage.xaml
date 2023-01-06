@@ -27,6 +27,18 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
+            <StackPanel Width="600" Background="#fff" Margin="0,20,0,20" CornerRadius="8">
+                <InfoBar
+                    x:Uid="LoginPage_Tips"
+                    Background="#fff"
+                    IsOpen="True"
+                    IsIconVisible="True"
+                    IsClosable="False"
+                    CornerRadius="0"
+                    BorderThickness="0,0,0,1"
+                ></InfoBar>
+                <Image Width="320" Height="196" Source="ms-appx:///assets/PocketAuthorizeSample.png"></Image>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

@@ -261,7 +261,7 @@
     <value>Click to start</value>
   </data>
   <data name="LoginPage_Welcome.Text" xml:space="preserve">
-    <value>Welcome to Pocket Desktop</value>
+    <value>Welcome to Nuts, a third-party desktop application for Pocket.</value>
   </data>
   <data name="PageTitle_AllTags.Text" xml:space="preserve">
     <value>Tags</value>
@@ -325,5 +325,11 @@
   </data>
   <data name="Settings_Language_Default.Content" xml:space="preserve">
     <value>Default</value>
+  </data>
+  <data name="LoginPage_Tips.Message" xml:space="preserve">
+    <value>You need to sign in https://getpocket.com first with your default browser before clicking on above button to get authorization if you're not able to see the following button.</value>
+  </data>
+  <data name="LoginPage_Tips.Title" xml:space="preserve">
+    <value>Tips</value>
   </data>
 </root>
