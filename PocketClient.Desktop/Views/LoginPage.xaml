@@ -27,17 +27,17 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
-            <StackPanel Width="600" Background="#fff" Margin="0,20,0,20" CornerRadius="8">
+            <StackPanel Width="600" Background="{ThemeResource SolidBackgroundFillColorQuarternaryBrush}" Margin="0,20,0,20" CornerRadius="8">
                 <InfoBar
                     x:Uid="LoginPage_Tips"
-                    Background="#fff"
+                    Background="{ThemeResource SolidBackgroundFillColorQuarternaryBrush}"
                     IsOpen="True"
                     IsIconVisible="True"
                     IsClosable="False"
                     CornerRadius="0"
                     BorderThickness="0,0,0,1"
                 ></InfoBar>
-                <Image Width="320" Height="196" Source="ms-appx:///assets/PocketAuthorizeSample.png"></Image>
+                <Image Width="320" Height="196" Source="ms-appx:///assets/PocketAuthorizeSample.png" Margin="0,24,0,24"></Image>
             </StackPanel>
         </StackPanel>
     </Grid>
