@@ -45,8 +45,10 @@ public sealed partial class ItemListControl : UserControl
     #endregion
 
     #region Events
-    public event EventHandler<ListDetailsViewState>? ViewStateChanged;
+    public event EventHandler<bool>? ViewStateChanged;
     #endregion
+
+    private bool? _showListAndDetails = null;
 
     public ItemListControl()
     {
@@ -85,8 +87,14 @@ public sealed partial class ItemListControl : UserControl
     }
     #endregion
 
-    private void OnViewStateChanged(object sender, ListDetailsViewState e)
+    private void OnListDetailsViewSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        ViewStateChanged?.Invoke(this, e);
+        var newState = e.NewSize.Width > 641;
+
+        if (_showListAndDetails != newState)
+        {
+            _showListAndDetails = newState;
+            ViewStateChanged?.Invoke(this, newState);
+        }
     }
 }
