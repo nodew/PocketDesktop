@@ -22,15 +22,9 @@
         </Grid>
     </DataTemplate>
 
-    <DataTemplate x:Key="ListHeaderTemplate">
+    <DataTemplate x:Key="DefaultListHeaderTemplate">
         <Grid>
             <TextBlock Style="{StaticResource ListHeaderStyle}" Text="{Binding}" />
-        </Grid>
-    </DataTemplate>
-
-    <DataTemplate x:Key="MinimalListHeaderTemplate">
-        <Grid>
-            <TextBlock Style="{StaticResource MinimalListHeaderStyle}" Text="{Binding}" />
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

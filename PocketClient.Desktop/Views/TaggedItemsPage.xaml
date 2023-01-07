@@ -24,6 +24,7 @@
                             SelectedItem="{x:Bind ViewModel.Selected, Mode=TwoWay}"
                             DetailsTemplate="{StaticResource DetailsTemplate}"
                             ListHeader="{x:Bind ViewModel.CurrentTag.Name, Mode=OneWay}"
+                            ListHeaderTemplate="{StaticResource DefaultListHeaderTemplate}"
                             ViewStateChanged="OnViewStateChanged">
         </uc:ItemListControl>
     </Grid>

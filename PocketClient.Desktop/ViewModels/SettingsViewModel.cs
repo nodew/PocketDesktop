@@ -121,7 +121,7 @@ public class SettingsViewModel : ObservableRecipient
         {
             return;
         }
-        
+
         Language = lang;
 
         if (lang == "Default")
@@ -144,10 +144,10 @@ public class SettingsViewModel : ObservableRecipient
         catch (Exception ex)
         {
             // TODO: Log exception to event log
-            await App.MainWindow.ShowMessageDialogAsync(ex.Message);
+            await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".GetLocalized());
         }
         finally {
-            Syncing = false; 
+            Syncing = false;
         }
     }
 }
