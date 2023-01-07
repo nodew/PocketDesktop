@@ -40,11 +40,18 @@
                               Visibility="{x:Bind ViewModel.SelectedItem.IsFavorited, Mode=OneWay}"
                               Command="{x:Bind ViewModel.UnfavoriteCommand}">
                     <AppBarButton.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE735;" Foreground="#fcb643" />
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE735;" Foreground="{StaticResource FavoritedIconBrush}" />
                     </AppBarButton.Icon>
                 </AppBarButton>
-                <AppBarButton x:Uid="DeleteButton"
-                              Command="{x:Bind ViewModel.RemoveItemCommand}">
+                <AppBarButton x:Uid="DeleteButton">
+                    <AppBarButton.Flyout>
+                        <Flyout>
+                            <StackPanel>
+                                <TextBlock x:Uid="DeleteButton_Confirmation" Style="{ThemeResource BaseTextBlockStyle}" Margin="0,0,0,12" />
+                                <Button x:Uid="Button_Confirm" Command="{x:Bind ViewModel.RemoveItemCommand}" Style="{ThemeResource AccentButtonStyle}" />
+                            </StackPanel>
+                        </Flyout>
+                    </AppBarButton.Flyout>
                     <AppBarButton.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe74d;" />
                     </AppBarButton.Icon>
@@ -81,12 +88,23 @@
                     x:Name="WebView"
                     Source="{x:Bind ViewModel.SelectedItem.Url, Mode=OneWay}" />
 
-                <StackPanel
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Visibility="{x:Bind ViewModel.HasFailures, Mode=OneWay}">
-                    <TextBlock x:Uid="WebView_FailedMessage" HorizontalAlignment="Center" TextWrapping="WrapWholeWords" />
-                    <HyperlinkButton x:Uid="WebView_Reload" Command="{x:Bind ViewModel.ReloadCommand}" HorizontalAlignment="Center" />
+                <StackPanel HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Width="400"
+                            Background="{ThemeResource SolidBackgroundFillColorQuarternaryBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="4"
+                            Visibility="{x:Bind ViewModel.HasFailures}" >
+                    <TextBlock x:Uid="WebView_FailedMessage" 
+                               HorizontalAlignment="Center" 
+                               TextWrapping="WrapWholeWords"
+                               Margin="0,24,0,0" />
+                    <Button x:Uid="WebView_Reload" 
+                            Style="{ThemeResource AccentButtonStyle}" 
+                            Command="{x:Bind ViewModel.ReloadCommand}" 
+                            HorizontalAlignment="Center"
+                            Margin="0,16,0,24" />
                 </StackPanel>
             </Grid>
         </Grid>

@@ -22,7 +22,7 @@
     
     <Style x:Key="ListTitleStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="FontSize" Value="{StaticResource MediumFontSize}" />
-        <Setter Property="Foreground" Value="{ThemeResource PrimaryTextColor}" />
+        <Setter Property="Foreground" Value="{ThemeResource TextFillColorPrimaryBrush}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="MaxLines" Value="1" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
@@ -30,7 +30,7 @@
 
     <Style x:Key="ListDetailsStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="FontSize" Value="{StaticResource SmallFontSize}" />
-        <Setter Property="Foreground" Value="{ThemeResource SecondaryTextColor}" />
+        <Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondary}" />
         <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="MaxLines" Value="1" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
@@ -38,7 +38,7 @@
 
     <Style x:Key="ListDescriptionStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
         <Setter Property="FontSize" Value="{StaticResource NormalFontSize}" />
-        <Setter Property="Foreground" Value="{ThemeResource PrimaryTextColor}" />
+        <Setter Property="Foreground" Value="{ThemeResource TextFillColorPrimaryBrush}" />
         <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="MaxLines" Value="1" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
