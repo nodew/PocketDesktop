@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.UI.Xaml.Data;
+﻿using Microsoft.UI.Xaml.Data;
 
 namespace PocketClient.Desktop.Converters;
 
@@ -13,7 +8,7 @@ public class LanguageToBooleanConverter : IValueConverter
     {
         if (parameter is string)
         {
-            return value.Equals(parameter);
+            return parameter.Equals(value);
         }
         
         return false;

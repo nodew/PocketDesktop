@@ -24,11 +24,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Assets\book-banner.jpg" />
-    <Content Remove="Assets\PocketAuthorizeSample.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -54,13 +49,13 @@
     <None Update="Assets\book-banner.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\PocketAuthorizeSample.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
     <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Assets\PocketAuthorizeSample.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
