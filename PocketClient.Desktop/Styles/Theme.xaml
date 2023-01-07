@@ -12,22 +12,31 @@
     <!--#endregion-->
     
     <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <Color x:Key="TagsBackgroundColor" >#d9d9d9</Color>
+            <Color x:Key="TagsForegroundColor">#1a1a1a</Color>
+        </ResourceDictionary>
         <ResourceDictionary x:Key="Dark">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
-
+                    <Color x:Key="TagsBackgroundColor" >#505050</Color>
+                    <Color x:Key="TagsForegroundColor">#f2f2f2</Color>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
+                    <Color x:Key="TagsBackgroundColor" >#d9d9d9</Color>
+                    <Color x:Key="TagsForegroundColor">#1a1a1a</Color>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         <ResourceDictionary x:Key="HighContrast">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
+                    <Color x:Key="TagsBackgroundColor" >#ccc5b8</Color>
+                    <Color x:Key="TagsForegroundColor">#191917</Color>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

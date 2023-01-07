@@ -1,7 +1,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using PocketClient.Core.Models;
-using CommunityToolkit.WinUI.UI.Controls;
 
 namespace PocketClient.Desktop.UserControls;
 

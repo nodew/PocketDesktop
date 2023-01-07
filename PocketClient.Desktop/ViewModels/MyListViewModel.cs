@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.UI.Dispatching;
 using PocketClient.Core.Models;
 using PocketClient.Core.Specifications;
 using PocketClient.Desktop.Models;

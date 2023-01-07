@@ -76,7 +76,6 @@ public class SettingsViewModel : ObservableRecipient
         SwitchThemeCommand = new AsyncRelayCommand<ElementTheme>(SwitchTheme);
         SwitchLanguageCommand = new RelayCommand<string>(SwitchLanguage);
         SyncDataCommand = new AsyncRelayCommand(SyncData);
-        _pocketDbService = pocketDbService;
     }
 
     private static string GetVersionDescription()
@@ -99,7 +98,7 @@ public class SettingsViewModel : ObservableRecipient
 
     private static string GetPreferredLanguage()
     {
-        if (string.IsNullOrEmpty(ApplicationLanguages.PrimaryLanguageOverride))
+        if (string.IsNullOrWhiteSpace(ApplicationLanguages.PrimaryLanguageOverride))
         {
             return "Default";
         }

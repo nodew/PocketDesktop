@@ -1,44 +1,13 @@
 <ResourceDictionary
     x:Class="PocketClient.Desktop.Styles.DataTemplates"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:models="using:PocketClient.Core.Models" >
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
 
     <DataTemplate x:Key="NavigationViewHeaderTemplate">
         <Grid>
             <TextBlock
                 Text="{Binding}"
                 Style="{ThemeResource TitleTextBlockStyle}" />
-        </Grid>
-    </DataTemplate>
-
-    <DataTemplate x:Key="ItemTemplate" x:DataType="models:PocketItem">
-        <Grid Margin="6,12,12,12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0"
-                       Text="{Binding Converter={StaticResource PocketItemTitleConverter}}"
-                       MaxLines="2"
-                       Style="{StaticResource ListTitleStyle}" />
-            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="{StaticResource XXSmallTopMargin}">
-                <TextBlock Text="{Binding Domain}" Style="{StaticResource ListDetailsStyle}" />
-                <StackPanel Orientation="Horizontal" Visibility="{Binding TimeToRead, Converter={StaticResource PositiveNumberToVisibilityConverter}}">
-                    <TextBlock Style="{StaticResource ListDetailsStyle}">
-                        <Run Text="&#160;&#183;&#160;" />
-                    </TextBlock>
-                    <TextBlock Text="{Binding TimeToRead}" Style="{StaticResource ListDetailsStyle}" />
-                    <TextBlock Text=" min" Style="{StaticResource ListDetailsStyle}" />
-                </StackPanel>
-            </StackPanel>
-            <TextBlock Grid.Row="2"
-                       Text="{Binding Excerpt}"
-                       Style="{StaticResource ListDescriptionStyle}"
-                       Margin="{StaticResource XXSmallTopMargin}"
-                       MaxLines="3" />
         </Grid>
     </DataTemplate>
 
