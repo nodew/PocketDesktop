@@ -44,11 +44,11 @@
     </UserControl.Resources>
     
     <Grid x:Name="ContentArea">
-        <VisualStateManager.VisualStateGroups>
+        <!--<VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <!--641 is the default CompactModeThresholdWidth in NavigationView -->
+                        --><!--641 is the default CompactModeThresholdWidth in NavigationView --><!--
                         <AdaptiveTrigger MinWindowWidth="641" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
@@ -56,30 +56,31 @@
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
+        </VisualStateManager.VisualStateGroups>-->
         <Grid x:Name="ItemListContainer" Visibility="{x:Bind HasItems, Mode=OneWay}">
             <controls:ListDetailsView
                 x:Name="ListDetailsViewControl"
                 SizeChanged="OnListDetailsViewSizeChanged"
-                ListHeader="{x:Bind ListHeader}"
                 BackButtonBehavior="Manual"
                 Background="Transparent"
                 BorderBrush="Transparent"
+                ListHeader="{x:Bind ListHeader}"
+                ListHeaderTemplate="{x:Bind ListHeaderTemplate}"
                 DetailsTemplate="{x:Bind DetailsTemplate}"
                 ItemsSource="{x:Bind ItemsSource}"
                 ItemTemplate="{StaticResource ItemTemplate}"
-                ListHeaderTemplate="{StaticResource MinimalListHeaderTemplate}"
                 NoSelectionContentTemplate="{StaticResource NoSelectionContentTemplate}"
                 SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}" />
         </Grid>
         <Grid x:Name="NoItemContainer"
-              Visibility="{x:Bind HasItems, Mode=OneWay, Converter={StaticResource BoolNegationToVisibilityConverter}}"
-              Margin="{StaticResource CommonPageMargin}">
+              Visibility="{x:Bind HasItems, Mode=OneWay, Converter={StaticResource BoolNegationToVisibilityConverter}}" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock Text="{x:Bind ListHeader}" Style="{StaticResource PageTitleStyle}" />
+            <StackPanel Margin="12,0">
+                <ContentPresenter Content="{x:Bind ListHeader}" ContentTemplate="{x:Bind ListHeaderTemplate}" />
+            </StackPanel>
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock x:Uid="ItemListControl_EmptyPage" Style="{StaticResource SubtitleTextBlockStyle}" />
             </StackPanel>

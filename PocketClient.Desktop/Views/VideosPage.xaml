@@ -27,6 +27,7 @@
                             SelectedItem="{x:Bind ViewModel.Selected, Mode=TwoWay}"
                             DetailsTemplate="{StaticResource DetailsTemplate}"
                             x:Uid="PageTitle_Videos"
+                            ListHeaderTemplate="{StaticResource DefaultListHeaderTemplate}"
                             ViewStateChanged="OnViewStateChanged" />
     </Grid>
 </Page>

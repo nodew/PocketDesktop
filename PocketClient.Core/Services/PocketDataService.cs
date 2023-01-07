@@ -35,6 +35,7 @@ public class PocketDataService : IPocketDataService
     {
         var rawItem = await _pocketHttpClient.AddItemAsync(uri, title, cancellationToken);
         var normalizedItem = PocketItemHelper.NormalizeRawPocketItem(rawItem);
+        normalizedItem.TimeAdded = DateTime.Now;
         await _persistenceService.AddOrUpdateItemAsync(normalizedItem, cancellationToken);
         return normalizedItem;
     }

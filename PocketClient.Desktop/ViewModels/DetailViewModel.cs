@@ -7,6 +7,7 @@ using Microsoft.Web.WebView2.Core;
 using PocketClient.Core.Contracts.Services;
 using PocketClient.Core.Models;
 using PocketClient.Desktop.Contracts.Services;
+using PocketClient.Desktop.Helpers;
 using PocketClient.Desktop.Models;
 
 namespace PocketClient.Desktop.ViewModels;
@@ -125,7 +126,7 @@ public class DetailViewModel : ObservableRecipient
         catch (Exception ex)
         {
             // TODO: Log exception to event log
-            await App.MainWindow.ShowMessageDialogAsync(ex.Message);
+            await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".GetLocalized());
         }
 
         IsUpdating = false;
@@ -144,7 +145,7 @@ public class DetailViewModel : ObservableRecipient
         catch (Exception ex)
         {
             // TODO: Log exception to event log
-            await App.MainWindow.ShowMessageDialogAsync(ex.Message);
+            await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".GetLocalized());
         }
 
         IsUpdating = false;
@@ -163,7 +164,7 @@ public class DetailViewModel : ObservableRecipient
         catch (Exception ex)
         {
             // TODO: Log exception to event log
-            await App.MainWindow.ShowMessageDialogAsync(ex.Message);
+            await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".GetLocalized());
         }
 
         IsUpdating = false;
@@ -182,7 +183,7 @@ public class DetailViewModel : ObservableRecipient
         catch (Exception ex)
         {
             // TODO: Log exception to event log
-            await App.MainWindow.ShowMessageDialogAsync(ex.Message);
+            await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".GetLocalized());
         }
 
         IsUpdating = false;
@@ -199,7 +200,7 @@ public class DetailViewModel : ObservableRecipient
         catch (Exception ex)
         {
             // TODO: Log exception to event log
-            await App.MainWindow.ShowMessageDialogAsync(ex.Message);
+            await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".GetLocalized());
         }
 
         IsUpdating = false;

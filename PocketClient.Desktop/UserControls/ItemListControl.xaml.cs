@@ -14,6 +14,13 @@ public sealed partial class ItemListControl : UserControl
               typeof(ItemListControl),
               new PropertyMetadata(null));
 
+    public static readonly DependencyProperty ListHeaderTemplateProperty =
+           DependencyProperty.Register(
+              nameof(ListHeaderTemplate),
+              typeof(DataTemplate),
+              typeof(ItemListControl),
+              new PropertyMetadata(null));
+
     public static readonly DependencyProperty ItemsSourceProperty =
            DependencyProperty.Register(
               nameof(ItemsSource),
@@ -59,6 +66,12 @@ public sealed partial class ItemListControl : UserControl
     {
         get => GetValue(ListHeaderProperty);
         set => SetValue(ListHeaderProperty, value);
+    }
+
+    public DataTemplate ListHeaderTemplate
+    {
+        get => (DataTemplate)GetValue(ListHeaderTemplateProperty);
+        set => SetValue(ListHeaderTemplateProperty, value);
     }
 
     public ICollection<PocketItem> ItemsSource

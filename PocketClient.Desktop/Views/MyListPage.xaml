@@ -6,11 +6,29 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:PocketClient.Desktop.Views"
     xmlns:models="using:PocketClient.Core.Models"
+    xmlns:vm="using:PocketClient.Desktop.ViewModels"
     xmlns:uc="using:PocketClient.Desktop.UserControls"
     xmlns:behaviors="using:PocketClient.Desktop.Behaviors"
     behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
     mc:Ignorable="d">
     <Page.Resources>
+        <DataTemplate x:Key="MyListHeaderTemplate" x:DataType="vm:MyListViewModel">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Uid="PageTitle_MyList" Style="{StaticResource ListHeaderStyle}" />
+                <Button x:Uid="AddItemButton"
+                        Grid.Column="1" 
+                        Background="Transparent" 
+                        BorderThickness="0"
+                        Click="ShowSaveUrlDialog">
+                    <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xecc8;" />
+                </Button>
+            </Grid>
+        </DataTemplate>
+        
         <DataTemplate x:Key="DetailsTemplate" x:DataType="models:PocketItem">
             <Grid>
                 <local:DetailPage SelectedItem="{x:Bind}" />
@@ -23,7 +41,8 @@
                             HasItems="{x:Bind ViewModel.HasItems,Mode=OneWay}"
                             SelectedItem="{x:Bind ViewModel.Selected, Mode=TwoWay}"
                             DetailsTemplate="{StaticResource DetailsTemplate}"
-                            x:Uid="PageTitle_MyList"
+                            ListHeader="{x:Bind ViewModel}"
+                            ListHeaderTemplate="{StaticResource MyListHeaderTemplate}"
                             ViewStateChanged="OnViewStateChanged">
         </uc:ItemListControl>
     </Grid>
