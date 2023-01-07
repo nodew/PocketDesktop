@@ -24,7 +24,7 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
     {
         _orderOption = PocketItemOrderOption.Newest;
 
-        RefreshListCommand = new AsyncRelayCommand(RefreshList);
+        RefreshListCommand = new AsyncRelayCommand(RefreshListAsync);
     }
 
     public ObservableCollection<PocketItem> Items = new();
@@ -91,10 +91,10 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
 
     protected async virtual Task NavigatedTo(object parameter)
     {
-        await RefreshList();
+        await RefreshListAsync();
     }
 
-    public async Task RefreshList()
+    public async Task RefreshListAsync()
     {
         var filter = BuildFilter();
         var items = await App.GetService<IPocketDataService>().GetItemsAsync(filter);
@@ -111,7 +111,15 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
     {
         App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Low, async () =>
         {
-            await RefreshList();
+            var currentSelected = Selected;
+
+            await RefreshListAsync();
+
+            if (currentSelected != null)
+            {
+                Selected = Items.Where(item => item.Id == currentSelected.Id).FirstOrDefault();
+            }
+
             OnPropertyChanged(nameof(HasItems));
         });
     }

@@ -19,9 +19,9 @@ public sealed partial class SearchResultsPage : Page
         InitializeComponent();
     }
 
-    private void OnViewStateChanged(object sender, ListDetailsViewState e)
+    private void OnViewStateChanged(object sender, bool e)
     {
-        ViewModel.ShowListAndDetails = e == ListDetailsViewState.Both;
+        ViewModel.ShowListAndDetails = e;
         ViewModel.EnsureItemSelected();
     }
 }

@@ -161,6 +161,9 @@
   <data name="ArchiveButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>归档</value>
   </data>
+  <data name="Button_Confirm.Content" xml:space="preserve">
+    <value>确认</value>
+  </data>
   <data name="DeleteButton.Label" xml:space="preserve">
     <value>移除</value>
   </data>
@@ -169,6 +172,9 @@
   </data>
   <data name="DeleteButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>移除</value>
+  </data>
+  <data name="DeleteButton_Confirmation.Text" xml:space="preserve">
+    <value>当前文章将被永久删除。确定要继续吗？</value>
   </data>
   <data name="FavoriteButton.Label" xml:space="preserve">
     <value>收藏</value>

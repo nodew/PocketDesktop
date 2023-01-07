@@ -28,6 +28,7 @@
         <Grid x:Name="ItemListContainer" Visibility="{x:Bind HasItems, Mode=OneWay}">
             <controls:ListDetailsView
                 x:Name="ListDetailsViewControl"
+                SizeChanged="OnListDetailsViewSizeChanged"
                 ListHeader="{x:Bind ListHeader}"
                 BackButtonBehavior="Manual"
                 Background="Transparent"
@@ -37,8 +38,7 @@
                 ItemTemplate="{StaticResource ItemTemplate}"
                 ListHeaderTemplate="{StaticResource MinimalListHeaderTemplate}"
                 NoSelectionContentTemplate="{StaticResource NoSelectionContentTemplate}"
-                SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
-                ViewStateChanged="OnViewStateChanged" />
+                SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}" />
         </Grid>
         <Grid x:Name="NoItemContainer"
               Visibility="{x:Bind HasItems, Mode=OneWay, Converter={StaticResource BoolNegationToVisibilityConverter}}"
