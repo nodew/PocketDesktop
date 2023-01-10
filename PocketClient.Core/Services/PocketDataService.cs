@@ -72,39 +72,7 @@ public class PocketDataService : IPocketDataService
 
     public async Task UpdateItemTags(PocketItem item, List<Tag> newTags, CancellationToken cancellationToken = default)
     {
-        var unChangedTags = new List<Tag>();
-        var tagsToAdd = new List<Tag>();
-        var tagsToRemove = new List<Tag>();
-        foreach (var tag in item.Tags)
-        {
-            if (newTags.Find(tag => tag.Id == tag.Id) is not null)
-            {
-                unChangedTags.Add(tag);
-            }
-            else
-            {
-                tagsToRemove.Add(tag);
-            }
-        }
-
-        foreach (var tag in newTags)
-        {
-            if (unChangedTags.Find(tag => tag.Id == tag.Id) is null)
-            {
-                tagsToAdd.Add(tag);
-            }
-        }
-
-        if (tagsToRemove.Count > 0)
-        {
-            await _pocketHttpClient.RemoveTagsAsync(item.Id, tagsToRemove.Select(item => item.Name).ToList(), cancellationToken);
-        }
-
-        if (tagsToAdd.Count > 0)
-        {
-            await _pocketHttpClient.AddTagsAsync(item.Id, tagsToRemove.Select(item => item.Name).ToList(), cancellationToken);
-        }
-
+        await _pocketHttpClient.ReplaceTagsAsync(item.Id, newTags.Select(tag => tag.Name).ToList(), cancellationToken);
         await _persistenceService.UpdateItemTagsAsync(item.Id, newTags, cancellationToken);
     }
 

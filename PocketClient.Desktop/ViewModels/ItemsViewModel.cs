@@ -12,7 +12,12 @@ using PocketClient.Desktop.Models;
 
 namespace PocketClient.Desktop.ViewModels;
 
-public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage>, IRecipient<ItemRemovedMessage>, INavigationAware
+public class ItemsViewModel : 
+    ObservableRecipient, 
+    IRecipient<SyncedItemsMessage>, 
+    IRecipient<ItemRemovedMessage>, 
+    IRecipient<ItemTagsUpdatedMessage>,
+    INavigationAware
 {
     private PocketItemOrderOption _orderOption;
     private PocketItem? _selected;
@@ -126,6 +131,24 @@ public class ItemsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage
     {
         UpdateSelectedItem(message.Item);
         RemoveItem(message.Item);
+    }
+
+    public void Receive(ItemTagsUpdatedMessage message)
+    {
+        var item = message.Item;
+        item.Tags = message.Tags;
+        var index = Items.ToList().FindIndex(e => item.Id == e.Id);
+        if (index >= 0)
+        {
+            var shouldResetSelect = Selected != null && item.Id == Selected.Id;
+
+            Items[index] = item;
+
+            if (shouldResetSelect)
+            {
+                Selected = item;
+            }
+        }
     }
 
     public void RemoveItem(PocketItem item)

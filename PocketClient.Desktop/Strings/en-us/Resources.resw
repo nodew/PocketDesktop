@@ -362,4 +362,31 @@
   <data name="SaveUrlDialog_UrlInputBox.PlaceholderText" xml:space="preserve">
     <value>Enter a URL</value>
   </data>
+  <data name="AddTags" xml:space="preserve">
+    <value>Add tags</value>
+  </data>
+  <data name="AddTagsButton.Label" xml:space="preserve">
+    <value>Add tags</value>
+  </data>
+  <data name="AddTagsButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Add tags</value>
+  </data>
+  <data name="AddTagsButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Add tags</value>
+  </data>
+  <data name="EditTags" xml:space="preserve">
+    <value>Edit tags</value>
+  </data>
+  <data name="EditTagsButton.Label" xml:space="preserve">
+    <value>Edit tags</value>
+  </data>
+  <data name="EditTagsButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Edit tags</value>
+  </data>
+  <data name="EditTagsButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Edit tags</value>
+  </data>
+  <data name="ManageTagsDialog_TagsTokenBox.PlaceholderText" xml:space="preserve">
+    <value>Add tags, use semicolon as delimiter</value>
+  </data>
 </root>

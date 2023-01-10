@@ -123,6 +123,18 @@
   <data name="AddItemButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>新增</value>
   </data>
+  <data name="AddTags" xml:space="preserve">
+    <value>添加标签</value>
+  </data>
+  <data name="AddTagsButton.Label" xml:space="preserve">
+    <value>添加标签</value>
+  </data>
+  <data name="AddTagsButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>添加标签</value>
+  </data>
+  <data name="AddTagsButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>添加标签</value>
+  </data>
   <data name="AddToListButton.Label" xml:space="preserve">
     <value>添加到我的列表</value>
   </data>
@@ -185,6 +197,18 @@
   <data name="DeleteButton_Confirmation.Text" xml:space="preserve">
     <value>当前文章将被永久删除。确定要继续吗？</value>
   </data>
+  <data name="EditTags" xml:space="preserve">
+    <value>编辑标签</value>
+  </data>
+  <data name="EditTagsButton.Label" xml:space="preserve">
+    <value>编辑标签</value>
+  </data>
+  <data name="EditTagsButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>编辑标签</value>
+  </data>
+  <data name="EditTagsButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>编辑标签</value>
+  </data>
   <data name="ErrorMessage_InvalidUrl" xml:space="preserve">
     <value>无效的链接</value>
   </data>
@@ -204,7 +228,7 @@
     <value>当前页面没有任何数据。</value>
   </data>
   <data name="ItemListControl_NoSelection.Text" xml:space="preserve">
-    <value>Select an item to read.</value>
+    <value>请选择一篇文章</value>
   </data>
   <data name="LoginPage_StartBtn.Text" xml:space="preserve">
     <value>开始使用</value>
@@ -217,6 +241,9 @@
   </data>
   <data name="LoginPage_Welcome.Text" xml:space="preserve">
     <value>欢迎使用 Nuts, 一款为 Pocket 实现的第三方桌面应用</value>
+  </data>
+  <data name="ManageTagsDialog_TagsTokenBox.PlaceholderText" xml:space="preserve">
+    <value>添加标签，标签之前使用分号（；）分隔</value>
   </data>
   <data name="OpenInBrowserButton.Label" xml:space="preserve">
     <value>浏览器打开</value>

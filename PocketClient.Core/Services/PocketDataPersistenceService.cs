@@ -54,7 +54,9 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
 
             if (_tag == null)
             {
-                _tags.Add(new Tag { Id = Guid.NewGuid(), Name = tag.Name, IsPinned = false });
+                _tag = new Tag { Id = Guid.NewGuid(), Name = tag.Name, IsPinned = false };
+                _dbContext.Tags.Add(_tag);
+                _tags.Add(_tag);
             }
             else
             {
@@ -154,11 +156,13 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
 
         foreach (var tag in tags)
         {
-            var _tag = _dbContext.Tags.Where(t => t.Name == tag.Name).AsTracking().FirstOrDefault();
+            var _tag = await _dbContext.Tags.Where(t => t.Name == tag.Name).AsTracking().FirstOrDefaultAsync();
 
             if (_tag == null)
             {
-                _tags.Add(new Tag { Id = Guid.NewGuid(), Name = tag.Name });
+                _tag = new Tag { Id = Guid.NewGuid(), Name = tag.Name, IsPinned = false };
+                _dbContext.Tags.Add(_tag);
+                _tags.Add(_tag);
             }
             else
             {
@@ -167,7 +171,7 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
         }
 
         _item.Tags.Clear();
-        _item.Tags.AddRange(tags);
+        _item.Tags.AddRange(_tags);
 
         await _dbContext.SaveChangesAsync(cancellationToken);
     }

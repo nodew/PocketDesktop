@@ -22,6 +22,7 @@ public class DetailViewModel : ObservableRecipient
     private bool _hasFailures;
     private PocketItem? _pocketItem;
     private bool _isUpdating;
+    private bool _hasTags;
 
     public IWebViewService WebViewService
     {
@@ -31,7 +32,10 @@ public class DetailViewModel : ObservableRecipient
     public PocketItem? SelectedItem
     {
         get => _pocketItem;
-        set => SetProperty(ref _pocketItem, value);
+        set {
+            SetProperty(ref _pocketItem, value);
+            OnPropertyChanged(nameof(HasTags));
+        }
     }
 
     public bool IsLoading
@@ -52,6 +56,8 @@ public class DetailViewModel : ObservableRecipient
         set => SetProperty(ref _isUpdating, value);
     }
 
+    public bool HasTags => SelectedItem?.Tags?.Count > 0;
+
     public IAsyncRelayCommand ArchiveCommand { get; }
 
     public IAsyncRelayCommand AddToListCommand { get; }
@@ -62,6 +68,8 @@ public class DetailViewModel : ObservableRecipient
 
     public IAsyncRelayCommand RemoveItemCommand { get; }
 
+    public IAsyncRelayCommand UpdateTagsCommand { get; }
+
     public ICommand ReloadCommand { get; }
 
     public IAsyncRelayCommand OpenInBrowserCommand { get; }
@@ -69,7 +77,7 @@ public class DetailViewModel : ObservableRecipient
     public DetailViewModel(IWebViewService webViewService)
     {
         WebViewService = webViewService;
-        webViewService.NavigationCompleted += OnNavigationCompleted;
+        WebViewService.NavigationCompleted += OnNavigationCompleted;
 
         ReloadCommand = new RelayCommand(OnRetry);
         OpenInBrowserCommand = new AsyncRelayCommand(OpenInBrowserAsync, () => WebViewService.Source != null);
@@ -78,6 +86,7 @@ public class DetailViewModel : ObservableRecipient
         FavoriteCommand = new AsyncRelayCommand(FavoriteItemAsync, CanUpdateItem);
         UnfavoriteCommand = new AsyncRelayCommand(UnfavoriteItemAsync, CanUpdateItem);
         RemoveItemCommand = new AsyncRelayCommand(RemoveItemAsync, CanUpdateItem);
+        UpdateTagsCommand = new AsyncRelayCommand<List<Tag>>(UpdateTagsAsync, _ => CanUpdateItem());
     }
 
     public void OnNavigatedTo(object parameter)
@@ -196,6 +205,27 @@ public class DetailViewModel : ObservableRecipient
         {
             await App.GetService<IPocketDataService>().RemoveItemAsync(SelectedItem!);
             WeakReferenceMessenger.Default.Send(new ItemRemovedMessage(SelectedItem!));
+        }
+        catch (Exception ex)
+        {
+            // TODO: Log exception to event log
+            await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".GetLocalized());
+        }
+
+        IsUpdating = false;
+    }
+
+    private async Task UpdateTagsAsync(List<Tag> newTags)
+    {
+        IsUpdating = true;
+
+        try
+        {
+            await App.GetService<IPocketDataService>().UpdateItemTags(SelectedItem!, newTags);
+            var item = await App.GetService<IPocketDataService>().GetItemByIdAsync(SelectedItem!.Id);
+            SelectedItem!.Tags = item!.Tags;
+            OnPropertyChanged(nameof(SelectedItem));
+            WeakReferenceMessenger.Default.Send(new ItemTagsUpdatedMessage(SelectedItem!, item!.Tags));
         }
         catch (Exception ex)
         {
