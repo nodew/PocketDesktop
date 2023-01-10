@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 using PocketClient.Core.Models;
 
 namespace PocketClient.Core.Data;
@@ -34,6 +35,9 @@ public class PocketDbContext : DbContext
     {
         get; set;
     }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.LogTo(message => Debug.WriteLine(message));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

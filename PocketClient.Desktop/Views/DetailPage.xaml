@@ -43,6 +43,20 @@
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE735;" Foreground="{StaticResource FavoritedIconBrush}" />
                     </AppBarButton.Icon>
                 </AppBarButton>
+                <AppBarButton x:Uid="EditTagsButton"
+                              Click="ShowManageTagsDialog"
+                              Visibility="{x:Bind ViewModel.HasTags, Mode=OneWay}" >
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe8ec;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton x:Uid="AddTagsButton"
+                              Click="ShowManageTagsDialog"
+                              Visibility="{x:Bind ViewModel.HasTags, Mode=OneWay, Converter={StaticResource BoolNegationToVisibilityConverter}}" >
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe8ec;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
                 <AppBarButton x:Uid="DeleteButton">
                     <AppBarButton.Flyout>
                         <Flyout>

@@ -155,9 +155,10 @@ public class ActivationService : IActivationService
             {
                 await _pocketDbService.SyncItemsAsync(false);
             }
-            catch
+            catch (Exception ex)
             {
                 // TODO: Log exception to event log.
+                Console.WriteLine(ex.ToString());
             }
         }
         await Task.CompletedTask;

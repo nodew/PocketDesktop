@@ -125,9 +125,10 @@ public class PocketDbService : IPocketDbService
                             await App.GetService<IPocketDataPersistenceService>().AddOrUpdateItemAsync(normalizedItem);
                         }
                     } 
-                    catch 
+                    catch (Exception ex)
                     {
                         // TODO: Log exception to event log.
+                        Console.WriteLine(ex.ToString());
                     }
                 }
             } while (hasMoreItems);
