@@ -99,7 +99,10 @@
                 <TextBlock x:Uid="Settings_Data" Style="{ThemeResource SubtitleTextBlockStyle}" />
 
                 <StackPanel>
-                    <Button x:Uid="Settings_Data_SyncBtn" Command="{x:Bind ViewModel.SyncDataCommand}" Margin="{StaticResource XSmallTopMargin}" />
+                    <Button x:Uid="Settings_Data_SyncBtn" 
+                            Command="{x:Bind ViewModel.SyncDataCommand}"
+                            Style="{StaticResource AccentButtonStyle}"
+                            Margin="{StaticResource XSmallTopMargin}" />
                     
                     <ProgressRing IsActive="True" Visibility="{x:Bind ViewModel.Syncing, Mode=OneWay}" HorizontalAlignment="Left" Margin="{StaticResource XXSmallTopMargin}"  />
                 </StackPanel>
