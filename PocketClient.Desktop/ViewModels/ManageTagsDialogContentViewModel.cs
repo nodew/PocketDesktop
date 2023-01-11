@@ -58,7 +58,7 @@ public class ManageTagsDialogContentViewModel : ObservableObject
 
     private void AddNewTag(string name)
     {
-        var tagName = name.ToLower();
+        var tagName = name.Trim().ToLower();
         var tag = SelectedTags.Where(tag => tag.Name.Equals(tagName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
         if (tag == null)
         {
@@ -68,7 +68,7 @@ public class ManageTagsDialogContentViewModel : ObservableObject
 
     private bool CanAddNewTag(string name)
     {
-        return name != null;
+        return !string.IsNullOrWhiteSpace(name);
     }
 
     private void UpdateSuggestedTags(string? input)
