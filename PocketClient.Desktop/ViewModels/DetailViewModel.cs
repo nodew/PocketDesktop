@@ -22,7 +22,6 @@ public class DetailViewModel : ObservableRecipient
     private bool _hasFailures;
     private PocketItem? _pocketItem;
     private bool _isUpdating;
-    private bool _hasTags;
 
     public IWebViewService WebViewService
     {
