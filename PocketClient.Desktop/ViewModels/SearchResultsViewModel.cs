@@ -21,8 +21,6 @@ public class SearchResultsViewModel : ItemsViewModel
         set => SetProperty(ref _searchText, value);
     }
 
-    public string ListHeader => "SearchResultsPageTitle".GetLocalized(SearchText, Items.Count.ToString());
-
     protected override BaseSpecification<PocketItem> BuildFilter()
     {
         var filter = base.BuildFilter();
@@ -51,6 +49,5 @@ public class SearchResultsViewModel : ItemsViewModel
     {
         SearchText = (string)parameter;
         await base.NavigatedTo(parameter);
-        OnPropertyChanged(nameof(ListHeader));
     }
 }

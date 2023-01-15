@@ -31,9 +31,9 @@ public sealed partial class MyListPage : Page
 
         dialog.XamlRoot = this.XamlRoot;
         dialog.RequestedTheme = App.GetService<IThemeSelectorService>().Theme;
-        dialog.Title = "SaveUrlDialog_Title".GetLocalized();
-        dialog.PrimaryButtonText = "Save".GetLocalized();
-        dialog.SecondaryButtonText = "Cancel".GetLocalized();
+        dialog.Title = "SaveUrlDialog_Title".Format();
+        dialog.PrimaryButtonText = "Save".Format();
+        dialog.SecondaryButtonText = "Cancel".Format();
         dialog.DefaultButton = ContentDialogButton.Primary;
         dialog.Content = content;
         dialog.IsPrimaryButtonEnabled = false;

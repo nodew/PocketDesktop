@@ -93,7 +93,7 @@ public class SettingsViewModel : ObservableRecipient
             version = Assembly.GetExecutingAssembly().GetName().Version!;
         }
 
-        return $"{"AppDisplayName".GetLocalized()} - {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+        return $"{"AppDisplayName".Format()} - {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
     }
 
     private static string GetPreferredLanguage()
@@ -144,7 +144,7 @@ public class SettingsViewModel : ObservableRecipient
         catch (Exception ex)
         {
             // TODO: Log exception to event log
-            await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".GetLocalized());
+            await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".Format());
         }
         finally {
             Syncing = false;

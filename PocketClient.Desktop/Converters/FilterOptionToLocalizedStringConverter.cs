@@ -11,13 +11,13 @@ public class FilterOptionToLocalizedStringConverter : IValueConverter
         switch (value)
         {
             case PocketItemFilterOption.All:
-                return "FilterOption_All/Text".GetLocalized();
+                return "FilterOption_All/Text".Format();
             case PocketItemFilterOption.UnArchived:
-                return "FilterOption_MyList/Text".GetLocalized();
+                return "FilterOption_MyList/Text".Format();
             case PocketItemFilterOption.Archived:
-                return "FilterOption_Archived/Text".GetLocalized();
+                return "FilterOption_Archived/Text".Format();
             case PocketItemFilterOption.Favorited:
-                return "FilterOption_Favorited/Text".GetLocalized();
+                return "FilterOption_Favorited/Text".Format();
             default:
                 return "Unknown";
         }
