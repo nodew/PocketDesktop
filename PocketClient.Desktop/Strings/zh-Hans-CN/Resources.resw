@@ -224,6 +224,18 @@
   <data name="FavoriteButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>收藏</value>
   </data>
+  <data name="FilterOption_All.Text" xml:space="preserve">
+    <value>所有</value>
+  </data>
+  <data name="FilterOption_Archived.Text" xml:space="preserve">
+    <value>已归档</value>
+  </data>
+  <data name="FilterOption_Favorited.Text" xml:space="preserve">
+    <value>已收藏</value>
+  </data>
+  <data name="FilterOption_MyList.Text" xml:space="preserve">
+    <value>我的列表</value>
+  </data>
   <data name="ItemListControl_EmptyPage.Text" xml:space="preserve">
     <value>当前页面没有任何数据。</value>
   </data>
@@ -260,10 +272,10 @@
   <data name="PageTitle_Archives.ListHeader" xml:space="preserve">
     <value>归档</value>
   </data>
-  <data name="PageTitle_Articles.ListHeader" xml:space="preserve">
+  <data name="PageTitle_Articles.Text" xml:space="preserve">
     <value>文章</value>
   </data>
-  <data name="PageTitle_Favorites.ListHeader" xml:space="preserve">
+  <data name="PageTitle_Favorites.Text" xml:space="preserve">
     <value>收藏</value>
   </data>
   <data name="PageTitle_MyList.Text" xml:space="preserve">
@@ -272,7 +284,7 @@
   <data name="PageTitle_Settings.Text" xml:space="preserve">
     <value>设置</value>
   </data>
-  <data name="PageTitle_Videos.ListHeader" xml:space="preserve">
+  <data name="PageTitle_Videos.Text" xml:space="preserve">
     <value>视频</value>
   </data>
   <data name="ReloadButton.Label" xml:space="preserve">

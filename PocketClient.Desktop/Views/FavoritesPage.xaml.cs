@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Microsoft.UI.Xaml.Controls;
+using PocketClient.Desktop.Models;
 using PocketClient.Desktop.ViewModels;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -18,6 +19,7 @@ public sealed partial class FavoritesPage : Page
     public FavoritesPage()
     {
         ViewModel = App.GetService<FavoritesViewModel>();
+
         this.InitializeComponent();
     }
 

@@ -8,6 +8,7 @@
     
     <converters:BoolNegationToVisibilityConverter x:Key="BoolNegationToVisibilityConverter" />
     <converters:ElementThemeToBooleanConverter x:Key="ElementThemeToBooleanConverter" />
+    <converters:FilterOptionToLocalizedStringConverter x:Key="FilterOptionToLocalizedStringConverter" />
     <converters:LanguageToBooleanConverter x:Key="LanguageToBooleanConverter" />
     <converters:NegativeNumberToVisibilityConverter x:Key="NegativeNumberToVisibilityConverter" />
     <converters:PocketItemTitleConverter x:Key="PocketItemTitleConverter" />

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq.Expressions;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -20,14 +21,17 @@ public class ItemsViewModel :
     INavigationAware
 {
     private PocketItemOrderOption _orderOption;
+    private PocketItemFilterOption _filterOption;
     private PocketItem? _selected;
     private bool _showListAndDetails;
 
     public ItemsViewModel()
     {
         _orderOption = PocketItemOrderOption.Newest;
+        _filterOption = PocketItemFilterOption.All;
 
         RefreshListCommand = new AsyncRelayCommand(RefreshListAsync);
+        UpdateFilterOptionCommand = new AsyncRelayCommand<int>(UpdateFilterOptionAsync);
     }
 
     public ObservableCollection<PocketItem> Items = new();
@@ -36,6 +40,12 @@ public class ItemsViewModel :
     {
         get => _orderOption;
         set => SetProperty(ref _orderOption, value);
+    }
+
+    public PocketItemFilterOption FilterOption
+    {
+        get => _filterOption;
+        set => SetProperty(ref _filterOption, value);
     }
 
     public PocketItem? Selected
@@ -52,10 +62,9 @@ public class ItemsViewModel :
 
     public bool HasItems => Items.Count > 0;
 
-    public ICommand RefreshListCommand
-    {
-        get; set;
-    }
+    public ICommand RefreshListCommand { get; }
+
+    public IAsyncRelayCommand<int> UpdateFilterOptionCommand { get; }
 
     public async void OnNavigatedTo(object parameter)
     {
@@ -89,12 +98,38 @@ public class ItemsViewModel :
             filter.ApplyOrderBy(item => item.TimeAdded);
         }
 
+        if (FilterOption == PocketItemFilterOption.UnArchived)
+        {
+            filter.SetFilterCondition(item => item.IsArchived == false);
+        }
+        else if (FilterOption == PocketItemFilterOption.Archived)
+        {
+            filter.SetFilterCondition(item => item.IsArchived == true);
+        }
+        else if (FilterOption == PocketItemFilterOption.Favorited)
+        {
+            filter.SetFilterCondition(item => item.IsFavorited == true);
+        }
+
         return filter;
     }
 
     protected async virtual Task NavigatedTo(object parameter)
     {
         await RefreshListAsync();
+    }
+
+    protected async virtual Task UpdateFilterOptionAsync(int option)
+    {
+        var filterOption = (PocketItemFilterOption)option;
+
+        if (FilterOption != filterOption)
+        {
+            FilterOption = filterOption;
+            await RefreshListAsync();
+            EnsureItemSelected();
+        }
+
     }
 
     public async Task RefreshListAsync()

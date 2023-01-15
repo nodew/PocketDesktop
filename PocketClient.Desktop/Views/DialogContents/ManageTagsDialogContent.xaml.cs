@@ -3,7 +3,6 @@
 
 using CommunityToolkit.WinUI.UI.Controls;
 using Microsoft.UI.Xaml.Controls;
-using PocketClient.Core.Models;
 using PocketClient.Desktop.ViewModels;
 
 // To learn more about WinUI, the WinUI project structure,
