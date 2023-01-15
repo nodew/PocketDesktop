@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:PocketClient.Desktop.Views"
     xmlns:models="using:PocketClient.Core.Models"
+    xmlns:helpers="using:PocketClient.Desktop.Helpers"
     xmlns:vm="using:PocketClient.Desktop.ViewModels"
     xmlns:uc="using:PocketClient.Desktop.UserControls"
     xmlns:behaviors="using:PocketClient.Desktop.Behaviors"
@@ -18,7 +19,10 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{x:Bind ListHeader, Mode=OneWay}" TextWrapping="Wrap" MaxLines="2" Style="{StaticResource ListHeaderStyle}" />
+                <TextBlock Text="{x:Bind helpers:Localization.Format('SearchResultsPageTitle', SearchText, Items.Count), Mode=OneWay}" 
+                           TextWrapping="Wrap" 
+                           MaxLines="2" 
+                           Style="{StaticResource ListHeaderStyle}" />
                 <uc:FilterOptionControl Grid.Column="1" 
                                         FilterOption="{x:Bind FilterOption, Mode=OneWay}"
                                         Command="{x:Bind UpdateFilterOptionCommand}" />

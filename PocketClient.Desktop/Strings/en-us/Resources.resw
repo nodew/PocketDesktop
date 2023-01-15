@@ -127,7 +127,7 @@
     <value>Select an item to read.</value>
   </data>
   <data name="Shell_MyList.Content" xml:space="preserve">
-    <value>My List</value>
+    <value>Saves</value>
   </data>
   <data name="Shell_Archives.Content" xml:space="preserve">
     <value>Archives</value>
@@ -195,10 +195,10 @@
 &lt;/toast&gt;</value>
   </data>
   <data name="AddToListButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Add to My List</value>
+    <value>Add to Saves</value>
   </data>
   <data name="AddToListButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Add to My List</value>
+    <value>Add to Saves</value>
   </data>
   <data name="ArchiveButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>Archive</value>
@@ -213,13 +213,13 @@
     <value>Favorite</value>
   </data>
   <data name="UnfavoriteButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Unfavorite</value>
+    <value>Un-Favorite</value>
   </data>
   <data name="UnfavoriteButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Unfavorite</value>
+    <value>Un-Favorite</value>
   </data>
   <data name="AddToListButton.Label" xml:space="preserve">
-    <value>Add to My List</value>
+    <value>Add to Saves</value>
   </data>
   <data name="ArchiveButton.Label" xml:space="preserve">
     <value>Archive</value>
@@ -237,7 +237,7 @@
     <value>"{0}" - {1} search results</value>
   </data>
   <data name="UnfavoriteButton.Label" xml:space="preserve">
-    <value>Unfavorite</value>
+    <value>Un-Favorite</value>
   </data>
   <data name="DeleteButton.Label" xml:space="preserve">
     <value>Remove</value>
@@ -306,7 +306,7 @@
     <value>Videos</value>
   </data>
   <data name="PageTitle_MyList.Text" xml:space="preserve">
-    <value>My List</value>
+    <value>Saves</value>
   </data>
   <data name="SettingsPage_ReportIssue.Content" xml:space="preserve">
     <value>Report issue</value>
@@ -399,6 +399,6 @@
     <value>Favorited</value>
   </data>
   <data name="FilterOption_MyList.Text" xml:space="preserve">
-    <value>My List</value>
+    <value>Saves</value>
   </data>
 </root>

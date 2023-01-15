@@ -63,10 +63,10 @@ public sealed partial class DetailPage : Page
         dialog.XamlRoot = this.XamlRoot;
         dialog.RequestedTheme = App.GetService<IThemeSelectorService>().Theme;
         dialog.Title = SelectedItem.Tags.Count > 0 
-            ? "EditTags".GetLocalized()
-            : "AddTags".GetLocalized();
-        dialog.PrimaryButtonText = "Save".GetLocalized();
-        dialog.SecondaryButtonText = "Cancel".GetLocalized();
+            ? "EditTags".Format()
+            : "AddTags".Format();
+        dialog.PrimaryButtonText = "Save".Format();
+        dialog.SecondaryButtonText = "Cancel".Format();
         dialog.DefaultButton = ContentDialogButton.Primary;
         dialog.Content = content;
 
