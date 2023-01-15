@@ -1,5 +1,6 @@
 ﻿using PocketClient.Core.Models;
 using PocketClient.Core.Specifications;
+using PocketClient.Desktop.Models;
 
 namespace PocketClient.Desktop.ViewModels;
 
@@ -20,7 +21,24 @@ public class TaggedItemsViewModel : ItemsViewModel
     protected override BaseSpecification<PocketItem> BuildFilter()
     {
         var filter = base.BuildFilter();
-        filter.SetFilterCondition(item => item.Tags.Contains(CurrentTag!));
+
+        if (FilterOption == PocketItemFilterOption.All)
+        {
+            filter.SetFilterCondition(item => item.Tags.Contains(CurrentTag!));
+        }
+        else if (FilterOption == PocketItemFilterOption.UnArchived)
+        {
+            filter.SetFilterCondition(item => item.Tags.Contains(CurrentTag!) && item.IsArchived == false);
+        }
+        else if (FilterOption == PocketItemFilterOption.Archived)
+        {
+            filter.SetFilterCondition(item => item.Tags.Contains(CurrentTag!) && item.IsArchived == true);
+        }
+        else if (FilterOption == PocketItemFilterOption.Favorited)
+        {
+            filter.SetFilterCondition(item => item.Tags.Contains(CurrentTag!) && item.IsFavorited == true);
+        }
+        
         return filter;
     }
 

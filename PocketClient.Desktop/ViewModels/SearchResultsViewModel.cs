@@ -2,6 +2,7 @@
 using PocketClient.Core.Models;
 using PocketClient.Core.Specifications;
 using PocketClient.Desktop.Helpers;
+using PocketClient.Desktop.Models;
 
 namespace PocketClient.Desktop.ViewModels;
 
@@ -25,7 +26,24 @@ public class SearchResultsViewModel : ItemsViewModel
     protected override BaseSpecification<PocketItem> BuildFilter()
     {
         var filter = base.BuildFilter();
-        filter.SetFilterCondition(item => item.Title.ToLower().Contains(_searchText.ToLower()));
+
+        if (FilterOption == PocketItemFilterOption.All)
+        {
+            filter.SetFilterCondition(item => item.Title.ToLower().Contains(_searchText.ToLower()));
+        }
+        else if (FilterOption == PocketItemFilterOption.UnArchived)
+        {
+            filter.SetFilterCondition(item => item.Title.ToLower().Contains(_searchText.ToLower()) && item.IsArchived == false);
+        }
+        else if (FilterOption == PocketItemFilterOption.Archived)
+        {
+            filter.SetFilterCondition(item => item.Title.ToLower().Contains(_searchText.ToLower()) && item.IsArchived == true);
+        }
+        else if (FilterOption == PocketItemFilterOption.Favorited)
+        {
+            filter.SetFilterCondition(item => item.Title.ToLower().Contains(_searchText.ToLower()) && item.IsFavorited == true);
+        }
+        
         return filter;
     }
 

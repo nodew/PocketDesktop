@@ -10,11 +10,25 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:PocketClient.Desktop.UserControls"
     xmlns:models="using:PocketClient.Core.Models"
+    xmlns:vm="using:PocketClient.Desktop.ViewModels"
     xmlns:behaviors="using:PocketClient.Desktop.Behaviors"
     behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
     mc:Ignorable="d">
 
     <Page.Resources>
+        <DataTemplate x:Key="ListHeaderTemplate" x:DataType="vm:ArticlesViewModel">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Uid="PageTitle_Videos" Style="{StaticResource ListHeaderStyle}" />
+                <uc:FilterOptionControl Grid.Column="1" 
+                                        FilterOption="{x:Bind FilterOption, Mode=OneWay}"
+                                        Command="{x:Bind UpdateFilterOptionCommand}" />
+            </Grid>
+        </DataTemplate>
+        
         <DataTemplate x:Key="DetailsTemplate" x:DataType="models:PocketItem">
             <Grid>
                 <local:DetailPage SelectedItem="{x:Bind}" />
@@ -27,8 +41,8 @@
                             HasItems="{x:Bind ViewModel.HasItems,Mode=OneWay}"
                             SelectedItem="{x:Bind ViewModel.Selected, Mode=TwoWay}"
                             DetailsTemplate="{StaticResource DetailsTemplate}"
-                            x:Uid="PageTitle_Articles"
-                            ListHeaderTemplate="{StaticResource DefaultListHeaderTemplate}"
+                            ListHeader="{x:Bind ViewModel}"
+                            ListHeaderTemplate="{StaticResource ListHeaderTemplate}"
                             ViewStateChanged="OnViewStateChanged" />
     </Grid>
 </Page>

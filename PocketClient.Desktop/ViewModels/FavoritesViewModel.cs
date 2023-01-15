@@ -7,6 +7,8 @@ namespace PocketClient.Desktop.ViewModels;
 
 public class FavoritesViewModel : ItemsViewModel, IRecipient<ItemFavoriteStatusChangedMessage>
 {
+    public List<PocketItemFilterOption> HiddenOptions = new() { PocketItemFilterOption.Favorited };
+
     protected override BaseSpecification<PocketItem> BuildFilter()
     {
         var filter = new BaseSpecification<PocketItem>();
@@ -20,7 +22,18 @@ public class FavoritesViewModel : ItemsViewModel, IRecipient<ItemFavoriteStatusC
             filter.ApplyOrderBy(item => item.TimeFavorited);
         }
 
-        filter.SetFilterCondition(item => item.IsFavorited == true);
+        if (FilterOption == PocketItemFilterOption.All)
+        {
+            filter.SetFilterCondition(item => item.IsFavorited == true);
+        }
+        else if (FilterOption == PocketItemFilterOption.UnArchived)
+        {
+            filter.SetFilterCondition(item => item.IsFavorited == true && item.IsArchived == false);
+        } 
+        else if (FilterOption == PocketItemFilterOption.Archived)
+        {
+            filter.SetFilterCondition(item => item.IsFavorited == true && item.IsArchived == true);
+        }
         
         return filter;
     }
