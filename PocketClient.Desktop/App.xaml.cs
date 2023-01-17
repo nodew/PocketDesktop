@@ -42,7 +42,7 @@ public partial class App : Application
         return service;
     }
 
-    public static WindowEx MainWindow { get; } = new MainWindow();
+    public static MainWindow MainWindow { get; } = new MainWindow();
 
     public App()
     {
@@ -64,7 +64,7 @@ public partial class App : Application
             services.AddSingleton<ILocalSettingsService, LocalSettingsService>();
             services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
             services.AddTransient<IWebViewService, WebViewService>();
-            services.AddTransient<INavigationViewService, NavigationViewService>();
+            services.AddSingleton<INavigationViewService, NavigationViewService>();
 
             services.AddSingleton<IActivationService, ActivationService>();
             services.AddSingleton<IPageService, PageService>();

@@ -179,11 +179,11 @@
   <data name="ArchiveButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>归档</value>
   </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
   <data name="Button_Confirm.Content" xml:space="preserve">
     <value>确认</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>取消</value>
   </data>
   <data name="DeleteButton.Label" xml:space="preserve">
     <value>移除</value>
@@ -195,7 +195,10 @@
     <value>移除</value>
   </data>
   <data name="DeleteButton_Confirmation.Text" xml:space="preserve">
-    <value>当前文章将被永久删除。确定要继续吗？</value>
+    <value>当前项目将被永久删除。确定要继续吗？</value>
+  </data>
+  <data name="DeleteTag_ConfirmationMessage" xml:space="preserve">
+    <value>删除标签“{0}”会将其从所有项目中删除。确定要继续吗？</value>
   </data>
   <data name="EditTags" xml:space="preserve">
     <value>编辑标签</value>
@@ -208,6 +211,9 @@
   </data>
   <data name="EditTagsButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>编辑标签</value>
+  </data>
+  <data name="EditTag_ConfirmationMessage" xml:space="preserve">
+    <value>编辑标签“{0}”会在所有项目上将其更改。确定要继续吗？</value>
   </data>
   <data name="ErrorMessage_InvalidUrl" xml:space="preserve">
     <value>无效的链接</value>
@@ -225,7 +231,7 @@
     <value>收藏</value>
   </data>
   <data name="FilterOption_All.Text" xml:space="preserve">
-    <value>所有</value>
+    <value>所有项目</value>
   </data>
   <data name="FilterOption_Archived.Text" xml:space="preserve">
     <value>已归档</value>
@@ -287,6 +293,15 @@
   <data name="PageTitle_Videos.Text" xml:space="preserve">
     <value>视频</value>
   </data>
+  <data name="PrimaryButton_OK" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="PrimaryButton_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="PrimaryButton_Yes" xml:space="preserve">
+    <value>确认</value>
+  </data>
   <data name="ReloadButton.Label" xml:space="preserve">
     <value>刷新</value>
   </data>
@@ -295,9 +310,6 @@
   </data>
   <data name="ReloadButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>刷新</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>保存</value>
   </data>
   <data name="SaveUrlDialog_Title" xml:space="preserve">
     <value>保存新的链接</value>
@@ -382,6 +394,21 @@
   </data>
   <data name="Shell_Videos.Content" xml:space="preserve">
     <value>视频</value>
+  </data>
+  <data name="TagAction_DeleteTag" xml:space="preserve">
+    <value>移除标签</value>
+  </data>
+  <data name="TagAction_EditTag" xml:space="preserve">
+    <value>编辑标签</value>
+  </data>
+  <data name="TagAction_PinTag" xml:space="preserve">
+    <value>固定标签</value>
+  </data>
+  <data name="TagAction_UnpinTag" xml:space="preserve">
+    <value>取消固定</value>
+  </data>
+  <data name="TagExisted_ErrorMessage" xml:space="preserve">
+    <value>标签“{0}”已经存在</value>
   </data>
   <data name="UnfavoriteButton.Label" xml:space="preserve">
     <value>移除收藏</value>

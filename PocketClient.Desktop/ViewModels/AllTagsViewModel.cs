@@ -49,17 +49,14 @@ public class AllTagsViewModel : ObservableRecipient, INavigationAware
 
         Tags.Clear();
 
-        foreach (var tag in tags)
-        {
-            if (tag.Name.ToLower().Contains(tagNameToSearch))
-            {
-                Tags.Add(tag);
-            }
-        }
+        tags.Where(tag => tag.Name.ToLower().Contains(tagNameToSearch))
+            .OrderBy(tag => tag.Name)
+            .ToList()
+            .ForEach(Tags.Add);
     }
 
     private void SelectTag(Tag? tag)
     {
-        App.GetService<INavigationService>().NavigateTo("PocketClient.Desktop.ViewModels.TaggedItemsViewModel", tag!);
+        App.GetService<INavigationService>().NavigateTo(typeof(TaggedItemsViewModel).FullName!, tag!.Name);
     }
 }

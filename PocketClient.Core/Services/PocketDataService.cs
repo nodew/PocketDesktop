@@ -92,6 +92,11 @@ public class PocketDataService : IPocketDataService
         return await _persistenceService.GetTagByIdAsync(id, cancellationToken);
     }
 
+    public async Task<Tag?> GetTagByNameAsync(string name, CancellationToken cancellationToken = default)
+    {
+        return await _persistenceService.GetTagByNameAsync(name, cancellationToken);
+    }
+
     public async Task RemoveTagAsync(Tag tag, CancellationToken cancellationToken = default)
     {
         await _pocketHttpClient.DeleteTagAsync(tag.Name, cancellationToken);
