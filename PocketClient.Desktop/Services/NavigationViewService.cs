@@ -90,22 +90,21 @@ public class NavigationViewService : INavigationViewService
 
     public async Task RemovePinnedTagAsync(Tag tag)
     {
-        foreach (var item in MenuItems!.OfType<NavigationViewItem>())
-        {
-            if (IsMenuItemForPinnedTag(item))
+        var pinnedTagNavItem = MenuItems!.OfType<NavigationViewItem>()
+            .Where(IsMenuItemForPinnedTag)
+            .Where(item =>
             {
-                var pinnedTag = (string)item.Content;
+                var content = (string)item.Content;
+                return content == tag.Name;
+            })
+            .FirstOrDefault();
 
-                if (pinnedTag == tag.Name)
-                {
-                    App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.High, () =>
-                    {
-                        MenuItems!.Remove(item);
-                    });
-
-                    break;
-                }
-            }
+        if (pinnedTagNavItem != null)
+        {
+            App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.High, () =>
+            {
+                MenuItems!.Remove(pinnedTagNavItem);
+            });
         }
 
         var tags = await _localSettingService.ReadSettingAsync<List<string>>(PinnedTagsSettingsKey);
@@ -119,22 +118,21 @@ public class NavigationViewService : INavigationViewService
 
     public async Task RenamePinnedTagAsync(Tag tag, string newName)
     {
-        foreach (var item in MenuItems!.OfType<NavigationViewItem>())
-        {
-            if (IsMenuItemForPinnedTag(item))
+        var pinnedTagNavItem = MenuItems!.OfType<NavigationViewItem>()
+            .Where(IsMenuItemForPinnedTag)
+            .Where(item =>
             {
-                var pinnedTag = (string)item.Content;
+                var content = (string)item.Content;
+                return content == tag.Name;
+            })
+            .FirstOrDefault();
 
-                if (pinnedTag == tag.Name)
-                {
-                    App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.High, () =>
-                    {
-                        item.Content = newName;
-                    });
-
-                    break;
-                }
-            }
+        if (pinnedTagNavItem != null)
+        {
+            App.MainWindow.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.High, () =>
+            {
+                pinnedTagNavItem.Content = newName;
+            });
         }
 
         var tags = await _localSettingService.ReadSettingAsync<List<string>>(PinnedTagsSettingsKey);
@@ -145,6 +143,16 @@ public class NavigationViewService : INavigationViewService
             tags[idx] = newName;
             await _localSettingService.SaveSettingAsync(PinnedTagsSettingsKey, tags);
         }
+    }
+
+    private static bool IsMenuItemForPinnedTag(NavigationViewItem menuItem)
+    {
+        if (menuItem.Tag is string tag)
+        {
+            return tag == "Tag";
+        }
+
+        return false;
     }
 
     private void OnBackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args) => _navigationService.GoBack();
@@ -197,16 +205,6 @@ public class NavigationViewService : INavigationViewService
         if (menuItem.GetValue(NavigationHelper.NavigateToProperty) is string pageKey)
         {
             return _pageService.GetPageType(pageKey) == sourcePageType;
-        }
-
-        return false;
-    }
-
-    private bool IsMenuItemForPinnedTag(NavigationViewItem menuItem)
-    {
-        if (menuItem.Tag is string tag)
-        {
-            return tag == "Tag";
         }
 
         return false;

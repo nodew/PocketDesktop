@@ -131,8 +131,6 @@ public class TaggedItemsViewModel : ItemsViewModel
         {
             await App.MainWindow.ShowMessageDialogAsync(ex.Message);
         }
-
-
     }
 
     private async Task DeleteTagAsync()

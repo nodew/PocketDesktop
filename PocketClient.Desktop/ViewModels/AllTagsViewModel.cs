@@ -50,13 +50,10 @@ public class AllTagsViewModel : ObservableRecipient, INavigationAware
 
         Tags.Clear();
 
-        foreach (var tag in orderedTags)
-        {
-            if (tag.Name.ToLower().Contains(tagNameToSearch))
-            {
-                Tags.Add(tag);
-            }
-        }
+        tags.Where(tag => tag.Name.ToLower().Contains(tagNameToSearch))
+            .OrderBy(tag => tag.Name)
+            .ToList()
+            .ForEach(Tags.Add);
     }
 
     private void SelectTag(Tag? tag)
