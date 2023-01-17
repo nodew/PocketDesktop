@@ -45,7 +45,6 @@ public class AllTagsViewModel : ObservableRecipient, INavigationAware
     private async Task SearchTagsAsync()
     {
         var tags = await App.GetService<IPocketDataService>().GetAllTagsAsync();
-        var orderedTags = tags.OrderBy(tag => tag.Name);
         var tagNameToSearch = SearchText.Trim().ToLower();
 
         Tags.Clear();

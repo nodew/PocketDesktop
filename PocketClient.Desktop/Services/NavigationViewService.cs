@@ -92,12 +92,11 @@ public class NavigationViewService : INavigationViewService
     {
         var pinnedTagNavItem = MenuItems!.OfType<NavigationViewItem>()
             .Where(IsMenuItemForPinnedTag)
-            .Where(item =>
+            .FirstOrDefault(item =>
             {
                 var content = (string)item.Content;
                 return content == tag.Name;
-            })
-            .FirstOrDefault();
+            });
 
         if (pinnedTagNavItem != null)
         {
@@ -120,12 +119,11 @@ public class NavigationViewService : INavigationViewService
     {
         var pinnedTagNavItem = MenuItems!.OfType<NavigationViewItem>()
             .Where(IsMenuItemForPinnedTag)
-            .Where(item =>
+            .FirstOrDefault(item =>
             {
                 var content = (string)item.Content;
                 return content == tag.Name;
-            })
-            .FirstOrDefault();
+            });
 
         if (pinnedTagNavItem != null)
         {
