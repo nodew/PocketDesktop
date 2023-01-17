@@ -12,6 +12,8 @@ jobs:
     env:
       Solution_Name: PocketClient.sln                     
       Package_Name: PocketClient_Desktop
+      Configuration: Debug
+      Platform: x64
       
     steps:
       - name: Set up JDK 11
@@ -38,7 +40,10 @@ jobs:
           path: ~\sonar\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-          
+     
+      - name: Restore the application
+        run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+        
       - name: Cache SonarCloud scanner
         id: cache-sonar-scanner
         uses: actions/cache@v1
@@ -61,5 +66,5 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"nodew_PocketDesktop" /o:"nodew" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          msbuild $env:Solution_Name /t:${env:Package_Name}:Publish /p:Configuration=Debug /p:Platform=x64 /p:GenerateAppxPackageOnBuild=false
+          msbuild $env:Solution_Name /t:${env:Package_Name}:Publish /p:Configuration=$env:Configuration /p:Platform=$env:Platform /p:GenerateAppxPackageOnBuild=false
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
