@@ -30,4 +30,6 @@ public interface IPocketDataService
     public Task RemoveTagAsync(Tag tag, CancellationToken cancellationToken = default);
 
     public Task<Tag?> GetTagByIdAsync(Guid id, CancellationToken cancellationToken = default);
+
+    public Task<Tag?> GetTagByNameAsync(string name, CancellationToken cancellationToken = default);
 }

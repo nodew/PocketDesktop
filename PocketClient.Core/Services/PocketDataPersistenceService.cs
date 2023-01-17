@@ -204,9 +204,16 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
             .FirstOrDefaultAsync(cancellationToken);
     }
 
+    public async Task<Tag?> GetTagByNameAsync(string name, CancellationToken cancellationToken = default)
+    {
+        return await _dbContext.Tags
+            .Where(tag => tag.Name == name)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
     public async Task<Tag> AddTagAsync(Tag tag, CancellationToken cancellationToken = default)
     {
-        var _tag = _dbContext.Tags.Where(tag => tag.Name == tag.Name).FirstOrDefault();
+        var _tag = _dbContext.Tags.Where(entity => entity.Name == tag.Name).FirstOrDefault();
 
         if (_tag == null)
         {
@@ -228,7 +235,7 @@ public class PocketDataPersistenceService : IPocketDataPersistenceService
 
     public async Task RenameTagAsync(Tag tag, string newName, CancellationToken cancellationToken = default)
     {
-        var _tag = _dbContext.Tags.Where(tag => tag.Name == tag.Name).FirstOrDefault();
+        var _tag = _dbContext.Tags.Where(entity => entity.Name == tag.Name).AsTracking().FirstOrDefault();
 
         if (_tag == null)
         {

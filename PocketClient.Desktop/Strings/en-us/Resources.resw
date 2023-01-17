@@ -344,7 +344,7 @@
   <data name="AddItemButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Save a url</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
+  <data name="Button_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="ErrorMessage_InvalidUrl" xml:space="preserve">
@@ -353,7 +353,7 @@
   <data name="Exception_DialogTitle" xml:space="preserve">
     <value>Exception</value>
   </data>
-  <data name="Save" xml:space="preserve">
+  <data name="PrimaryButton_Save" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="SaveUrlDialog_Title" xml:space="preserve">
@@ -400,5 +400,32 @@
   </data>
   <data name="FilterOption_MyList.Text" xml:space="preserve">
     <value>Saves</value>
+  </data>
+  <data name="PrimaryButton_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PrimaryButton_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="TagAction_DeleteTag" xml:space="preserve">
+    <value>Delete tag</value>
+  </data>
+  <data name="TagAction_EditTag" xml:space="preserve">
+    <value>Edit tag</value>
+  </data>
+  <data name="TagAction_PinTag" xml:space="preserve">
+    <value>Pin tag</value>
+  </data>
+  <data name="TagAction_UnpinTag" xml:space="preserve">
+    <value>Unpin tag</value>
+  </data>
+  <data name="DeleteTag_ConfirmationMessage" xml:space="preserve">
+    <value>Deleting the tag "{0}" will remove it from all items. Are you sure you want to proceed?</value>
+  </data>
+  <data name="EditTag_ConfirmationMessage" xml:space="preserve">
+    <value>Editing the tag "{0}" will change it on all items. Are you sure you want to proceed?</value>
+  </data>
+  <data name="TagExisted_ErrorMessage" xml:space="preserve">
+    <value>Tag "{0}" is already existed</value>
   </data>
 </root>

@@ -21,9 +21,9 @@ public sealed partial class DetailPage : Page
     public PocketItem SelectedItem
     {
         get => (PocketItem)GetValue(SelectedItemProperty);
-        set 
+        set
         {
-            if (SelectedItem?.Url != value?.Url) 
+            if (SelectedItem?.Url != value?.Url)
             {
                 ViewModel.IsLoading = true;
             }
@@ -62,11 +62,11 @@ public sealed partial class DetailPage : Page
         var dialog = new ContentDialog();
         dialog.XamlRoot = this.XamlRoot;
         dialog.RequestedTheme = App.GetService<IThemeSelectorService>().Theme;
-        dialog.Title = SelectedItem.Tags.Count > 0 
+        dialog.Title = SelectedItem.Tags.Count > 0
             ? "EditTags".Format()
             : "AddTags".Format();
-        dialog.PrimaryButtonText = "Save".Format();
-        dialog.SecondaryButtonText = "Cancel".Format();
+        dialog.PrimaryButtonText = "PrimaryButton_Save".Format();
+        dialog.SecondaryButtonText = "Button_Cancel".Format();
         dialog.DefaultButton = ContentDialogButton.Primary;
         dialog.Content = content;
 

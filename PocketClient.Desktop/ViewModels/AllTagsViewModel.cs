@@ -45,11 +45,12 @@ public class AllTagsViewModel : ObservableRecipient, INavigationAware
     private async Task SearchTagsAsync()
     {
         var tags = await App.GetService<IPocketDataService>().GetAllTagsAsync();
+        var orderedTags = tags.OrderBy(tag => tag.Name);
         var tagNameToSearch = SearchText.Trim().ToLower();
 
         Tags.Clear();
 
-        foreach (var tag in tags)
+        foreach (var tag in orderedTags)
         {
             if (tag.Name.ToLower().Contains(tagNameToSearch))
             {
@@ -60,6 +61,6 @@ public class AllTagsViewModel : ObservableRecipient, INavigationAware
 
     private void SelectTag(Tag? tag)
     {
-        App.GetService<INavigationService>().NavigateTo("PocketClient.Desktop.ViewModels.TaggedItemsViewModel", tag!);
+        App.GetService<INavigationService>().NavigateTo(typeof(TaggedItemsViewModel).FullName!, tag!.Name);
     }
 }

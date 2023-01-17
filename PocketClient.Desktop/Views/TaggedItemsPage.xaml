@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:PocketClient.Desktop.Views"
     xmlns:models="using:PocketClient.Core.Models"
+    xmlns:helpers="using:PocketClient.Desktop.Helpers"
     xmlns:vm="using:PocketClient.Desktop.ViewModels"
     xmlns:uc="using:PocketClient.Desktop.UserControls"
     xmlns:behaviors="using:PocketClient.Desktop.Behaviors"
@@ -13,13 +14,48 @@
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Key="ListHeaderTemplate" x:DataType="vm:TaggedItemsViewModel">
-            <Grid>
+            <Grid Margin="0,0,0, 16">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{x:Bind CurrentTag.Name, Mode=OneWay}" Style="{StaticResource ListHeaderStyle}" />
-                <uc:FilterOptionControl Grid.Column="1" 
+                <StackPanel>
+                    <TextBlock Text="{x:Bind CurrentTag.Name, Mode=OneWay}" Style="{StaticResource ListHeaderStyle}" Margin="12,16,12,4" />
+                    <StackPanel Orientation="Horizontal">
+                        <Button AutomationProperties.Name="{x:Bind helpers:Localization.Format('TagAction_PinTag')}"
+                                ToolTipService.ToolTip="{x:Bind helpers:Localization.Format('TagAction_PinTag')}"
+                                Background="Transparent"
+                                Visibility="{x:Bind CurrentTag.IsPinned, Mode=OneWay, Converter={StaticResource BoolNegationToVisibilityConverter}}"
+                                Command="{x:Bind PinTagCommand}"
+                                BorderThickness="0">
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe718;" FontSize="16" />
+                        </Button>
+                        <Button AutomationProperties.Name="{x:Bind helpers:Localization.Format('TagAction_UnpinTag')}"
+                                ToolTipService.ToolTip="{x:Bind helpers:Localization.Format('TagAction_UnpinTag')}"
+                                Visibility="{x:Bind CurrentTag.IsPinned, Mode=OneWay}"
+                                Command="{x:Bind UnPinTagCommand}"
+                                Background="Transparent" 
+                                BorderThickness="0">
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe77a;" FontSize="16" />
+                        </Button>
+                        <Button AutomationProperties.Name="{x:Bind helpers:Localization.Format('TagAction_EditTag')}"
+                                ToolTipService.ToolTip="{x:Bind helpers:Localization.Format('TagAction_EditTag')}"
+                                Click="ShowRenameTagDialog"
+                                Background="Transparent" 
+                                BorderThickness="0">
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe70f;" FontSize="16" />
+                        </Button>
+                        <Button AutomationProperties.Name="{x:Bind helpers:Localization.Format('TagAction_DeleteTag')}"
+                                ToolTipService.ToolTip="{x:Bind helpers:Localization.Format('TagAction_DeleteTag')}"
+                                Click="ShowDeleteTagConfirmDialog"
+                                Background="Transparent" 
+                                BorderThickness="0">
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe74d;" FontSize="16" />
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+                <uc:FilterOptionControl Grid.Column="1"
+                                        VerticalAlignment="Bottom"
                                         FilterOption="{x:Bind FilterOption, Mode=OneWay}"
                                         Command="{x:Bind UpdateFilterOptionCommand}" />
             </Grid>
