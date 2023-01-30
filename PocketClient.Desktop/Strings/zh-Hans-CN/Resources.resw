@@ -324,7 +324,7 @@
     <value>隐私声明</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink.NavigateUri" xml:space="preserve">
-    <value>http://www.myapppolicy.com/app/pocket-desktop</value>
+    <value>https://pocket-desktop.wangqiao.me/privacy</value>
   </data>
   <data name="SettingsPage_ReportIssue.Content" xml:space="preserve">
     <value>报告问题</value>
