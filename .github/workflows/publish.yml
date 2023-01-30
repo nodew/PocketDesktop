@@ -1,13 +1,9 @@
-# This workflow will build and publish a WinUI 3 unpackaged desktop application
-# built on .NET.
-
-name: Build unpackaged app
+name: Publish
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    tags:
+    - "v*"
 
 jobs:
 
@@ -25,7 +21,7 @@ jobs:
       Solution_Name: PocketClient.sln                     # Replace with your solution name, i.e. App1.sln.
       Package_Name: PocketClient_Desktop
       Package_Raw_Name: PocketClient.Desktop
-      
+
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -56,8 +52,11 @@ jobs:
         Platform: ${{ matrix.platform }}
 
     # Upload the app
-    - name: Upload app
-      uses: actions/upload-artifact@v3
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
       with:
-        name: Upload app
-        path: ${{ env.Package_Raw_Name }}\\bin\\**\*.msix
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ${{ env.Package_Raw_Name }}/bin/**/*.msix
+        tag: ${{ github.ref }}
+        overwrite: true
+        file_glob: true
