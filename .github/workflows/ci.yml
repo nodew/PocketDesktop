@@ -63,7 +63,7 @@ jobs:
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
 
       - name: Code format check
-        run: dotnet format --verify-no-changes --exclude 'PocketClient.Core/Data/Migrations/*.cs' --folder -v diag
+        run: dotnet format --verify-no-changes --exclude 'PocketClient.Core/Data/Migrations/*.cs' --folder --verbosity n
 
       - name: Build and analyze
         env:
