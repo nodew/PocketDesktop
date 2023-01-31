@@ -13,10 +13,10 @@ using PocketClient.Desktop.Models;
 
 namespace PocketClient.Desktop.ViewModels;
 
-public class ItemsViewModel : 
-    ObservableRecipient, 
-    IRecipient<SyncedItemsMessage>, 
-    IRecipient<ItemRemovedMessage>, 
+public class ItemsViewModel :
+    ObservableRecipient,
+    IRecipient<SyncedItemsMessage>,
+    IRecipient<ItemRemovedMessage>,
     IRecipient<ItemTagsUpdatedMessage>,
     INavigationAware
 {
@@ -62,9 +62,15 @@ public class ItemsViewModel :
 
     public bool HasItems => Items.Count > 0;
 
-    public ICommand RefreshListCommand { get; }
+    public ICommand RefreshListCommand
+    {
+        get;
+    }
 
-    public IAsyncRelayCommand<int> UpdateFilterOptionCommand { get; }
+    public IAsyncRelayCommand<int> UpdateFilterOptionCommand
+    {
+        get;
+    }
 
     public async void OnNavigatedTo(object parameter)
     {
@@ -139,7 +145,7 @@ public class ItemsViewModel :
 
         Items.Clear();
 
-        foreach(var item in items )
+        foreach (var item in items)
         {
             Items.Add(item);
         }

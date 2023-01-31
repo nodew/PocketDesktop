@@ -13,7 +13,10 @@ namespace PocketClient.Desktop.Views;
 /// </summary>
 public sealed partial class ArticlesPage : Page
 {
-    public ArticlesViewModel ViewModel { get; }
+    public ArticlesViewModel ViewModel
+    {
+        get;
+    }
 
     public ArticlesPage()
     {

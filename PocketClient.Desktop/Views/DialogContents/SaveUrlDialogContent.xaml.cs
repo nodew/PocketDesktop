@@ -27,7 +27,7 @@ public sealed partial class SaveUrlDialogContent : Page
         if (_urlRegex.Match(ViewModel.Url).Success)
         {
             _parentDialog.IsPrimaryButtonEnabled = true;
-        } 
+        }
         else
         {
             _parentDialog.IsPrimaryButtonEnabled = false;

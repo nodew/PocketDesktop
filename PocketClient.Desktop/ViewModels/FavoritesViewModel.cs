@@ -29,12 +29,12 @@ public class FavoritesViewModel : ItemsViewModel, IRecipient<ItemFavoriteStatusC
         else if (FilterOption == PocketItemFilterOption.UnArchived)
         {
             filter.SetFilterCondition(item => item.IsFavorited == true && item.IsArchived == false);
-        } 
+        }
         else if (FilterOption == PocketItemFilterOption.Archived)
         {
             filter.SetFilterCondition(item => item.IsFavorited == true && item.IsArchived == true);
         }
-        
+
         return filter;
     }
 

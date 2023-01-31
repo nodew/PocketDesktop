@@ -10,7 +10,7 @@ namespace PocketClient.Desktop.ViewModels;
 
 public class MyListViewModel : ItemsViewModel, IRecipient<ItemArchiveStatusChangedMessage>
 {
-    public MyListViewModel(): base()
+    public MyListViewModel() : base()
     {
         SaveNewUrlCommand = new AsyncRelayCommand<SaveUrlDialogContentViewModel>(SaveNewUrlAsync);
     }
@@ -20,7 +20,7 @@ public class MyListViewModel : ItemsViewModel, IRecipient<ItemArchiveStatusChang
     protected override BaseSpecification<PocketItem> BuildFilter()
     {
         var filter = base.BuildFilter();
-        filter.SetFilterCondition(item => item.IsArchived == false) ;
+        filter.SetFilterCondition(item => item.IsArchived == false);
         return filter;
     }
 

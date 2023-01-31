@@ -50,7 +50,7 @@ public class ActivationService : IActivationService
                     {
                         await _authService.AuthorizeAsync();
                         var instances = AppInstance.GetInstances();
-                        foreach(var instance in instances)
+                        foreach (var instance in instances)
                         {
                             if (!instance.IsCurrent)
                             {

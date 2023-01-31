@@ -41,7 +41,7 @@ public class SearchResultsViewModel : ItemsViewModel
         {
             filter.SetFilterCondition(item => item.Title.ToLower().Contains(_searchText.ToLower()) && item.IsFavorited == true);
         }
-        
+
         return filter;
     }
 

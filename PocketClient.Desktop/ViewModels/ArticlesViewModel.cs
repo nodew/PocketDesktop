@@ -10,7 +10,7 @@ public class ArticlesViewModel : ItemsViewModel
     {
         var filter = base.BuildFilter();
 
-        if (FilterOption == PocketItemFilterOption.All) 
+        if (FilterOption == PocketItemFilterOption.All)
         {
             filter.SetFilterCondition(item => item.Type == ItemType.Article);
         }
@@ -26,7 +26,7 @@ public class ArticlesViewModel : ItemsViewModel
         {
             filter.SetFilterCondition(item => item.Type == ItemType.Article && item.IsFavorited == true);
         }
-        
+
         return filter;
     }
 }

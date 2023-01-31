@@ -14,7 +14,10 @@ namespace PocketClient.Desktop.Views;
 /// </summary>
 public sealed partial class FavoritesPage : Page
 {
-    public FavoritesViewModel ViewModel { get; }
+    public FavoritesViewModel ViewModel
+    {
+        get;
+    }
 
     public FavoritesPage()
     {

@@ -31,9 +31,9 @@ public sealed partial class FilterOptionControl : UserControl
     #endregion
 
     public PocketItemFilterOption FilterOptionAll => PocketItemFilterOption.All;
-    
+
     public PocketItemFilterOption FilterOptionMyList => PocketItemFilterOption.UnArchived;
-    
+
     public PocketItemFilterOption FilterOptionArchived => PocketItemFilterOption.Archived;
 
     public PocketItemFilterOption FilterOptionFavorited => PocketItemFilterOption.Favorited;

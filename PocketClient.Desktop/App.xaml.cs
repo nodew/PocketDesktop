@@ -2,18 +2,17 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
-using PocketClient.Desktop.Activation;
-using PocketClient.Desktop.Contracts.Services;
 using PocketClient.Core.Contracts.Services;
 using PocketClient.Core.Data;
-using PocketClient.Desktop.Services;
+using PocketClient.Core.Services;
+using PocketClient.Desktop.Activation;
+using PocketClient.Desktop.Contracts.Services;
 using PocketClient.Desktop.Models;
 using PocketClient.Desktop.Notifications;
-using PocketClient.Core.Services;
+using PocketClient.Desktop.Services;
 using PocketClient.Desktop.ViewModels;
 using PocketClient.Desktop.Views;
 using PocketClient.HttpSdk;
-
 using LaunchActivatedEventArgs = Microsoft.UI.Xaml.LaunchActivatedEventArgs;
 
 namespace PocketClient.Desktop;

@@ -11,6 +11,6 @@ public class ItemFavoriteStatusChangedMessage
 
     public PocketItem Item
     {
-        get; set; 
+        get; set;
     }
 }

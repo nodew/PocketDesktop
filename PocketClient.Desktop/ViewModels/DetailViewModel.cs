@@ -31,7 +31,8 @@ public class DetailViewModel : ObservableRecipient
     public PocketItem? SelectedItem
     {
         get => _pocketItem;
-        set {
+        set
+        {
             SetProperty(ref _pocketItem, value);
             OnPropertyChanged(nameof(HasTags));
         }
@@ -57,21 +58,45 @@ public class DetailViewModel : ObservableRecipient
 
     public bool HasTags => SelectedItem?.Tags?.Count > 0;
 
-    public IAsyncRelayCommand ArchiveCommand { get; }
+    public IAsyncRelayCommand ArchiveCommand
+    {
+        get;
+    }
 
-    public IAsyncRelayCommand AddToListCommand { get; }
+    public IAsyncRelayCommand AddToListCommand
+    {
+        get;
+    }
 
-    public IAsyncRelayCommand FavoriteCommand { get; }
+    public IAsyncRelayCommand FavoriteCommand
+    {
+        get;
+    }
 
-    public IAsyncRelayCommand UnfavoriteCommand { get; }
+    public IAsyncRelayCommand UnfavoriteCommand
+    {
+        get;
+    }
 
-    public IAsyncRelayCommand RemoveItemCommand { get; }
+    public IAsyncRelayCommand RemoveItemCommand
+    {
+        get;
+    }
 
-    public IAsyncRelayCommand UpdateTagsCommand { get; }
+    public IAsyncRelayCommand UpdateTagsCommand
+    {
+        get;
+    }
 
-    public ICommand ReloadCommand { get; }
+    public ICommand ReloadCommand
+    {
+        get;
+    }
 
-    public IAsyncRelayCommand OpenInBrowserCommand { get; }
+    public IAsyncRelayCommand OpenInBrowserCommand
+    {
+        get;
+    }
 
     public DetailViewModel(IWebViewService webViewService)
     {

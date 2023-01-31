@@ -7,7 +7,8 @@ namespace PocketClient.Desktop.ViewModels;
 
 public class ArchiveViewModel : ItemsViewModel, IRecipient<ItemArchiveStatusChangedMessage>
 {
-    protected override BaseSpecification<PocketItem> BuildFilter() {
+    protected override BaseSpecification<PocketItem> BuildFilter()
+    {
         var filter = base.BuildFilter();
         filter.SetFilterCondition(item => item.IsArchived == true);
         return filter;

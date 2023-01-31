@@ -124,7 +124,7 @@ public class PocketDbService : IPocketDbService
                             var normalizedItem = PocketItemHelper.NormalizeRawPocketItem(item);
                             await App.GetService<IPocketDataPersistenceService>().AddOrUpdateItemAsync(normalizedItem);
                         }
-                    } 
+                    }
                     catch (Exception ex)
                     {
                         // TODO: Log exception to event log.

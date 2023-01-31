@@ -27,7 +27,7 @@ public sealed partial class ItemListControl : UserControl
               typeof(ICollection<PocketItem>),
               typeof(ItemListControl),
               new PropertyMetadata(null));
-    
+
     public static readonly DependencyProperty HasItemsProperty =
        DependencyProperty.Register(
           nameof(HasItems),
@@ -94,7 +94,7 @@ public sealed partial class ItemListControl : UserControl
 
     public DataTemplate DetailsTemplate
     {
-        get => (DataTemplate)GetValue(DetailsTemplateProperty); 
+        get => (DataTemplate)GetValue(DetailsTemplateProperty);
         set => SetValue(DetailsTemplateProperty, value);
     }
     #endregion

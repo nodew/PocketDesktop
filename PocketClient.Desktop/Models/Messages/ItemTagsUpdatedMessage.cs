@@ -10,7 +10,13 @@ public class ItemTagsUpdatedMessage
         Tags = tags;
     }
 
-    public PocketItem Item { get; set; }
+    public PocketItem Item
+    {
+        get; set;
+    }
 
-    public List<Tag> Tags { get; set; }
+    public List<Tag> Tags
+    {
+        get; set;
+    }
 }

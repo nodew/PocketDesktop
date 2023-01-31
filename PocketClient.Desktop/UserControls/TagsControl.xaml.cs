@@ -18,7 +18,7 @@ public sealed partial class TagsControl : UserControl
         this.InitializeComponent();
     }
 
-    public IEnumerable<Tag> Tags 
+    public IEnumerable<Tag> Tags
     {
         get => (IEnumerable<Tag>)GetValue(TagsProperty);
         set => SetValue(TagsProperty, value);

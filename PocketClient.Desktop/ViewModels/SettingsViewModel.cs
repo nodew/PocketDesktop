@@ -146,7 +146,8 @@ public class SettingsViewModel : ObservableRecipient
             // TODO: Log exception to event log
             await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".Format());
         }
-        finally {
+        finally
+        {
             Syncing = false;
         }
     }

@@ -11,7 +11,7 @@ public class PositiveNumberToVisibilityConverter : IValueConverter
         {
             return Visibility.Collapsed;
         }
-        
+
         if (int.TryParse(value.ToString(), out var n))
         {
             if (n > 0)

@@ -25,7 +25,7 @@ public class VideosViewModel : ItemsViewModel
         {
             filter.SetFilterCondition(item => item.Type == ItemType.Video && item.IsFavorited == true);
         }
-        
+
         return filter;
     }
 }

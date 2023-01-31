@@ -19,7 +19,7 @@ public class ManageTagsDialogContentViewModel : ObservableObject
         AddNewTagCommand = new RelayCommand<string>(AddNewTag, CanAddNewTag);
         UpdateSuggestedTagsCommand = new RelayCommand<string>(UpdateSuggestedTags);
     }
-    
+
     public ObservableCollection<Tag> SelectedTags;
 
     public ObservableCollection<Tag> SuggestedTags;
@@ -47,7 +47,7 @@ public class ManageTagsDialogContentViewModel : ObservableObject
     private void SetSuggestedTags()
     {
         SuggestedTags.Clear();
-        foreach(var tag in _allTags)
+        foreach (var tag in _allTags)
         {
             if (SelectedTags.All(item => item.Name != tag.Name))
             {
@@ -80,7 +80,7 @@ public class ManageTagsDialogContentViewModel : ObservableObject
         if (!string.IsNullOrWhiteSpace(input))
         {
             suggests = _allTags.Where(item => item.Name.Contains(input, StringComparison.InvariantCultureIgnoreCase)).ToList();
-        } 
+        }
         else
         {
             suggests = _allTags.ToList();

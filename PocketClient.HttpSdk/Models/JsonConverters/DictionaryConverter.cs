@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace PocketClient.HttpSdk;
 
-internal class DictionaryConverter<TKey, TValue> : JsonConverter<Dictionary<TKey, TValue>> where TKey: notnull
+internal class DictionaryConverter<TKey, TValue> : JsonConverter<Dictionary<TKey, TValue>> where TKey : notnull
 {
     public override Dictionary<TKey, TValue>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

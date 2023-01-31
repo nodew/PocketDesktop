@@ -34,6 +34,9 @@ jobs:
       - name: Setup MSBuild.exe
         uses: microsoft/setup-msbuild@v1.3
 
+      - name: Setup dotnet format
+        run: dotnet tool install -g dotnet-format --version "7.*" --add-source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet7/nuget/v3/index.json
+
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
@@ -58,6 +61,9 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+
+      - name: Code format check
+        run: dotnet format --verify-no-changes --exclude 'PocketClient.Core/Data/Migrations/*.cs' --folder -v diag
 
       - name: Build and analyze
         env:

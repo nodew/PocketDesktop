@@ -10,7 +10,7 @@ public class LanguageToBooleanConverter : IValueConverter
         {
             return parameter.Equals(value);
         }
-        
+
         return false;
     }
 

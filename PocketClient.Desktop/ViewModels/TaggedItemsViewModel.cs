@@ -26,13 +26,25 @@ public class TaggedItemsViewModel : ItemsViewModel
         set => SetProperty(ref _currentTag, value);
     }
 
-    public IAsyncRelayCommand PinTagCommand { get; }
+    public IAsyncRelayCommand PinTagCommand
+    {
+        get;
+    }
 
-    public IAsyncRelayCommand UnPinTagCommand { get; }
+    public IAsyncRelayCommand UnPinTagCommand
+    {
+        get;
+    }
 
-    public IAsyncRelayCommand RenameTagCommand { get; }
+    public IAsyncRelayCommand RenameTagCommand
+    {
+        get;
+    }
 
-    public IAsyncRelayCommand DeleteTagCommand { get; }
+    public IAsyncRelayCommand DeleteTagCommand
+    {
+        get;
+    }
 
     protected override BaseSpecification<PocketItem> BuildFilter()
     {
@@ -54,7 +66,7 @@ public class TaggedItemsViewModel : ItemsViewModel
         {
             filter.SetFilterCondition(item => item.Tags.Contains(CurrentTag!) && item.IsFavorited == true);
         }
-        
+
         return filter;
     }
 
@@ -71,11 +83,11 @@ public class TaggedItemsViewModel : ItemsViewModel
         }
         else
         {
-            CurrentTag = new Tag() { Name = tagName }; 
+            CurrentTag = new Tag() { Name = tagName };
         }
 
         CurrentTag.IsPinned = pinnedTags != null && pinnedTags.Contains(tagName);
-        
+
         await base.NavigatedTo(parameter);
     }
 
@@ -124,9 +136,9 @@ public class TaggedItemsViewModel : ItemsViewModel
             OnPropertyChanged(nameof(CurrentTag));
 
             await RefreshListAsync();
-        
+
             EnsureItemSelected();
-        } 
+        }
         catch (Exception ex)
         {
             await App.MainWindow.ShowMessageDialogAsync(ex.Message);
