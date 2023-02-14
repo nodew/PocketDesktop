@@ -13,7 +13,7 @@
 	<Nullable>enable</Nullable>
 	<UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
-    <!-- <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained> -->
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
@@ -31,13 +31,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.221209.1" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.230118.102" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
 	<PackageReference Include="PInvoke.User32" Version="0.7.124" />
-    <PackageReference Include="WinUIEx" Version="2.0.0" />
+	<PackageReference Include="SmartReader" Version="0.9.2" />
+    <PackageReference Include="WinUIEx" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>

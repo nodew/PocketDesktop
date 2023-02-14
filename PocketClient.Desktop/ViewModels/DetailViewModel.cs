@@ -9,6 +9,7 @@ using PocketClient.Core.Models;
 using PocketClient.Desktop.Contracts.Services;
 using PocketClient.Desktop.Helpers;
 using PocketClient.Desktop.Models;
+using SmartReader;
 
 namespace PocketClient.Desktop.ViewModels;
 
@@ -22,6 +23,8 @@ public class DetailViewModel : ObservableRecipient
     private bool _hasFailures;
     private PocketItem? _pocketItem;
     private bool _isUpdating;
+    private bool _isReadMode;
+    private Uri? _source;
 
     public IWebViewService WebViewService
     {
@@ -54,6 +57,18 @@ public class DetailViewModel : ObservableRecipient
     {
         get => _isUpdating;
         set => SetProperty(ref _isUpdating, value);
+    }
+
+    public bool IsReadMode
+    {
+        get => _isReadMode;
+        set => SetProperty(ref _isReadMode, value);
+    }
+
+    public Uri? Source
+    {
+        get => _source;
+        set => SetProperty(ref _source, value);
     }
 
     public bool HasTags => SelectedItem?.Tags?.Count > 0;
@@ -98,10 +113,14 @@ public class DetailViewModel : ObservableRecipient
         get;
     }
 
+    public IAsyncRelayCommand ToggleReadModeCommand;
+
     public DetailViewModel(IWebViewService webViewService)
     {
         WebViewService = webViewService;
         WebViewService.NavigationCompleted += OnNavigationCompleted;
+
+        _source = null;
 
         ReloadCommand = new RelayCommand(OnRetry);
         OpenInBrowserCommand = new AsyncRelayCommand(OpenInBrowserAsync, () => WebViewService.Source != null);
@@ -111,6 +130,26 @@ public class DetailViewModel : ObservableRecipient
         UnfavoriteCommand = new AsyncRelayCommand(UnfavoriteItemAsync, CanUpdateItem);
         RemoveItemCommand = new AsyncRelayCommand(RemoveItemAsync, CanUpdateItem);
         UpdateTagsCommand = new AsyncRelayCommand<List<Tag>>(UpdateTagsAsync, _ => CanUpdateItem());
+        ToggleReadModeCommand = new AsyncRelayCommand(ToggleReadModeAsync);
+    }
+
+    public void UpdateSelectedItem(PocketItem item)
+    {
+        if (SelectedItem?.Url != item?.Url)
+        {
+            IsLoading = true;
+        }
+
+        SelectedItem = item;
+
+        if (IsReadMode)
+        {
+            _ = LoadReadContentAsync();
+        }
+        else
+        {
+            Source = item?.Url;
+        }
     }
 
     public void OnNavigatedTo(object parameter)
@@ -258,6 +297,38 @@ public class DetailViewModel : ObservableRecipient
         }
 
         IsUpdating = false;
+    }
+
+    private async Task ToggleReadModeAsync()
+    {
+        IsReadMode = !IsReadMode;
+
+        if (IsReadMode)
+        {
+            await LoadReadContentAsync();
+        }
+        else
+        {
+            Source = SelectedItem?.Url;
+        }
+    }
+
+    private async Task LoadReadContentAsync()
+    {
+        var localFileService = App.GetService<ILocalFileService>();
+
+        if (SelectedItem?.Url != null)
+        {
+            var filename = $"{SelectedItem.Id}.html";
+            var exists = await localFileService.Exists(filename);
+            if (!exists)
+            {
+                var article = await Reader.ParseArticleAsync(SelectedItem.Url.ToString());
+                await localFileService.SaveFileContent(filename, ReadModeHelper.RenderArticle(article.Content));
+            }
+
+            Source = new Uri($"file:///{localFileService.GetFullPath(filename)}");
+        }
     }
 
     private bool CanUpdateItem()
