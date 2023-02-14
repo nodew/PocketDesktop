@@ -23,11 +23,7 @@ public sealed partial class DetailPage : Page
         get => (PocketItem)GetValue(SelectedItemProperty);
         set
         {
-            if (SelectedItem?.Url != value?.Url)
-            {
-                ViewModel.IsLoading = true;
-            }
-            ViewModel.SelectedItem = value;
+            ViewModel.UpdateSelectedItem(value);
             SetValue(SelectedItemProperty, value);
         }
     }
