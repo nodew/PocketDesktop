@@ -17,16 +17,6 @@ public class LocalSettingsOptions
         get; set;
     }
 
-    public string? ImageCacheFolder
-    {
-        get; set;
-    }
-
-    public string? ArticleCaches
-    {
-        get; set;
-    }
-
     public string? PocketConsumerKey
     {
         get; set;

@@ -428,4 +428,13 @@
   <data name="TagExisted_ErrorMessage" xml:space="preserve">
     <value>Tag "{0}" is already existed</value>
   </data>
+  <data name="ReadModeButton.Label" xml:space="preserve">
+    <value>Read mode</value>
+  </data>
+  <data name="ReadModeButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Read mode</value>
+  </data>
+  <data name="ReadModeButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>Read mode</value>
+  </data>
 </root>

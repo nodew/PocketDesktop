@@ -113,7 +113,10 @@ public class DetailViewModel : ObservableRecipient
         get;
     }
 
-    public IAsyncRelayCommand ToggleReadModeCommand;
+    public IAsyncRelayCommand ToggleReadModeCommand
+    {
+        get;
+    }
 
     public DetailViewModel(IWebViewService webViewService)
     {
@@ -311,23 +314,31 @@ public class DetailViewModel : ObservableRecipient
         {
             Source = SelectedItem?.Url;
         }
+
+        IsLoading = true;
     }
 
     private async Task LoadReadContentAsync()
     {
         var localFileService = App.GetService<ILocalFileService>();
 
-        if (SelectedItem?.Url != null)
+        try
         {
-            var filename = $"{SelectedItem.Id}.html";
-            var exists = await localFileService.Exists(filename);
-            if (!exists)
+            if (SelectedItem?.Url != null)
             {
+                var filename = $"{SelectedItem.Id}.html";
                 var article = await Reader.ParseArticleAsync(SelectedItem.Url.ToString());
                 await localFileService.SaveFileContent(filename, ReadModeHelper.RenderArticle(article.Content));
+                Source = new Uri($"file:///{localFileService.GetFullPath(filename)}");
             }
+        }
+        catch (Exception ex)
+        {
 
-            Source = new Uri($"file:///{localFileService.GetFullPath(filename)}");
+        }
+        finally
+        {
+            IsLoading = false;
         }
     }
 
