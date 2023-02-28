@@ -6,11 +6,12 @@ using Windows.Storage;
 
 namespace PocketClient.Desktop.Services;
 
-public class LocalFileService : ILocalFileService
+public class LocalCacheFileService : ILocalCacheFileService
 {
-    private readonly string _localApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+    private readonly string systemCacheFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+    private const string _defaultApplicationDataFolder = "PocketClient.Desktop";
 
-    public LocalFileService()
+    public LocalCacheFileService()
     {
     }
 
@@ -18,7 +19,7 @@ public class LocalFileService : ILocalFileService
     {
         if (RuntimeHelper.IsMSIX)
         {
-            return await ApplicationData.Current.LocalCacheFolder.FileExistsAsync(filename);
+            return await ApplicationData.Current.TemporaryFolder.FileExistsAsync(filename);
         }
         else
         {
@@ -31,17 +32,17 @@ public class LocalFileService : ILocalFileService
     {
         if (RuntimeHelper.IsMSIX)
         {
-            return Path.Combine(ApplicationData.Current.LocalCacheFolder.Path, filename);
+            return Path.Combine(ApplicationData.Current.TemporaryFolder.Path, filename);
         }
 
-        return Path.Combine(_localApplicationData, filename);
+        return Path.Combine(systemCacheFolder, _defaultApplicationDataFolder, filename);
     }
 
     public async Task SaveFileContent(string filename, string fileContent)
     {
         if (RuntimeHelper.IsMSIX)
         {
-            await ApplicationData.Current.LocalCacheFolder.WriteTextToFileAsync(fileContent, filename, CreationCollisionOption.ReplaceExisting);
+            await ApplicationData.Current.TemporaryFolder.WriteTextToFileAsync(fileContent, filename, CreationCollisionOption.ReplaceExisting);
         }
         else
         {

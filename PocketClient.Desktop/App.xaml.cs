@@ -64,7 +64,7 @@ public partial class App : Application
             services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
             services.AddTransient<IWebViewService, WebViewService>();
             services.AddSingleton<INavigationViewService, NavigationViewService>();
-            services.AddSingleton<ILocalFileService, LocalFileService>();
+            services.AddSingleton<ILocalCacheFileService, LocalCacheFileService>();
 
             services.AddSingleton<IActivationService, ActivationService>();
             services.AddSingleton<IPageService, PageService>();

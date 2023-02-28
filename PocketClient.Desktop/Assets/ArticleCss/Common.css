@@ -1,0 +1,135 @@
+﻿html {
+    font-size: 20px;
+}
+
+body {
+    background: #f5eddd;
+    color: #191917;
+    font-family: "Segoe UI,Helvetica Neue,Roboto,Arial"
+}
+
+.page {
+    padding: 12px 20px 28px 20px;
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+
+article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
+    display: block;
+}
+
+p {
+    margin-bottom: 1rem;
+    margin-top: 0;
+    line-height: 1.5;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: .5rem;
+    margin-top: 0;
+}
+
+p + h2, p + h3, p + h4, p + h5, p + h6 {
+    margin-top: 1.5rem;
+}
+
+h1 {
+    font-size: 3rem;
+    margin: 0 0 2.5rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+h2, h3 {
+    margin: 0 0 1.5rem;
+}
+
+h3 {
+    font-size: 2rem;
+}
+
+h4 {
+    font-size: 1.75rem;
+    margin: 0 0 1.5rem;
+}
+
+h5 {
+    font-size: 1.5rem;
+}
+
+h5, h6 {
+    margin: 0 0 1rem;
+}
+
+.h6, h6, ol, p, ul {
+    font-size: 1.25rem;
+}
+
+ol, p, ul {
+    margin: 0 0 1.5rem;
+}
+
+ol, ul {
+    padding: 0 0 0 1.5em;
+}
+
+ol li, ul li {
+    margin-top: 0.5rem;
+    line-height: 1.5rem;
+}
+
+pre {
+    margin-bottom: 1rem;
+    margin-top: 0;
+    overflow: auto;
+}
+
+code, kbd, pre, samp {
+    font-family: Monaco,Consolas,Liberation Mono,Courier New,monospace;
+    font-size: 1em;
+}
+
+p code {
+    background: #e2e2e2;
+    padding: 0 4px;
+}
+
+a {
+    cursor: pointer;
+    color: #191917;
+    -webkit-text-decoration: underline;
+    text-decoration: underline;
+    position: relative;
+}
+
+figure {
+    margin: 0 0 1rem;
+}
+
+img {
+    border-style: none;
+    vertical-align: middle;
+}
+
+svg {
+    display: none;
+}
+
+@media screen and (max-width: 1024px) {
+    .page {
+        width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+    }
+}

@@ -22,9 +22,6 @@
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm64</AppxBundlePlatforms>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="UserControls\FilterOptionControl.xaml" />
-  </ItemGroup>
 
   <ItemGroup>
     <Manifest Include="$(ApplicationManifest)" />
@@ -47,6 +44,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Assets\ArticleCss\Common.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\ArticleCss\Dark.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\ArticleCss\Light.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Update="Assets\WindowIcon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

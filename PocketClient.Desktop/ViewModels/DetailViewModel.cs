@@ -320,7 +320,7 @@ public class DetailViewModel : ObservableRecipient
 
     private async Task LoadReadContentAsync()
     {
-        var localFileService = App.GetService<ILocalFileService>();
+        var localFileService = App.GetService<ILocalCacheFileService>();
 
         try
         {

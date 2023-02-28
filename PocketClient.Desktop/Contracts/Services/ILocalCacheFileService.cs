@@ -1,6 +1,6 @@
 ﻿namespace PocketClient.Desktop.Contracts.Services;
 
-public interface ILocalFileService
+public interface ILocalCacheFileService
 {
     public Task<bool> Exists(string subPath);
 
