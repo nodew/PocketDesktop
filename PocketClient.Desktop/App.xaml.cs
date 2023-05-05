@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
 using PocketClient.Core.Contracts.Services;
 using PocketClient.Core.Data;
@@ -50,6 +51,14 @@ public partial class App : Application
         Host = Microsoft.Extensions.Hosting.Host.
         CreateDefaultBuilder().
         UseContentRoot(AppContext.BaseDirectory).
+        ConfigureLogging(logging =>
+        {
+            logging.AddDebug();
+            logging.AddEventLog(configuration =>
+            {
+                configuration.SourceName = "PocketClient.Desktop";
+            });
+        }).
         ConfigureServices((context, services) =>
         {
             // Default Activation Handler

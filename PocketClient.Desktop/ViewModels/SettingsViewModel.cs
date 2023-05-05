@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
+using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
 
 using PocketClient.Desktop.Contracts.Services;
@@ -18,6 +18,7 @@ public class SettingsViewModel : ObservableRecipient
 {
     private readonly IThemeSelectorService _themeSelectorService;
     private readonly IPocketDbService _pocketDbService;
+    private readonly ILogger<SettingsViewModel> _logger;
 
     private ElementTheme _elementTheme;
     private string _versionDescription;
@@ -63,10 +64,14 @@ public class SettingsViewModel : ObservableRecipient
         get;
     }
 
-    public SettingsViewModel(IThemeSelectorService themeSelectorService, IPocketDbService pocketDbService)
+    public SettingsViewModel(
+        IThemeSelectorService themeSelectorService,
+        IPocketDbService pocketDbService,
+        ILogger<SettingsViewModel> logger)
     {
         _themeSelectorService = themeSelectorService;
         _pocketDbService = pocketDbService;
+        _logger = logger;
 
         _elementTheme = _themeSelectorService.Theme;
         _language = GetPreferredLanguage();
@@ -143,7 +148,7 @@ public class SettingsViewModel : ObservableRecipient
         }
         catch (Exception ex)
         {
-            // TODO: Log exception to event log
+            _logger.LogError(ex, "Failed to sync data in settings page");
             await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".Format());
         }
         finally

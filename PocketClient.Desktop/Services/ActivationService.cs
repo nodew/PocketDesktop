@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.Windows.AppLifecycle;
 using PocketClient.Desktop.Activation;
@@ -16,6 +17,7 @@ public class ActivationService : IActivationService
     private readonly IThemeSelectorService _themeSelectorService;
     private readonly IPocketDbService _pocketDbService;
     private readonly IAuthService _authService;
+    private readonly ILogger<ActivationService> _logger;
 
     private UIElement? _shell = null;
 
@@ -24,13 +26,15 @@ public class ActivationService : IActivationService
         IEnumerable<IActivationHandler> activationHandlers,
         IThemeSelectorService themeSelectorService,
         IPocketDbService pocketDbService,
-        IAuthService authService)
+        IAuthService authService,
+        ILogger<ActivationService> logger)
     {
         _defaultHandler = defaultHandler;
         _activationHandlers = activationHandlers;
         _themeSelectorService = themeSelectorService;
         _pocketDbService = pocketDbService;
         _authService = authService;
+        _logger = logger;
     }
 
     public async Task ActivateAsync(object activationArgs)
@@ -157,8 +161,7 @@ public class ActivationService : IActivationService
             }
             catch (Exception ex)
             {
-                // TODO: Log exception to event log.
-                Console.WriteLine(ex.ToString());
+                _logger.LogError(ex, "Failed to sync items from server");
             }
         }
         await Task.CompletedTask;

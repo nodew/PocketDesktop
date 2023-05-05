@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using PocketClient.Core.Contracts.Services;
 using PocketClient.Core.Data;
@@ -19,6 +20,7 @@ public class PocketDbService : IPocketDbService
     private readonly PocketHttpClient _pocketClient;
     private readonly ILocalSettingsService _localSettingsService;
     private readonly IAppNotificationService _appNotificationService;
+    private readonly ILogger<PocketDbService> _logger;
 
     private readonly string _localApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
     private readonly string _applicationDataFolder;
@@ -31,11 +33,13 @@ public class PocketDbService : IPocketDbService
         PocketHttpClient pocketClient,
         ILocalSettingsService localSettingsService,
         IAppNotificationService appNotificationService,
-        IOptions<LocalSettingsOptions> options)
+        IOptions<LocalSettingsOptions> options,
+        ILogger<PocketDbService> logger)
     {
         _pocketClient = pocketClient;
         _localSettingsService = localSettingsService;
         _appNotificationService = appNotificationService;
+        _logger = logger;
 
         _initialized = false;
         _synced = false;
@@ -85,10 +89,12 @@ public class PocketDbService : IPocketDbService
 
             if (fullSync)
             {
+                _logger.LogInformation("Full sync requested");
                 await App.GetService<IPocketDataPersistenceService>().ClearDbAsync();
             }
             else
             {
+                _logger.LogInformation("Incremental sync requested");
                 try
                 {
                     lastUpdatedAt = await _localSettingsService.ReadSettingAsync<DateTimeOffset>(_pocketLastUpdatedAtKey);
@@ -127,8 +133,7 @@ public class PocketDbService : IPocketDbService
                     }
                     catch (Exception ex)
                     {
-                        // TODO: Log exception to event log.
-                        Console.WriteLine(ex.ToString());
+                        _logger.LogError(ex, "Failed to sync item");
                     }
                 }
             } while (hasMoreItems);

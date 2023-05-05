@@ -3,6 +3,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Extensions.Logging;
 using Microsoft.Web.WebView2.Core;
 using PocketClient.Core.Contracts.Services;
 using PocketClient.Core.Models;
@@ -19,6 +20,8 @@ namespace PocketClient.Desktop.ViewModels;
 // https://docs.microsoft.com/microsoft-edge/webview2/concepts/distribution
 public class DetailViewModel : ObservableRecipient
 {
+    private readonly ILogger<DetailViewModel> _logger;
+
     private bool _isLoading = true;
     private bool _hasFailures;
     private PocketItem? _pocketItem;
@@ -118,9 +121,14 @@ public class DetailViewModel : ObservableRecipient
         get;
     }
 
-    public DetailViewModel(IWebViewService webViewService)
+    public DetailViewModel(
+        IWebViewService webViewService,
+        ILogger<DetailViewModel> logger
+    )
     {
         WebViewService = webViewService;
+        _logger = logger;
+
         WebViewService.NavigationCompleted += OnNavigationCompleted;
 
         _source = null;
@@ -200,7 +208,7 @@ public class DetailViewModel : ObservableRecipient
         }
         catch (Exception ex)
         {
-            // TODO: Log exception to event log
+            _logger.LogError(ex, "Failed to archive item");
             await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".Format());
         }
 
@@ -219,7 +227,7 @@ public class DetailViewModel : ObservableRecipient
         }
         catch (Exception ex)
         {
-            // TODO: Log exception to event log
+            _logger.LogError(ex, "Failed to add item");
             await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".Format());
         }
 
@@ -238,7 +246,7 @@ public class DetailViewModel : ObservableRecipient
         }
         catch (Exception ex)
         {
-            // TODO: Log exception to event log
+            _logger.LogError(ex, "Failed to favorite item");
             await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".Format());
         }
 
@@ -257,7 +265,7 @@ public class DetailViewModel : ObservableRecipient
         }
         catch (Exception ex)
         {
-            // TODO: Log exception to event log
+            _logger.LogError(ex, "Failed to unfavorite item");
             await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".Format());
         }
 
@@ -274,7 +282,7 @@ public class DetailViewModel : ObservableRecipient
         }
         catch (Exception ex)
         {
-            // TODO: Log exception to event log
+            _logger.LogError(ex, "Failed to remove item");
             await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".Format());
         }
 
@@ -295,7 +303,7 @@ public class DetailViewModel : ObservableRecipient
         }
         catch (Exception ex)
         {
-            // TODO: Log exception to event log
+            _logger.LogError(ex, "Failed to update tags");
             await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".Format());
         }
 
@@ -334,7 +342,7 @@ public class DetailViewModel : ObservableRecipient
         }
         catch (Exception ex)
         {
-
+            _logger.LogError(ex, "Failed to load content");
         }
         finally
         {
