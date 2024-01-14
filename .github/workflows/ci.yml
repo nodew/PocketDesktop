@@ -28,14 +28,14 @@ jobs:
       - name: Install .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 8.0.x
 
       # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
       - name: Setup MSBuild.exe
         uses: microsoft/setup-msbuild@v1.3
 
       - name: Setup dotnet format
-        run: dotnet tool install -g dotnet-format --version "7.*" --add-source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet7/nuget/v3/index.json
+        run: dotnet tool install -g dotnet-format --version "8.*" --add-source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet8/nuget/v3/index.json
 
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
