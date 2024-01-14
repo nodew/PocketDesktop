@@ -260,6 +260,15 @@
   <data name="LoginPage_Welcome.Text" xml:space="preserve">
     <value>欢迎使用 Nuts, 一款为 Pocket 实现的第三方桌面应用</value>
   </data>
+  <data name="LogoutDialog_Content" xml:space="preserve">
+    <value>确认要登出当前账号吗？</value>
+  </data>
+  <data name="LogoutDialog_PrimaryBtn" xml:space="preserve">
+    <value>登出</value>
+  </data>
+  <data name="LogoutDialog_Title" xml:space="preserve">
+    <value>登出？</value>
+  </data>
   <data name="ManageTagsDialog_TagsTokenBox.PlaceholderText" xml:space="preserve">
     <value>添加标签，标签之间使用分号（；）分隔</value>
   </data>
@@ -347,6 +356,9 @@
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
     <value>面向 GetPocket (https://getpocket.com) 的第三方 Windows 桌面应用.</value>
   </data>
+  <data name="Settings_Account.Text" xml:space="preserve">
+    <value>账号</value>
+  </data>
   <data name="Settings_Data.Text" xml:space="preserve">
     <value>数据</value>
   </data>
@@ -358,6 +370,9 @@
   </data>
   <data name="Settings_Language_Default.Content" xml:space="preserve">
     <value>默认</value>
+  </data>
+  <data name="Settings_LogoutBtn.Content" xml:space="preserve">
+    <value>登出</value>
   </data>
   <data name="Settings_Personalization.Text" xml:space="preserve">
     <value>个性化</value>

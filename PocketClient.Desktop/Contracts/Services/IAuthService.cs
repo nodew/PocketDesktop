@@ -9,4 +9,6 @@ public interface IAuthService
     public Task LaunchAuthorizationAsync();
 
     public Task AuthorizeAsync();
+
+    public Task LogoutAsync();
 }

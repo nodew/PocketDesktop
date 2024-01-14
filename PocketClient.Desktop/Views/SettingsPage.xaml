@@ -107,6 +107,14 @@
                     <ProgressRing IsActive="True" Visibility="{x:Bind ViewModel.Syncing, Mode=OneWay}" HorizontalAlignment="Left" Margin="{StaticResource XXSmallTopMargin}"  />
                 </StackPanel>
 
+                <StackPanel Margin="{StaticResource MediumTopMargin}">
+                    <TextBlock x:Uid="Settings_Account" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                    <Button x:Uid="Settings_LogoutBtn" 
+                        Click="HandleLogoutAction"
+                        Style="{StaticResource AccentButtonStyle}"
+                        Margin="{StaticResource XSmallTopMargin}" />
+                </StackPanel>
+
                 <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="{StaticResource MediumTopMargin}" />
 
                 <StackPanel Margin="{StaticResource XSmallTopMargin}">

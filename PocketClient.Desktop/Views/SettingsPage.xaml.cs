@@ -1,5 +1,7 @@
-﻿using Microsoft.UI.Xaml.Controls;
-
+﻿using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using PocketClient.Desktop.Contracts.Services;
+using PocketClient.Desktop.Helpers;
 using PocketClient.Desktop.ViewModels;
 
 namespace PocketClient.Desktop.Views;
@@ -16,5 +18,24 @@ public sealed partial class SettingsPage : Page
     {
         ViewModel = App.GetService<SettingsViewModel>();
         InitializeComponent();
+    }
+
+    private async void HandleLogoutAction(object sender, RoutedEventArgs e)
+    {
+        ContentDialog dialog = new ContentDialog();
+        dialog.XamlRoot = this.XamlRoot;
+        dialog.RequestedTheme = App.GetService<IThemeSelectorService>().Theme;
+        dialog.Title = "LogoutDialog_Title".Format();
+        dialog.Content = "LogoutDialog_Content".Format();
+        dialog.PrimaryButtonText = "LogoutDialog_PrimaryBtn".Format();
+        dialog.SecondaryButtonText = "Button_Cancel".Format();
+        dialog.DefaultButton = ContentDialogButton.Primary;
+
+        var result = await dialog.ShowAsync();
+
+        if (result == ContentDialogResult.Primary)
+        {
+            ViewModel.LogoutCommand.Execute(null);
+        }
     }
 }

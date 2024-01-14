@@ -19,6 +19,7 @@ public class SettingsViewModel : ObservableRecipient
     private readonly IThemeSelectorService _themeSelectorService;
     private readonly IPocketDbService _pocketDbService;
     private readonly ILogger<SettingsViewModel> _logger;
+    private readonly IAuthService _authService;
 
     private ElementTheme _elementTheme;
     private string _versionDescription;
@@ -64,14 +65,21 @@ public class SettingsViewModel : ObservableRecipient
         get;
     }
 
+    public ICommand LogoutCommand
+    {
+        get;
+    }
+
     public SettingsViewModel(
         IThemeSelectorService themeSelectorService,
         IPocketDbService pocketDbService,
-        ILogger<SettingsViewModel> logger)
+        ILogger<SettingsViewModel> logger,
+        IAuthService authService)
     {
         _themeSelectorService = themeSelectorService;
         _pocketDbService = pocketDbService;
         _logger = logger;
+        _authService = authService;
 
         _elementTheme = _themeSelectorService.Theme;
         _language = GetPreferredLanguage();
@@ -81,6 +89,7 @@ public class SettingsViewModel : ObservableRecipient
         SwitchThemeCommand = new AsyncRelayCommand<ElementTheme>(SwitchTheme);
         SwitchLanguageCommand = new RelayCommand<string>(SwitchLanguage);
         SyncDataCommand = new AsyncRelayCommand(SyncData);
+        LogoutCommand = new AsyncRelayCommand(Logout);
     }
 
     private static string GetVersionDescription()
@@ -155,5 +164,10 @@ public class SettingsViewModel : ObservableRecipient
         {
             Syncing = false;
         }
+    }
+
+    private async Task Logout()
+    {
+        await _authService.LogoutAsync();
     }
 }
