@@ -1,9 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.Windows.AppLifecycle;
 using PocketClient.Desktop.Activation;
 using PocketClient.Desktop.Contracts.Services;
+using PocketClient.Desktop.Models;
 using PocketClient.Desktop.Views;
 using Windows.ApplicationModel.Activation;
 using LaunchActivatedEventArgs = Microsoft.UI.Xaml.LaunchActivatedEventArgs;
@@ -35,6 +37,11 @@ public class ActivationService : IActivationService
         _pocketDbService = pocketDbService;
         _authService = authService;
         _logger = logger;
+
+        WeakReferenceMessenger.Default.Register<UserLoggedOutMessage>(this, (sender, message) =>
+        {
+            HandleUserLoggedOutAsync();
+        });
     }
 
     public async Task ActivateAsync(object activationArgs)
@@ -165,5 +172,11 @@ public class ActivationService : IActivationService
             }
         }
         await Task.CompletedTask;
+    }
+
+    private void HandleUserLoggedOutAsync()
+    {
+        App.MainWindow.Content = App.GetService<LoginPage>();
+        _ = App.GetService<IPocketDbService>().ClearDbAsync();
     }
 }

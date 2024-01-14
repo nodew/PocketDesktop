@@ -148,7 +148,7 @@ public partial class App : Application
 
         // The following code doesn't work
         // See details at https://github.com/microsoft/WindowsAppSDK/issues/3179
-        //
+
         //var mainInstance = AppInstance.FindOrRegisterForKey("pocket-desktop-app-main-exe");
 
         //if (!mainInstance.IsCurrent)

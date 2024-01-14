@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Extensions.Options;
 using PocketClient.Desktop.Contracts.Services;
 using PocketClient.Desktop.Models;
 using PocketClient.HttpSdk;
@@ -89,5 +90,14 @@ public class AuthService : IAuthService
         await _localSettingsService.SaveSettingAsync(_userAccessTokenKey, result.AccessToken);
         await _localSettingsService.SaveSettingAsync(_userNameKey, result.Username);
         _isAuthorized = true;
+    }
+
+    public async Task LogoutAsync()
+    {
+        await _localSettingsService.SaveSettingAsync(_userAccessTokenKey, string.Empty);
+        await _localSettingsService.SaveSettingAsync(_userNameKey, string.Empty);
+        _isAuthorized = false;
+
+        WeakReferenceMessenger.Default.Send(new UserLoggedOutMessage());
     }
 }

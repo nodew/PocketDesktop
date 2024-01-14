@@ -149,4 +149,10 @@ public class PocketDbService : IPocketDbService
             }
         }
     }
+
+    public async Task ClearDbAsync()
+    {
+        await App.GetService<IPocketDataPersistenceService>().ClearDbAsync();
+        await _localSettingsService.SaveSettingAsync(_pocketLastUpdatedAtKey, string.Empty);
+    }
 }

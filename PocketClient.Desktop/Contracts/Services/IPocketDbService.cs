@@ -7,4 +7,6 @@ public interface IPocketDbService
     public string GetPocketDbPath();
 
     public Task SyncItemsAsync(bool fullSync = false, bool force = false);
+
+    public Task ClearDbAsync();
 }
