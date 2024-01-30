@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <StoreAssociation xmlns="http://schemas.microsoft.com/appx/2010/storeassociation">
   <Publisher>CN=49D5850C-0DAE-44D6-A062-D909A189CEDB</Publisher>
-  <PublisherDisplayName>白衣沽酒</PublisherDisplayName>
+  <PublisherDisplayName>FPCOOL</PublisherDisplayName>
   <DeveloperAccountType>MSA</DeveloperAccountType>
   <GeneratePackageHash>http://www.w3.org/2001/04/xmlenc#sha256</GeneratePackageHash>
   <SupportedLocales>
@@ -364,6 +364,7 @@
     <MainPackageIdentityName>51617AD91681C.PocketforWindows</MainPackageIdentityName>
     <ReservedNames>
       <ReservedName>Pocket Desktop</ReservedName>
+      <ReservedName>Nuts - Save &amp; Read</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames />

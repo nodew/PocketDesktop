@@ -13,11 +13,11 @@
   <Identity
     Name="51617AD91681C.PocketforWindows"
     Publisher="CN=49D5850C-0DAE-44D6-A062-D909A189CEDB"
-    Version="1.5.0.0" />
+    Version="1.5.1.0" />
 
   <Properties>
     <DisplayName>Nuts - Save &amp; Read</DisplayName>
-    <PublisherDisplayName>白衣沽酒</PublisherDisplayName>
+    <PublisherDisplayName>FPCOOL</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
