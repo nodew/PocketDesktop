@@ -1,9 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using CommunityToolkit.WinUI.UI.Controls;
 using Microsoft.UI.Dispatching;
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
 using PocketClient.Core.Models;
 using PocketClient.Desktop.Contracts.Services;
 using PocketClient.Desktop.Helpers;

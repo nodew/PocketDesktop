@@ -15,14 +15,6 @@
 
         <Grid Grid.Row="0" x:Name="commands">
             <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" IsDynamicOverflowEnabled="True">
-                <AppBarToggleButton x:Uid="ReadModeButton"
-                                    IsChecked="{x:Bind ViewModel.IsReadMode}"
-                                    Command="{x:Bind ViewModel.ToggleReadModeCommand}" >
-                    <AppBarToggleButton.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE736;"/>
-                    </AppBarToggleButton.Icon>
-                </AppBarToggleButton>
-                <AppBarSeparator />
                 <AppBarButton x:Uid="ArchiveButton"
                               Visibility="{x:Bind ViewModel.SelectedItem.IsArchived, Mode=OneWay, Converter={StaticResource BoolNegationToVisibilityConverter}}"
                               Command="{x:Bind ViewModel.ArchiveCommand}">

@@ -10,7 +10,6 @@ using PocketClient.Core.Models;
 using PocketClient.Desktop.Contracts.Services;
 using PocketClient.Desktop.Helpers;
 using PocketClient.Desktop.Models;
-using SmartReader;
 
 namespace PocketClient.Desktop.ViewModels;
 
@@ -141,7 +140,6 @@ public class DetailViewModel : ObservableRecipient
         UnfavoriteCommand = new AsyncRelayCommand(UnfavoriteItemAsync, CanUpdateItem);
         RemoveItemCommand = new AsyncRelayCommand(RemoveItemAsync, CanUpdateItem);
         UpdateTagsCommand = new AsyncRelayCommand<List<Tag>>(UpdateTagsAsync, _ => CanUpdateItem());
-        ToggleReadModeCommand = new AsyncRelayCommand(ToggleReadModeAsync);
     }
 
     public void UpdateSelectedItem(PocketItem item)
@@ -153,14 +151,7 @@ public class DetailViewModel : ObservableRecipient
 
         SelectedItem = item;
 
-        if (IsReadMode)
-        {
-            _ = LoadReadContentAsync();
-        }
-        else
-        {
-            Source = item?.Url;
-        }
+        Source = item?.Url;
     }
 
     public void OnNavigatedTo(object parameter)
@@ -308,46 +299,6 @@ public class DetailViewModel : ObservableRecipient
         }
 
         IsUpdating = false;
-    }
-
-    private async Task ToggleReadModeAsync()
-    {
-        IsReadMode = !IsReadMode;
-
-        if (IsReadMode)
-        {
-            await LoadReadContentAsync();
-        }
-        else
-        {
-            Source = SelectedItem?.Url;
-        }
-
-        IsLoading = true;
-    }
-
-    private async Task LoadReadContentAsync()
-    {
-        var localFileService = App.GetService<ILocalCacheFileService>();
-
-        try
-        {
-            if (SelectedItem?.Url != null)
-            {
-                var filename = $"{SelectedItem.Id}.html";
-                var article = await Reader.ParseArticleAsync(SelectedItem.Url.ToString());
-                await localFileService.SaveFileContent(filename, ReadModeHelper.RenderArticle(article.Content));
-                Source = new Uri($"file:///{localFileService.GetFullPath(filename)}");
-            }
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Failed to load content");
-        }
-        finally
-        {
-            IsLoading = false;
-        }
     }
 
     private bool CanUpdateItem()

@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:PocketClient.Desktop.UserControls"
-    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     xmlns:models="using:PocketClient.Core.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -58,7 +58,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>-->
         <Grid x:Name="ItemListContainer" Visibility="{x:Bind HasItems, Mode=OneWay}">
-            <controls:ListDetailsView
+            <!--<controls:ListDetailsView
                 x:Name="ListDetailsViewControl"
                 SizeChanged="OnListDetailsViewSizeChanged"
                 BackButtonBehavior="Manual"
@@ -70,7 +70,8 @@
                 ItemsSource="{x:Bind ItemsSource}"
                 ItemTemplate="{StaticResource ItemTemplate}"
                 NoSelectionContentTemplate="{StaticResource NoSelectionContentTemplate}"
-                SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}" />
+                SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}" />-->
+            <local:ListDetailsView />
         </Grid>
         <Grid x:Name="NoItemContainer"
               Visibility="{x:Bind HasItems, Mode=OneWay, Converter={StaticResource BoolNegationToVisibilityConverter}}" >
