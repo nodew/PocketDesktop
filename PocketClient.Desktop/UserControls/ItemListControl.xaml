@@ -71,7 +71,18 @@
                 ItemTemplate="{StaticResource ItemTemplate}"
                 NoSelectionContentTemplate="{StaticResource NoSelectionContentTemplate}"
                 SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}" />-->
-            <local:ListDetailsView />
+            <local:ListDetailsView 
+                x:Name="ListDetailsViewControl"
+                SizeChanged="OnListDetailsViewSizeChanged"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                ListHeader="{x:Bind ListHeader}"
+                ListHeaderTemplate="{x:Bind ListHeaderTemplate}"
+                DetailsTemplate="{x:Bind DetailsTemplate}"
+                ItemsSource="{x:Bind ItemsSource}"
+                ItemTemplate="{StaticResource ItemTemplate}"
+                NoSelectionContentTemplate="{StaticResource NoSelectionContentTemplate}"
+                SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}" />
         </Grid>
         <Grid x:Name="NoItemContainer"
               Visibility="{x:Bind HasItems, Mode=OneWay, Converter={StaticResource BoolNegationToVisibilityConverter}}" >
