@@ -40,7 +40,7 @@
     <PackageReference Include="CommunityToolkit.WinUI.Extensions" Version="8.0.240109" />
     <PackageReference Include="CommunityToolkit.WinUI.Helpers" Version="8.0.240109" />
     <PackageReference Include="CommunityToolkit.WinUI.Triggers" Version="8.0.240109" />
-	  
+
     <!--<PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />-->
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
