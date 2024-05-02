@@ -34,6 +34,13 @@ public sealed partial class ListDetailsView
             typeof(ListDetailsView),
             new PropertyMetadata(null));
 
+    public static readonly DependencyProperty ItemTemplateSelectorProperty =
+        DependencyProperty.Register(
+            nameof(ItemTemplateSelector),
+            typeof(DataTemplate),
+            typeof(ListDetailsView),
+            new PropertyMetadata(null));
+
     public static readonly DependencyProperty DetailsTemplateProperty =
         DependencyProperty.Register(
             nameof(DetailsTemplate),
@@ -61,6 +68,19 @@ public sealed partial class ListDetailsView
             typeof(object),
             typeof(ListDetailsView),
             new PropertyMetadata(null));
+
+    public static readonly DependencyProperty ListPaneWidthProperty = DependencyProperty.Register(
+        nameof(ListPaneWidth),
+        typeof(double),
+        typeof(ListDetailsView),
+        new PropertyMetadata(320d));
+
+    public static readonly DependencyProperty CompactModeThresholdWidthProperty = DependencyProperty.Register(
+            nameof(CompactModeThresholdWidth),
+            typeof(double),
+            typeof(ListDetailsView),
+            new PropertyMetadata(640d));
+
     public IEnumerable ItemsSource
     {
         get => (IEnumerable)GetValue(ItemsSourceProperty);
@@ -91,6 +111,12 @@ public sealed partial class ListDetailsView
         set => SetValue(ItemTemplateProperty, value);
     }
 
+    public DataTemplateSelector ItemTemplateSelector
+    {
+        get => (DataTemplateSelector)GetValue(ItemTemplateSelectorProperty);
+        set => SetValue(ItemTemplateSelectorProperty, value);
+    }
+
     public DataTemplate DetailsTemplate
     {
         get => (DataTemplate)GetValue(DetailsTemplateProperty);
@@ -107,5 +133,17 @@ public sealed partial class ListDetailsView
     {
         get => (ContentControl)GetValue(EmptyViewProperty);
         set => SetValue(EmptyViewProperty, value);
+    }
+
+    public double ListPaneWidth
+    {
+        get => (double)GetValue(ListPaneWidthProperty);
+        set => SetValue(ListPaneWidthProperty, value);
+    }
+
+    public double CompactModeThresholdWidth
+    {
+        get => (double)GetValue(CompactModeThresholdWidthProperty);
+        set => SetValue(CompactModeThresholdWidthProperty, value);
     }
 }

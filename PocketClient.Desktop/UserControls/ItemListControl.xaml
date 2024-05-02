@@ -74,6 +74,7 @@
             <local:ListDetailsView 
                 x:Name="ListDetailsViewControl"
                 SizeChanged="OnListDetailsViewSizeChanged"
+                ListPaneWidth="360"
                 Background="Transparent"
                 BorderBrush="Transparent"
                 ListHeader="{x:Bind ListHeader}"
