@@ -15,38 +15,30 @@
 
         <Grid Grid.Row="0" x:Name="commands">
             <CommandBar Background="Transparent" IsOpen="False" DefaultLabelPosition="Right" IsDynamicOverflowEnabled="True">
-                <AppBarToggleButton x:Uid="ReadModeButton"
-                                    IsChecked="{x:Bind ViewModel.IsReadMode}"
-                                    Command="{x:Bind ViewModel.ToggleReadModeCommand}" >
-                    <AppBarToggleButton.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE736;"/>
-                    </AppBarToggleButton.Icon>
-                </AppBarToggleButton>
-                <AppBarSeparator />
                 <AppBarButton x:Uid="ArchiveButton"
                               Visibility="{x:Bind ViewModel.SelectedItem.IsArchived, Mode=OneWay, Converter={StaticResource BoolNegationToVisibilityConverter}}"
-                              Command="{x:Bind ViewModel.ArchiveCommand}">
+                              Command="{x:Bind ViewModel.ArchiveItemCommand}">
                     <AppBarButton.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE8B7;" />
                     </AppBarButton.Icon>
                 </AppBarButton>
                 <AppBarButton x:Uid="AddToListButton" 
                               Visibility="{x:Bind ViewModel.SelectedItem.IsArchived,Mode=OneWay}"
-                              Command="{x:Bind ViewModel.AddToListCommand}">
+                              Command="{x:Bind ViewModel.AddItemToListCommand}">
                     <AppBarButton.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xECC8;" />
                     </AppBarButton.Icon>
                 </AppBarButton>
                 <AppBarButton x:Uid="FavoriteButton" 
                               Visibility="{x:Bind ViewModel.SelectedItem.IsFavorited, Mode=OneWay, Converter={StaticResource BoolNegationToVisibilityConverter}}"
-                              Command="{x:Bind ViewModel.FavoriteCommand}">
+                              Command="{x:Bind ViewModel.FavoriteItemCommand}">
                     <AppBarButton.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE734;" />
                     </AppBarButton.Icon>
                 </AppBarButton>
                 <AppBarButton x:Uid="UnfavoriteButton" 
                               Visibility="{x:Bind ViewModel.SelectedItem.IsFavorited, Mode=OneWay}"
-                              Command="{x:Bind ViewModel.UnfavoriteCommand}">
+                              Command="{x:Bind ViewModel.UnfavoriteItemCommand}">
                     <AppBarButton.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE735;" Foreground="{StaticResource FavoritedIconBrush}" />
                     </AppBarButton.Icon>

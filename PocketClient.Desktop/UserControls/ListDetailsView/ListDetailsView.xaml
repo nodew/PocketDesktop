@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="PocketClient.Desktop.UserControls.ListDetailsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PocketClient.Desktop.UserControls"
+    xmlns:converters="using:PocketClient.Desktop.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <converters:ObjectToVisibilityConverter x:Name="NullObjectToVisableConverter" NullValue="Visible" NonNullValue="Collapsed" />
+        <converters:ObjectToVisibilityConverter x:Name="ObjectToVisibilityConverter" NullValue="Collapsed" NonNullValue="Visible" />
+    </UserControl.Resources>
+
+    <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+            BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}"
+            BorderThickness="0">
+        <SplitView
+            x:Name="mainSplitView"
+            DisplayMode="Inline"
+            IsPaneOpen="True"
+            OpenPaneLength="{x:Bind ListPaneWidth}"
+            CompactPaneLength="0" >
+            <SplitView.Pane>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <ContentPresenter
+                        x:Name="listViewHeader"
+                        Grid.Row="0"
+                        Content="{x:Bind ListHeader}"
+                        ContentTemplate="{x:Bind ListHeaderTemplate}" />
+                    <ListView 
+                        Grid.Row="1"
+                        x:Name="listViewItems"
+                        ItemsSource="{x:Bind ItemsSource}"
+                        SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
+                        SelectionChanged="OnSelectionChanged"
+                        ItemTemplate="{x:Bind ItemTemplate}"
+                        ItemTemplateSelector="{x:Bind ItemTemplateSelector}" />
+                </Grid>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Grid>
+                    <ContentPresenter
+                        x:Name="listDetailsView"
+                        Visibility="{x:Bind SelectedItem, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}"
+                        Content="{x:Bind SelectedItem, Mode=OneWay}"
+                        ContentTemplate="{x:Bind DetailsTemplate}" />
+                    
+                    <ContentPresenter
+                        x:Name="listDetailsNoSelectionView"
+                        Visibility="{x:Bind SelectedItem, Mode=OneWay, Converter={StaticResource NullObjectToVisableConverter}}"
+                        ContentTemplate="{x:Bind NoSelectionContentTemplate}" />
+                </Grid>
+            </SplitView.Content>
+        </SplitView>
+    </Border>
+</UserControl>

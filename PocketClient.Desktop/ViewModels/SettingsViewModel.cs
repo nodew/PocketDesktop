@@ -1,74 +1,53 @@
 ﻿using System.Reflection;
-using System.Windows.Input;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 
 using PocketClient.Desktop.Contracts.Services;
 using PocketClient.Desktop.Helpers;
-
+using PocketClient.Desktop.Models;
 using Windows.ApplicationModel;
 using Windows.Globalization;
 
 namespace PocketClient.Desktop.ViewModels;
 
-public class SettingsViewModel : ObservableRecipient
+public partial class SettingsViewModel : ObservableRecipient
 {
     private readonly IThemeSelectorService _themeSelectorService;
     private readonly IPocketDbService _pocketDbService;
     private readonly ILogger<SettingsViewModel> _logger;
     private readonly IAuthService _authService;
+    private readonly DispatcherQueue dispatcherQueue;
 
-    private ElementTheme _elementTheme;
-    private string _versionDescription;
-    private string _language;
-    private bool _syncing;
-
-    public ElementTheme ElementTheme
+    public readonly List<ThemeItem> SupportedThemes = new()
     {
-        get => _elementTheme;
-        set => SetProperty(ref _elementTheme, value);
-    }
+        new ThemeItem("Light", "Settings_Theme_Light".Format(), ElementTheme.Light),
+        new ThemeItem("Dark", "Settings_Theme_Dark".Format(), ElementTheme.Dark),
+        new ThemeItem("Default", "Settings_Theme_Default".Format(), ElementTheme.Default),
+    };
 
-    public string VersionDescription
+    public readonly List<LanguageItem> SupportedLanguages = new()
     {
-        get => _versionDescription;
-        set => SetProperty(ref _versionDescription, value);
-    }
+        new LanguageItem("en-US", "English"),
+        new LanguageItem("zh-Hans-CN", "简体中文"),
+        new LanguageItem("Default", "Settings_Language_Default".Format()),
+    };
 
-    public string Language
-    {
-        get => _language;
-        set => SetProperty(ref _language, value);
-    }
+    [ObservableProperty]
+    private ThemeItem selectedTheme;
 
-    public bool Syncing
-    {
-        get => _syncing;
-        set => SetProperty(ref _syncing, value);
-    }
+    [ObservableProperty]
+    private LanguageItem selectedLanguage;
 
-    public ICommand SwitchThemeCommand
-    {
-        get;
-    }
+    [ObservableProperty]
+    private string version;
 
-    public ICommand SwitchLanguageCommand
-    {
-        get;
-    }
-
-    public ICommand SyncDataCommand
-    {
-        get;
-    }
-
-    public ICommand LogoutCommand
-    {
-        get;
-    }
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SyncDataCommand))]
+    private bool syncing;
 
     public SettingsViewModel(
         IThemeSelectorService themeSelectorService,
@@ -81,18 +60,15 @@ public class SettingsViewModel : ObservableRecipient
         _logger = logger;
         _authService = authService;
 
-        _elementTheme = _themeSelectorService.Theme;
-        _language = GetPreferredLanguage();
-        _versionDescription = GetVersionDescription();
-        _syncing = false;
+        selectedLanguage = SupportedLanguages.FirstOrDefault(l => l.Key == GetPreferredLanguage()) ?? SupportedLanguages.Last();
+        selectedTheme = SupportedThemes.FirstOrDefault(t => t.Theme == _themeSelectorService.Theme) ?? SupportedThemes.Last();
 
-        SwitchThemeCommand = new AsyncRelayCommand<ElementTheme>(SwitchTheme);
-        SwitchLanguageCommand = new RelayCommand<string>(SwitchLanguage);
-        SyncDataCommand = new AsyncRelayCommand(SyncData);
-        LogoutCommand = new AsyncRelayCommand(Logout);
+        version = GetVersion();
+        syncing = _pocketDbService.IsSyncingData();
+        dispatcherQueue = DispatcherQueue.GetForCurrentThread();
     }
 
-    private static string GetVersionDescription()
+    private static string GetVersion()
     {
         Version version;
 
@@ -107,7 +83,7 @@ public class SettingsViewModel : ObservableRecipient
             version = Assembly.GetExecutingAssembly().GetName().Version!;
         }
 
-        return $"{"AppDisplayName".Format()} - {version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+        return $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
     }
 
     private static string GetPreferredLanguage()
@@ -120,44 +96,48 @@ public class SettingsViewModel : ObservableRecipient
         return ApplicationLanguages.PrimaryLanguageOverride;
     }
 
-    private async Task SwitchTheme(ElementTheme theme)
+    [RelayCommand(CanExecute = nameof(CanSwitchTheme))]
+    private async Task SwitchTheme(ThemeItem item)
     {
-        if (ElementTheme != theme)
-        {
-            ElementTheme = theme;
-            await _themeSelectorService.SetThemeAsync(theme);
-        }
+        await _themeSelectorService.SetThemeAsync(item.Theme);
     }
 
-    private void SwitchLanguage(string? lang)
+    private bool CanSwitchTheme(ThemeItem item)
     {
-        if (string.IsNullOrEmpty(lang) || Language == lang)
-        {
-            return;
-        }
+        return item != null && item.Theme != _themeSelectorService.Theme;
+    }
 
-        Language = lang;
-
-        if (lang == "Default")
+    [RelayCommand(CanExecute = nameof(CanSwitchLanguage))]
+    private void SwitchLanguage(LanguageItem item)
+    {
+        if (item.Key == "Default")
         {
             ApplicationLanguages.PrimaryLanguageOverride = "";
         }
         else
         {
-            ApplicationLanguages.PrimaryLanguageOverride = lang;
+            ApplicationLanguages.PrimaryLanguageOverride = item.Key;
         }
     }
 
+    private bool CanSwitchLanguage(LanguageItem item)
+    {
+        return item != null && item.Key != GetPreferredLanguage();
+    }
+
+    [RelayCommand(CanExecute = nameof(CanSyncData))]
     private async Task SyncData()
     {
+        Syncing = true;
+
         try
         {
-            Syncing = true;
             await _pocketDbService.SyncItemsAsync(fullSync: true, force: true);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to sync data in settings page");
+
             await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".Format());
         }
         finally
@@ -166,6 +146,12 @@ public class SettingsViewModel : ObservableRecipient
         }
     }
 
+    private bool CanSyncData()
+    {
+        return !Syncing;
+    }
+
+    [RelayCommand]
     private async Task Logout()
     {
         await _authService.LogoutAsync();

@@ -156,20 +156,17 @@
   <data name="Settings_Personalization.Text" xml:space="preserve">
     <value>Personalization</value>
   </data>
-  <data name="Settings_Theme.Text" xml:space="preserve">
-    <value>Theme</value>
-  </data>
-  <data name="Settings_Theme_Light.Content" xml:space="preserve">
+  <data name="Settings_Theme_Light" xml:space="preserve">
     <value>Light</value>
   </data>
-  <data name="Settings_Theme_Dark.Content" xml:space="preserve">
+  <data name="Settings_Theme_Dark" xml:space="preserve">
     <value>Dark</value>
   </data>
-  <data name="Settings_Theme_Default.Content" xml:space="preserve">
+  <data name="Settings_Theme_Default" xml:space="preserve">
     <value>Default</value>
   </data>
   <data name="Settings_About.Text" xml:space="preserve">
-    <value>About this application</value>
+    <value>About</value>
   </data>
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
     <value>Third-party desktop application for https://getpocket.com.</value>
@@ -320,10 +317,7 @@
   <data name="Settings_Data_SyncBtn.Content" xml:space="preserve">
     <value>Sync</value>
   </data>
-  <data name="Settings_Language.Text" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <data name="Settings_Language_Default.Content" xml:space="preserve">
+  <data name="Settings_Language_Default" xml:space="preserve">
     <value>Default</value>
   </data>
   <data name="LoginPage_Tips.Message" xml:space="preserve">
@@ -451,5 +445,35 @@
   </data>
   <data name="Settings_LogoutBtn.Content" xml:space="preserve">
     <value>Log out</value>
+  </data>
+  <data name="Settings_About_Section.Description" xml:space="preserve">
+    <value>© 2024. All rights reserved.</value>
+  </data>
+  <data name="Settings_About_Section.Header" xml:space="preserve">
+    <value>Nuts - Save &amp; Read</value>
+  </data>
+  <data name="Settings_Data_Sync.Description" xml:space="preserve">
+    <value>Sync latest data manually</value>
+  </data>
+  <data name="Settings_Data_Sync.Header" xml:space="preserve">
+    <value>Sync data</value>
+  </data>
+  <data name="Settings_Language.Description" xml:space="preserve">
+    <value>Choose your preferred language</value>
+  </data>
+  <data name="Settings_Language.Header" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings_SwitchUser.Description" xml:space="preserve">
+    <value>Switch to another account</value>
+  </data>
+  <data name="Settings_SwitchUser.Header" xml:space="preserve">
+    <value>Switch user</value>
+  </data>
+  <data name="Settings_Theme.Description" xml:space="preserve">
+    <value>Choose your preferred theme</value>
+  </data>
+  <data name="Settings_Theme.Header" xml:space="preserve">
+    <value>Theme</value>
   </data>
 </root>

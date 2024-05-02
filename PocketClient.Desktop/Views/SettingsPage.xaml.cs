@@ -38,4 +38,24 @@ public sealed partial class SettingsPage : Page
             ViewModel.LogoutCommand.Execute(null);
         }
     }
+
+    private void HandleThemeSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var selectedTheme = e.AddedItems.FirstOrDefault();
+
+        if (ViewModel.SwitchThemeCommand.CanExecute(selectedTheme))
+        {
+            ViewModel.SwitchThemeCommand.Execute(selectedTheme);
+        }
+    }
+
+    private void HandleLanguageSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var selectedLanguage = e.AddedItems.FirstOrDefault();
+
+        if (ViewModel.SwitchLanguageCommand.CanExecute(selectedLanguage))
+        {
+            ViewModel.SwitchLanguageCommand.Execute(selectedLanguage);
+        }
+    }
 }

@@ -8,29 +8,17 @@ using PocketClient.Desktop.Contracts.ViewModels;
 
 namespace PocketClient.Desktop.ViewModels;
 
-public class AllTagsViewModel : ObservableRecipient, INavigationAware
+public partial class AllTagsViewModel : ObservableRecipient, INavigationAware
 {
-    private string _searchText;
+    [ObservableProperty]
+    private string searchText;
 
     public AllTagsViewModel()
     {
-        _searchText = string.Empty;
-
-        SearchTagsCommand = new AsyncRelayCommand(SearchTagsAsync);
-        SelectTagCommand = new RelayCommand<Tag>(SelectTag, (tag) => tag != null);
+        searchText = string.Empty;
     }
 
     public ObservableCollection<Tag> Tags = new();
-
-    public IAsyncRelayCommand SearchTagsCommand;
-
-    public IRelayCommand SelectTagCommand;
-
-    public string SearchText
-    {
-        get => _searchText;
-        set => SetProperty(ref _searchText, value);
-    }
 
     public void OnNavigatedFrom()
     {
@@ -42,6 +30,7 @@ public class AllTagsViewModel : ObservableRecipient, INavigationAware
         await SearchTagsAsync();
     }
 
+    [RelayCommand]
     private async Task SearchTagsAsync()
     {
         var tags = await App.GetService<IPocketDataService>().GetAllTagsAsync();
@@ -55,8 +44,11 @@ public class AllTagsViewModel : ObservableRecipient, INavigationAware
             .ForEach(Tags.Add);
     }
 
+    [RelayCommand(CanExecute = nameof(CanSelectTag))]
     private void SelectTag(Tag? tag)
     {
         App.GetService<INavigationService>().NavigateTo(typeof(TaggedItemsViewModel).FullName!, tag!.Name);
     }
+
+    private static bool CanSelectTag(Tag? tag) => tag is not null;
 }
