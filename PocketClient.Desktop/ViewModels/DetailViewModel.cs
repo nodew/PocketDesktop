@@ -1,6 +1,4 @@
-﻿using System.Windows.Input;
-
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Logging;
@@ -17,108 +15,34 @@ namespace PocketClient.Desktop.ViewModels;
 // https://docs.microsoft.com/microsoft-edge/webview2/get-started/winui
 // https://docs.microsoft.com/microsoft-edge/webview2/concepts/developer-guide
 // https://docs.microsoft.com/microsoft-edge/webview2/concepts/distribution
-public class DetailViewModel : ObservableRecipient
+public partial class DetailViewModel : ObservableRecipient
 {
     private readonly ILogger<DetailViewModel> _logger;
 
-    private bool _isLoading = true;
-    private bool _hasFailures;
-    private PocketItem? _pocketItem;
-    private bool _isUpdating;
-    private bool _isReadMode;
-    private Uri? _source;
+    [ObservableProperty]
+    private bool isLoading = true;
+
+    [ObservableProperty]
+    private bool hasFailures;
+
+    [ObservableProperty]
+    private PocketItem? selectedItem;
+
+    [ObservableProperty]
+    private bool isUpdating;
+
+    [ObservableProperty]
+    private bool isReadMode;
+
+    [ObservableProperty]
+    private Uri? source;
 
     public IWebViewService WebViewService
     {
         get;
     }
 
-    public PocketItem? SelectedItem
-    {
-        get => _pocketItem;
-        set
-        {
-            SetProperty(ref _pocketItem, value);
-            OnPropertyChanged(nameof(HasTags));
-        }
-    }
-
-    public bool IsLoading
-    {
-        get => _isLoading;
-        set => SetProperty(ref _isLoading, value);
-    }
-
-    public bool HasFailures
-    {
-        get => _hasFailures;
-        set => SetProperty(ref _hasFailures, value);
-    }
-
-    public bool IsUpdating
-    {
-        get => _isUpdating;
-        set => SetProperty(ref _isUpdating, value);
-    }
-
-    public bool IsReadMode
-    {
-        get => _isReadMode;
-        set => SetProperty(ref _isReadMode, value);
-    }
-
-    public Uri? Source
-    {
-        get => _source;
-        set => SetProperty(ref _source, value);
-    }
-
     public bool HasTags => SelectedItem?.Tags?.Count > 0;
-
-    public IAsyncRelayCommand ArchiveCommand
-    {
-        get;
-    }
-
-    public IAsyncRelayCommand AddToListCommand
-    {
-        get;
-    }
-
-    public IAsyncRelayCommand FavoriteCommand
-    {
-        get;
-    }
-
-    public IAsyncRelayCommand UnfavoriteCommand
-    {
-        get;
-    }
-
-    public IAsyncRelayCommand RemoveItemCommand
-    {
-        get;
-    }
-
-    public IAsyncRelayCommand UpdateTagsCommand
-    {
-        get;
-    }
-
-    public ICommand ReloadCommand
-    {
-        get;
-    }
-
-    public IAsyncRelayCommand OpenInBrowserCommand
-    {
-        get;
-    }
-
-    public IAsyncRelayCommand ToggleReadModeCommand
-    {
-        get;
-    }
 
     public DetailViewModel(
         IWebViewService webViewService,
@@ -130,16 +54,7 @@ public class DetailViewModel : ObservableRecipient
 
         WebViewService.NavigationCompleted += OnNavigationCompleted;
 
-        _source = null;
-
-        ReloadCommand = new RelayCommand(OnRetry);
-        OpenInBrowserCommand = new AsyncRelayCommand(OpenInBrowserAsync, () => WebViewService.Source != null);
-        ArchiveCommand = new AsyncRelayCommand(ArchiveItemAsync, CanUpdateItem);
-        AddToListCommand = new AsyncRelayCommand(AddItemToListAsync, CanUpdateItem);
-        FavoriteCommand = new AsyncRelayCommand(FavoriteItemAsync, CanUpdateItem);
-        UnfavoriteCommand = new AsyncRelayCommand(UnfavoriteItemAsync, CanUpdateItem);
-        RemoveItemCommand = new AsyncRelayCommand(RemoveItemAsync, CanUpdateItem);
-        UpdateTagsCommand = new AsyncRelayCommand<List<Tag>>(UpdateTagsAsync, _ => CanUpdateItem());
+        source = null;
     }
 
     public void UpdateSelectedItem(PocketItem item)
@@ -182,11 +97,24 @@ public class DetailViewModel : ObservableRecipient
         WebViewService?.Reload();
     }
 
+    [RelayCommand]
+    private void Reload()
+    {
+        OnRetry();
+    }
+
+    [RelayCommand(CanExecute = nameof(CanOpenInBrowser))]
     private async Task OpenInBrowserAsync()
     {
         await Windows.System.Launcher.LaunchUriAsync(WebViewService.Source);
     }
 
+    private bool CanOpenInBrowser()
+    {
+        return WebViewService.Source != null;
+    }
+
+    [RelayCommand(CanExecute = nameof(CanUpdateItem))]
     private async Task ArchiveItemAsync()
     {
         IsUpdating = true;
@@ -206,6 +134,7 @@ public class DetailViewModel : ObservableRecipient
         IsUpdating = false;
     }
 
+    [RelayCommand(CanExecute = nameof(CanUpdateItem))]
     private async Task AddItemToListAsync()
     {
         IsUpdating = true;
@@ -225,6 +154,7 @@ public class DetailViewModel : ObservableRecipient
         IsUpdating = false;
     }
 
+    [RelayCommand(CanExecute = nameof(CanUpdateItem))]
     private async Task FavoriteItemAsync()
     {
         IsUpdating = true;
@@ -244,6 +174,7 @@ public class DetailViewModel : ObservableRecipient
         IsUpdating = false;
     }
 
+    [RelayCommand(CanExecute = nameof(CanUpdateItem))]
     private async Task UnfavoriteItemAsync()
     {
         IsUpdating = true;
@@ -263,6 +194,7 @@ public class DetailViewModel : ObservableRecipient
         IsUpdating = false;
     }
 
+    [RelayCommand(CanExecute = nameof(CanUpdateItem))]
     private async Task RemoveItemAsync()
     {
         IsUpdating = true;
@@ -280,6 +212,7 @@ public class DetailViewModel : ObservableRecipient
         IsUpdating = false;
     }
 
+    [RelayCommand(CanExecute = nameof(CanUpdateItem))]
     private async Task UpdateTagsAsync(List<Tag> newTags)
     {
         IsUpdating = true;

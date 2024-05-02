@@ -1,6 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Linq.Expressions;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -13,64 +11,34 @@ using PocketClient.Desktop.Models;
 
 namespace PocketClient.Desktop.ViewModels;
 
-public class ItemsViewModel :
+public partial class ItemsViewModel :
     ObservableRecipient,
     IRecipient<SyncedItemsMessage>,
     IRecipient<ItemRemovedMessage>,
     IRecipient<ItemTagsUpdatedMessage>,
     INavigationAware
 {
-    private PocketItemOrderOption _orderOption;
-    private PocketItemFilterOption _filterOption;
-    private PocketItem? _selected;
-    private bool _showListAndDetails;
+    [ObservableProperty]
+    private PocketItemOrderOption orderOption;
+
+    [ObservableProperty]
+    private PocketItemFilterOption filterOption;
+
+    [ObservableProperty]
+    private PocketItem? selected;
+
+    [ObservableProperty]
+    private bool showListAndDetails;
 
     public ItemsViewModel()
     {
-        _orderOption = PocketItemOrderOption.Newest;
-        _filterOption = PocketItemFilterOption.All;
-
-        RefreshListCommand = new AsyncRelayCommand(RefreshListAsync);
-        UpdateFilterOptionCommand = new AsyncRelayCommand<int>(UpdateFilterOptionAsync);
+        orderOption = PocketItemOrderOption.Newest;
+        filterOption = PocketItemFilterOption.All;
     }
 
     public ObservableCollection<PocketItem> Items = new();
 
-    public PocketItemOrderOption OrderOption
-    {
-        get => _orderOption;
-        set => SetProperty(ref _orderOption, value);
-    }
-
-    public PocketItemFilterOption FilterOption
-    {
-        get => _filterOption;
-        set => SetProperty(ref _filterOption, value);
-    }
-
-    public PocketItem? Selected
-    {
-        get => _selected;
-        set => SetProperty(ref _selected, value);
-    }
-
-    public bool ShowListAndDetails
-    {
-        get => _showListAndDetails;
-        set => _showListAndDetails = value;
-    }
-
     public bool HasItems => Items.Count > 0;
-
-    public ICommand RefreshListCommand
-    {
-        get;
-    }
-
-    public IAsyncRelayCommand<int> UpdateFilterOptionCommand
-    {
-        get;
-    }
 
     public async void OnNavigatedTo(object parameter)
     {
@@ -125,6 +93,7 @@ public class ItemsViewModel :
         await RefreshListAsync();
     }
 
+    [RelayCommand]
     protected async virtual Task UpdateFilterOptionAsync(int option)
     {
         var filterOption = (PocketItemFilterOption)option;
@@ -138,6 +107,7 @@ public class ItemsViewModel :
 
     }
 
+    [RelayCommand]
     public async Task RefreshListAsync()
     {
         var filter = BuildFilter();

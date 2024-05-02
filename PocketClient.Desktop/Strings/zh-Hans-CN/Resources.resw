@@ -351,10 +351,16 @@
     <value>https://github.com/nodew/PocketDesktop/issues</value>
   </data>
   <data name="Settings_About.Text" xml:space="preserve">
-    <value>关于本应用</value>
+    <value>关于</value>
   </data>
   <data name="Settings_AboutDescription.Text" xml:space="preserve">
     <value>面向 GetPocket (https://getpocket.com) 的第三方 Windows 桌面应用.</value>
+  </data>
+  <data name="Settings_About_Section.Description" xml:space="preserve">
+    <value>© 2024. 保留所有权利.</value>
+  </data>
+  <data name="Settings_About_Section.Header" xml:space="preserve">
+    <value>Nuts - Save &amp; Read</value>
   </data>
   <data name="Settings_Account.Text" xml:space="preserve">
     <value>账号</value>
@@ -362,13 +368,22 @@
   <data name="Settings_Data.Text" xml:space="preserve">
     <value>数据</value>
   </data>
+  <data name="Settings_Data_Sync.Description" xml:space="preserve">
+    <value>数据异常时可以手动同步数据</value>
+  </data>
+  <data name="Settings_Data_Sync.Header" xml:space="preserve">
+    <value>同步数据</value>
+  </data>
   <data name="Settings_Data_SyncBtn.Content" xml:space="preserve">
     <value>同步</value>
   </data>
-  <data name="Settings_Language.Text" xml:space="preserve">
+  <data name="Settings_Language.Description" xml:space="preserve">
+    <value>选择你偏好的语言</value>
+  </data>
+  <data name="Settings_Language.Header" xml:space="preserve">
     <value>语言</value>
   </data>
-  <data name="Settings_Language_Default.Content" xml:space="preserve">
+  <data name="Settings_Language_Default" xml:space="preserve">
     <value>默认</value>
   </data>
   <data name="Settings_LogoutBtn.Content" xml:space="preserve">
@@ -377,16 +392,25 @@
   <data name="Settings_Personalization.Text" xml:space="preserve">
     <value>个性化</value>
   </data>
-  <data name="Settings_Theme.Text" xml:space="preserve">
+  <data name="Settings_SwitchUser.Description" xml:space="preserve">
+    <value>切换到另一用户</value>
+  </data>
+  <data name="Settings_SwitchUser.Header" xml:space="preserve">
+    <value>切换用户</value>
+  </data>
+  <data name="Settings_Theme.Description" xml:space="preserve">
+    <value>选择你偏好的主题</value>
+  </data>
+  <data name="Settings_Theme.Header" xml:space="preserve">
     <value>主题</value>
   </data>
-  <data name="Settings_Theme_Dark.Content" xml:space="preserve">
+  <data name="Settings_Theme_Dark" xml:space="preserve">
     <value>深色</value>
   </data>
-  <data name="Settings_Theme_Default.Content" xml:space="preserve">
+  <data name="Settings_Theme_Default" xml:space="preserve">
     <value>默认</value>
   </data>
-  <data name="Settings_Theme_Light.Content" xml:space="preserve">
+  <data name="Settings_Theme_Light" xml:space="preserve">
     <value>浅色</value>
   </data>
   <data name="Shell_AllTags.Content" xml:space="preserve">

@@ -28,6 +28,7 @@ public class PocketDbService : IPocketDbService
 
     private bool _initialized;
     private bool _synced;
+    private bool _syncing;
 
     public PocketDbService(
         PocketHttpClient pocketClient,
@@ -77,10 +78,16 @@ public class PocketDbService : IPocketDbService
         return Path.Combine(_applicationDataFolder, _pocketDbFile);
     }
 
+    public bool IsSyncingData()
+    {
+        return _syncing;
+    }
+
     public async Task SyncItemsAsync(bool fullSync = false, bool force = false)
     {
         if (!_synced || force)
         {
+            _syncing = true;
             var page = 0;
             var pageSize = 50;
             bool hasMoreItems;
@@ -140,6 +147,7 @@ public class PocketDbService : IPocketDbService
 
             await _localSettingsService.SaveSettingAsync(_pocketLastUpdatedAtKey, DateTimeOffset.Now);
 
+            _syncing = false;
             _synced = true;
 
             if (count > 0)
