@@ -23,7 +23,8 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Uid="PageTitle_Videos" Style="{StaticResource ListHeaderStyle}" />
-                <uc:FilterOptionControl Grid.Column="1" 
+                <uc:FilterOptionControl Grid.Column="1"
+                                        Margin="0,0,6,0"
                                         FilterOption="{x:Bind FilterOption, Mode=OneWay}"
                                         Command="{x:Bind UpdateFilterOptionCommand}" />
             </Grid>
