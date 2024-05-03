@@ -14,8 +14,8 @@
         <converters:ObjectToVisibilityConverter x:Name="ObjectToVisibilityConverter" NullValue="Collapsed" NonNullValue="Visible" />
     </UserControl.Resources>
 
-    <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-            BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}"
+    <Border Background="Transparent"
+            BorderBrush="Transparent"
             BorderThickness="0">
         <SplitView
             x:Name="mainSplitView"

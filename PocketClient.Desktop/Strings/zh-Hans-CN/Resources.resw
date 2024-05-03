@@ -389,6 +389,12 @@
   <data name="Settings_LogoutBtn.Content" xml:space="preserve">
     <value>登出</value>
   </data>
+  <data name="Settings_Logout_Confirm.Text" xml:space="preserve">
+    <value>确定要登出当前用户吗？</value>
+  </data>
+  <data name="Settings_Logout_ConfirmBtn.Content" xml:space="preserve">
+    <value>确认</value>
+  </data>
   <data name="Settings_Personalization.Text" xml:space="preserve">
     <value>个性化</value>
   </data>

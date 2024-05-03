@@ -2,6 +2,7 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Logging;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
@@ -14,7 +15,7 @@ using Windows.Globalization;
 
 namespace PocketClient.Desktop.ViewModels;
 
-public partial class SettingsViewModel : ObservableRecipient
+public partial class SettingsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage>
 {
     private readonly IThemeSelectorService _themeSelectorService;
     private readonly IPocketDbService _pocketDbService;
@@ -66,6 +67,13 @@ public partial class SettingsViewModel : ObservableRecipient
         version = GetVersion();
         syncing = _pocketDbService.IsSyncingData();
         dispatcherQueue = DispatcherQueue.GetForCurrentThread();
+
+        IsActive = true;
+    }
+
+    public void Receive(SyncedItemsMessage message)
+    {
+        Syncing = false;
     }
 
     private static string GetVersion()

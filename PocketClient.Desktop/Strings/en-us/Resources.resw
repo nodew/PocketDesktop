@@ -476,4 +476,10 @@
   <data name="Settings_Theme.Header" xml:space="preserve">
     <value>Theme</value>
   </data>
+  <data name="Settings_Logout_Confirm.Text" xml:space="preserve">
+    <value>Are you sure to continue?</value>
+  </data>
+  <data name="Settings_Logout_ConfirmBtn.Content" xml:space="preserve">
+    <value>Yes</value>
+  </data>
 </root>
