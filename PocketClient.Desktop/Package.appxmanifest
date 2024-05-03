@@ -13,7 +13,7 @@
   <Identity
     Name="51617AD91681C.PocketforWindows"
     Publisher="CN=49D5850C-0DAE-44D6-A062-D909A189CEDB"
-    Version="1.5.1.0" />
+    Version="2.0.0.0" />
 
   <Properties>
     <DisplayName>Nuts - Save &amp; Read</DisplayName>
