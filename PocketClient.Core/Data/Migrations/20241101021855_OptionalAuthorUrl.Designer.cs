@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PocketClient.Core.Data;
 
@@ -10,9 +11,11 @@ using PocketClient.Core.Data;
 namespace PocketClient.Core.Data.Migrations
 {
     [DbContext(typeof(PocketDbContext))]
-    partial class PocketDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241101021855_OptionalAuthorUrl")]
+    partial class OptionalAuthorUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");

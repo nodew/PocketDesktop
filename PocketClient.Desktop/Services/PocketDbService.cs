@@ -127,7 +127,7 @@ public class PocketDbService : IPocketDbService
 
                 List<PocketItem> items;
 
-                try 
+                try
                 {
                     items = await _pocketClient.GetItemsAsync(filter, pageSize, page * pageSize);
                 }

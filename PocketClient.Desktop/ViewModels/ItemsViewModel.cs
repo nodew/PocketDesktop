@@ -2,13 +2,13 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.UI.Dispatching;
 using PocketClient.Core.Contracts.Services;
 using PocketClient.Core.Models;
 using PocketClient.Core.Specifications;
 using PocketClient.Desktop.Contracts.ViewModels;
 using PocketClient.Desktop.Helpers;
 using PocketClient.Desktop.Models;
-using Microsoft.UI.Dispatching;
 
 namespace PocketClient.Desktop.ViewModels;
 
