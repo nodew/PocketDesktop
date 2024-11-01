@@ -15,7 +15,7 @@ using Windows.Globalization;
 
 namespace PocketClient.Desktop.ViewModels;
 
-public partial class SettingsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage>
+public partial class SettingsViewModel : ObservableRecipient, IRecipient<SyncedItemsMessage>, IRecipient<SyncFailureMessage>
 {
     private readonly IThemeSelectorService _themeSelectorService;
     private readonly IPocketDbService _pocketDbService;
@@ -74,6 +74,15 @@ public partial class SettingsViewModel : ObservableRecipient, IRecipient<SyncedI
     public void Receive(SyncedItemsMessage message)
     {
         Syncing = false;
+    }
+
+    public void Receive(SyncFailureMessage message)
+    {
+        Syncing = false;
+        dispatcherQueue.TryEnqueue(DispatcherQueuePriority.Normal, async () =>
+        {
+            await App.MainWindow.ShowMessageDialogAsync(message.Reason, "Exception_DialogTitle".Format());
+        });
     }
 
     private static string GetVersion()
@@ -145,8 +154,6 @@ public partial class SettingsViewModel : ObservableRecipient, IRecipient<SyncedI
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to sync data in settings page");
-
-            await App.MainWindow.ShowMessageDialogAsync(ex.Message, "Exception_DialogTitle".Format());
         }
         finally
         {

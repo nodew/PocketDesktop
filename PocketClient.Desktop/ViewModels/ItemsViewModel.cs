@@ -2,22 +2,26 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.UI.Dispatching;
 using PocketClient.Core.Contracts.Services;
 using PocketClient.Core.Models;
 using PocketClient.Core.Specifications;
 using PocketClient.Desktop.Contracts.ViewModels;
+using PocketClient.Desktop.Helpers;
 using PocketClient.Desktop.Models;
+using Microsoft.UI.Dispatching;
 
 namespace PocketClient.Desktop.ViewModels;
 
 public partial class ItemsViewModel :
     ObservableRecipient,
     IRecipient<SyncedItemsMessage>,
+    IRecipient<SyncFailureMessage>,
     IRecipient<ItemRemovedMessage>,
     IRecipient<ItemTagsUpdatedMessage>,
     INavigationAware
 {
+    private readonly DispatcherQueue dispatcherQueue;
+
     [ObservableProperty]
     private PocketItemOrderOption orderOption;
 
@@ -34,6 +38,7 @@ public partial class ItemsViewModel :
     {
         orderOption = PocketItemOrderOption.Newest;
         filterOption = PocketItemFilterOption.All;
+        dispatcherQueue = DispatcherQueue.GetForCurrentThread();
     }
 
     public ObservableCollection<PocketItem> Items = new();
@@ -135,6 +140,14 @@ public partial class ItemsViewModel :
             }
 
             OnPropertyChanged(nameof(HasItems));
+        });
+    }
+
+    public void Receive(SyncFailureMessage message)
+    {
+        dispatcherQueue.TryEnqueue(DispatcherQueuePriority.Normal, async () =>
+        {
+            await App.MainWindow.ShowMessageDialogAsync(message.Reason, "Exception_DialogTitle".Format());
         });
     }
 
