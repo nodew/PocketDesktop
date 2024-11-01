@@ -125,20 +125,7 @@ public class PocketDbService : IPocketDbService
                     Since = lastUpdatedAt,
                 };
 
-                List<PocketItem> items;
-
-                try 
-                {
-                    items = await _pocketClient.GetItemsAsync(filter, pageSize, page * pageSize);
-                }
-                catch (Exception ex)
-                {
-                    _syncing = false;
-                    _logger.LogError(ex, "Failed to get items from server");
-                    WeakReferenceMessenger.Default.Send(new SyncFailureMessage("Failed to get items from server", ex));
-                    return;
-                }
-
+                var items = await _pocketClient.GetItemsAsync(filter, pageSize, page * pageSize);
                 hasMoreItems = items.Count == pageSize;
                 count += items.Count;
                 page++;
