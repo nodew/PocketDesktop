@@ -105,6 +105,12 @@ public class PocketDbService : IPocketDbService
                 try
                 {
                     lastUpdatedAt = await _localSettingsService.ReadSettingAsync<DateTimeOffset>(_pocketLastUpdatedAtKey);
+
+                    // Indicates that the lastUpdatedAt setting is not set.
+                    if (lastUpdatedAt.ToString() == "1/1/0001 12:00:00 AM")
+                    {
+                        lastUpdatedAt = null;
+                    }
                 }
                 catch { }
             }
@@ -119,7 +125,20 @@ public class PocketDbService : IPocketDbService
                     Since = lastUpdatedAt,
                 };
 
-                var items = await _pocketClient.GetItemsAsync(filter, pageSize, page * pageSize);
+                List<PocketItem> items;
+
+                try 
+                {
+                    items = await _pocketClient.GetItemsAsync(filter, pageSize, page * pageSize);
+                }
+                catch (Exception ex)
+                {
+                    _syncing = false;
+                    _logger.LogError(ex, "Failed to get items from server");
+                    WeakReferenceMessenger.Default.Send(new SyncFailureMessage("Failed to get items from server", ex));
+                    return;
+                }
+
                 hasMoreItems = items.Count == pageSize;
                 count += items.Count;
                 page++;
@@ -140,7 +159,8 @@ public class PocketDbService : IPocketDbService
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError(ex, "Failed to sync item");
+                        // In case of an error, we log the error and continue with the next item.
+                        _logger.LogError(ex, "Failed to persist item");
                     }
                 }
             } while (hasMoreItems);

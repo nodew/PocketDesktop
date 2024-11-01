@@ -7,7 +7,7 @@ public class Author : Entity<long>
         get; set;
     }
 
-    public string Url
+    public string? Url
     {
         get; set;
     }

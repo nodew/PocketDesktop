@@ -273,7 +273,13 @@ public class PocketHttpClient
 
             if (filter.Since != null)
             {
-                queryParams.Add("since", $"{filter.Since?.ToUnixTimeSeconds()}");
+                var timestamp = filter.Since.Value.ToUnixTimeSeconds();
+
+                // The timestamp should be greater than 0.
+                if (timestamp > 0)
+                {
+                    queryParams.Add("since", $"{timestamp}");
+                }
             }
         }
 
